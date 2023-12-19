@@ -9,9 +9,9 @@ const config = {
     {
       id: "background",
       data: "background",
-      title: "obamacare has reduced uninsured rate",
+      title: "more insured does not mean more care",
       image: "",
-      description: `The Affordable Care Act (Obama Care) became law on March 23, 2010. In the decade before the enactment of the Affordable Care Act (ACA) in 2010, the uninsured rate averaged 15.0 percent. In 2014, provisions of the ACA went into effect that enabled states to expand Medicaid eligibility. As the ACA expanded Medicaid coverage, the uninsured rate continued to drop, falling below 9.0 percent. So are the Medicaid beneficiaries getting equitable treatment ever since then?<br><br>
+      description: `The Affordable Care Act (Obamacare) became law on March 23, 2010. In the decade before the enactment of the Affordable Care Act (ACA) in 2010, the uninsured rate averaged 15.0 percent. In 2014, provisions of the ACA went into effect that enabled states to expand Medicaid eligibility. As the ACA expanded Medicaid coverage, the uninsured rate continued to drop, falling below 9.0 percent. So, have Medicaid beneficiaries been receiving equitable treatment ever since?<br><br>
         <section class="toggle_datasets">
           <h4 class="legend_title">DataSets</h4>
           <input type="radio" class="btn-check" name="uninsured" id="uninsured_2010" autocomplete="off" checked>
@@ -82,9 +82,9 @@ const config = {
     {
       id: "background2",
       data: "background",
-      title: "Discrimination against Medicaid Enrollees has Increased",
+      title: "Discrimination against Medicaid has more than doubled",
       image: "",
-      description: `As the percentage of Medicaid Enrollments in relation to total population has increased from 13.7% to 21.7%, Medicaid acceptance rate by health professionals has drastically decreased from 70.9% to 16.3% in New York state in particular. Unfortunately, insurance-based discrimination in healthcare system has been largely deepened. In my site selection tool, I will try to give equitable access to healthcare by targeting the Medicaid enrollees.
+      description: `The percentage of Medicaid enrollments in relation to the total population has increased from 13.7% to 21.7% since 2010. However, the Medicaid acceptance rate by health professionals has drastically decreased from 70.9% to 16.3% in New York State specifically. Unfortunately, the data shows that insurance-based discrimination in the healthcare system has significantly deepened since 2010.
         <section class="toggle_datasets">
           <h4 class="legend_title">DataSets</h4>
           <input type="radio" class="btn-check" name="discrimination" id="medicaid_2012" autocomplete="off" checked>
@@ -155,9 +155,9 @@ const config = {
     {
       id: "site",
       data: "site",
-      title: "metrics for equitable site identification",
+      title: "healthcare disparity index to identify vulnerable areas",
       image: "",
-      description: `I will mainly use two datasets to get healthcare disparity index for Medicaid beneficiaries. One is the number of Medicaid Enrollments and the two is the ratio of health professionals who accept Medicaid insurance plans. Counties with high healthcare 'Diparity in Medicaid' are vulnerable to insurance-based discrimination. 
+      description: `The healthcare disparity index for Medicaid beneficiaries is derived from two datasets. The first dataset measures the number of health professionals who accept Medicaid per one hundred Medicaid enrollees. The second dataset evaluates the number of total health professionals per one hundred insured individuals. This index indicates the discrepancy in healthcare access between Medicaid enrollees and the overall insured population. Counties with a high disparity index are more susceptible to insurance-based discrimination. 
         <br /><br />
         <section class="toggle_datasets">
           <input type="radio" class="btn-check" name="metrics" id="shortage_2021" autocomplete="off" checked>
@@ -229,9 +229,9 @@ const config = {
     {
       id: "site2",
       data: "site",
-      title: "counties with high health disparity",
+      title: "counties with high healthcare disparity",
       image: "",
-      description: `I chose seven counties with high healthcare diparity index and sorted them with the rural classification. I chose the Montgomery county here to demonstrate site identification methodology in suburban regions with high healthcare disparities.
+      description: `Seven counties with a high healthcare disparity index are selected and classified based on their rural status. Among these, Montgomery County is singled out for further examination to identify the most vulnerable area susceptible to insurance-based discrimination in suburban regions within New York State.
         <img src="./images/vulnerable_counties.png"/>
       `,
       location: {
@@ -272,7 +272,6 @@ const config = {
       title: "montgomery county",
       image: "",
       description: `
-      <h5>
       Population : 49,532<br />
       Insured total : 28,025<br />
       Medicaid Enrollments : 7,819<br />
@@ -285,7 +284,6 @@ const config = {
       <b>Disparity index : 2.88</b><br />
       <b>Providers / 100 Insrued : 2.62</b><br /> 
       <b>Providers with Medicaid / 100 Medicaids : 0.91</b><br /> 
-      </h5>
       `,
       location: {
         center: [-74.153722, 42.920529],
@@ -314,9 +312,9 @@ const config = {
     {
       id: "site4",
       data: "site",
-      title: "filter medicaid density outliers",
+      title: "filter medicaid enrollees density outliers",
       image: "",
-      description: `Even though the county is classified as suburban area, large area of the montgomery county is used as farming lands. So I filtered out census block groups with extremely low medicaid enrollees density. Then I grouped the adjacent census block groups to get distinct neighbors with enough medicaid enrollees.
+      description: `Despite being classified as a suburban area, a significant portion of Montgomery County comprises agricultural lands. To narrow down the analysis, I filtered out census block groups with extremely low Medicaid enrollee density. Then, I grouped together adjacent census block groups to identify distinct neighbors that have sufficient Medicaid enrollees.
         <section id="disparity_legend_counties">
           <h4 class="legend_title">Medicaid Enrollments / km2</h4>
           <section class="legend">
@@ -354,9 +352,9 @@ const config = {
     {
       id: "site5",
       data: "site",
-      title: "neighbors with high health disparity",
+      title: "areas with high healthcare disparity",
       image: "",
-      description: `Health providers within 5miles distance from each neighbor are counted as available health providers for the neighbor. Then the down selection process with disparity index is repeated in towns scale.
+      description: `Healthcare providers within a 5-mile radius of each identified neighbor are considered available healthcare providers for that specific neighbor. Subsequently, the downsizing process using the disparity index is reiterated at a town scale. The analysis shows that the most susceptible area within Montgomery county is St.Johnsville village. The second vulnerable area is Amsterdam city.
       <br /><br />
       <img src="./images/neighbors_buffer.png">
       <br /><br />
@@ -406,7 +404,6 @@ const config = {
       title: "St Johnsville village",
       image: "",
       description: ` 
-      <h5>
         Insured total : 1,167<br />
         Medicaid Enrollments : 504<br />
         Medicaid Enrollments ratio : 43.2 %<br />
@@ -418,10 +415,9 @@ const config = {
         <b>Disparity index : 6.36</b><br />
         <b>Providers / 100 Insrued : 1.01</b><br /> 
         <b>Providers with Medicaid / 100 Medicaids : 0.16</b><br /> 
-      </h5>
       <br />
-      <img src="./images/stjohns_health_facility.jpg">
-      <h5>Healthcare Facilities in the village</h5>
+      <img src="./images/stjohns_health_facility.png">
+      Existing healthcare facilities in the village
       `,
       location: {
         center: [-74.674895, 43.020729],
@@ -445,7 +441,6 @@ const config = {
       title: "amsterdam city",
       image: "",
       description: `
-      <h5>
         Insured total : 14,958<br />
         Medicaid Enrollments : 6,086<br />
         Medicaid Enrollments ratio : 40.7 %<br />
@@ -457,10 +452,9 @@ const config = {
         <b>Disparity index : 3.79</b><br />
         <b>Providers / 100 Insrued : 2.99</b><br /> 
         <b>Providers with Medicaid / 100 Medicaids : 0.79</b><br /> 
-      </h5>
       <br />
-      <img src="./images/amsterdam_health_facility.jpg">
-      <h5>Healthcare Facilities in the city</h5>
+      <img src="./images/amsterdam_health_facility.png">
+      Existing healthcare facilities in the city
       `,
       location: {
         center: [-74.163722, 42.944529],
@@ -479,40 +473,12 @@ const config = {
       onChapterExit: [],
     },
     {
-      id: "site8",
-      data: "site",
-      title: "amsterdam city",
-      image: "",
-      description: `
-      <h5>
-        Insured total : 14,958<br />
-        Medicaid Enrollments : 6,086<br />
-        Medicaid Enrollments ratio : 40.7 %<br />
-        <br />
-        Providers : 447<br />
-        Providers accepting Medicaid : 48<br />
-        Medicaid acceptance rate : 10.7 %<br />
-        <br />
-        <b>Disparity index : 3.79</b><br />
-        <b>Providers / 100 Insrued : 2.99</b><br /> 
-        <b>Providers with Medicaid / 100 Medicaids : 0.79</b><br /> 
-      </h5>
-
-      <h4 class="legend_title">Medicaid Enrollments / km2</h4>
-      <section class="legend">
-        <div>
-          <div><span style="background-color: #008f32"></span>1205 - 1962</div>
-          <div><span style="background-color: #459a33"></span>783 - 1205</div>
-          <div><span style="background-color: #8ab03f"></span>614 - 783</div>
-          <div><span style="background-color: #8ab03f"></span>369 - 614</div>
-        </div>
-        <div>
-          <div><span style="background-color: #a9bb49"></span>166 - 369</div>
-          <div><span style="background-color: #c6c555"></span>60 - 166</div>
-          <div><span style="background-color: #e3cf65"></span>20 - 50</div>
-          <div><span style="background-color: #f7efc5"></span>0.37 - 20</div>
-        </div>
-      </section>
+      id: "typology",
+      data: "typology",
+      title: "next steps : healthcare typology",
+      description: `For the next steps, I will analyze the distribution of existing healthcare facilities by service typologies (retail clinics, primary care officies, urgent care centers, freestanding emergency dapartments) to identify which healthcare typology is the most deificienty in the identified area.
+        <br /><br />
+        <img src="./images/healthcare_typologies.png">
       `,
       location: {
         center: [-74.163722, 42.944529],
@@ -523,33 +489,10 @@ const config = {
       alignment: "right",
       onChapterEnter: [
         { layer: "mapbox-satellite", opacity: 1.0 },
-        { layer: "background-white", opacity: 0.5 },
+        { layer: "background-white", opacity: 0.1 },
         { layer: "areawater-montgomery", opacity: 0 },
         { layer: "montgomery-filter-outline", opacity: 1 },
         { layer: "montgomery-provider-medicaid-big", opacity: 1 },
-        { layer: "medicaid-density-filter-montgomery", opacity: 1 },
-      ],
-      onChapterExit: [
-        { layer: "medicaid-density-filter-montgomery", opacity: 0 },
-      ],
-    },
-    {
-      id: "typology",
-      data: "typology",
-      title: "next steps",
-      image: "",
-      description: ``,
-      location: {
-        center: [-74.163722, 42.944529],
-        zoom: 13,
-        pitch: 0,
-        bearing: 0,
-      },
-      alignment: "right",
-      onChapterEnter: [
-        { layer: "background-white", opacity: 0.1 },
-        { layer: "montgomery-filter-outline", opacity: 0 },
-        { layer: "montgomery-provider-medicaid-big", opacity: 0 },
       ],
       onChapterExit: [],
     },
