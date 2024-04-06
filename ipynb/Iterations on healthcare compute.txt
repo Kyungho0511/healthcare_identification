@@ -1,5 +1,10 @@
+[20min Travel distance]
+urban: 8km
+rural: 30km
 
-[1PCP serves 150 patients]
+----------------------------------------------------------
+
+[1PCP serves 150 patients / urban:15km rural:15km]
 
 unserved_medicaid_tracts: 3,523 -> 1,616
 unserved_commercial_tracts: 3,527 -> 1,231
@@ -12,7 +17,7 @@ remaining_capacity_commercial: 5,540,850  -> 25,791
 
 ----------------------------------------------------------
 
-[1PCP serves 220 patients]
+[1PCP serves 220 patients / urban:15km rural:15km]
 
 unserved_medicaid_tracts: 3,523 -> 929
 unserved_commercial_tracts: 3,527 -> 494
@@ -25,8 +30,21 @@ remaining_capacity_commercial: 5,540,850 -> 1,326,787
 
 ----------------------------------------------------------
 
+[1PCP serves 220 patients / urban:8km rural:30km]
 
-[1PCP serves 300 patients]
+unserved_medicaid_tracts: 3,523 -> 
+unserved_commercial_tracts: 3,527 -> 
+ 
+unserved_medicaid_sum: 3,404,039 -> 
+unserved_commercial_sum: 7,650,604 -> 
+
+remaining_capacity_medicaid: 2,461,200 -> 
+remaining_capacity_commercial: 5,540,850 -> 
+
+----------------------------------------------------------
+
+
+[1PCP serves 300 patients / urban:15km rural:15km]
 
 unserved_medicaid_tracts: 3,523 -> 263
 unserved_commercial_tracts: 3,527 -> 212
