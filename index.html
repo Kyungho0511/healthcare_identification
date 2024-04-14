@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Equitable Healthcare Provision</title>
+    <link rel="stylesheet" href="https://use.typekit.net/uhn7mut.css" />
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
+    <script src="https://unpkg.com/scrollama"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+    <script src="config.js" defer></script>
+    <script type="module" src="map.js" defer></script>
+  </head>
+
+  <body>
+    <!-- Static Navbar with Single Page Application (SPA) functionality -->
+    <nav id="navbar" class="highlight">
+      <div class="container_header">
+        <a
+          href="#"
+          id="navbar_header"
+          class="menu home selected"
+          onclick="navigateToSection('home')"
+          >Equitable Healthcare Provision</a
+        >
+      </div>
+      <div class="container_menu">
+        <a
+          href="#"
+          class="menu explore"
+          onclick="navigateToSection('explore'); return false;"
+          >1. Explore</a
+        >
+        <a
+          href="#"
+          class="menu cluster"
+          onclick="navigateToSection('cluster'); return false;"
+          >2. Cluster</a
+        >
+        <a
+          href="#"
+          class="menu select"
+          onclick="navigateToSection('select'); return false;"
+          >3. Select</a
+        >
+        <a
+          href="#"
+          class="menu about"
+          onclick="navigateToSection('about'); return false;"
+          >About</a
+        >
+      </div>
+    </nav>
+
+    <!-- App.js: Contents are shown and hidden based on user interaction (SPA)-->
+    <section id="home" class="content active">
+      <div id="map"></div>
+      <div id="story">
+        <div id="header">
+          <div class="header__text">
+            <h1>what's happening in health care shortage areas?</h1>
+          </div>
+        </div>
+        <div id="footer"></div>
+      </div>
+    </section>
+
+    <section id="explore" class="content">explore</section>
+
+    <section id="cluster" class="content">cluster</section>
+
+    <section id="select" class="content">select</section>
+
+    <section id="about" class="content">about</section>
+  </body>
+</html>
