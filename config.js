@@ -3,7 +3,7 @@ const legendPrice = document.querySelector("#legend_price");
 const config = {
   accessToken:
     "pk.eyJ1Ijoia2xlZTA1MTEiLCJhIjoiY2xrYnFibnNjMGV4cjNrbzRqdGg1d21sYiJ9.nN0pE1qocGhTLnD_xPuYdg",
-  style: "mapbox://styles/klee0511/cll1kf5on00vw01p7aiwn31m9",
+  style: "mapbox://styles/klee0511/clv0xyqe0016v01pe0ogo6xre",
   theme: "light",
   chapters: [
     {

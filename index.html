@@ -26,8 +26,8 @@
           href="#"
           id="navbar_header"
           class="menu home selected"
-          onclick="navigateToSection('home')"
-          >Equitable Healthcare Provision</a
+          onclick="navigateToSection('home'); return false"
+          >Healthcare Provision</a
         >
       </div>
       <div class="container_menu">
@@ -63,11 +63,30 @@
       <div id="map"></div>
       <div id="story">
         <div id="header">
-          <div class="header__text">
-            <h1>what's happening in health care shortage areas?</h1>
+          <div class="header_title">
+            <h1>what's happening in healthcare shortage?</h1>
           </div>
         </div>
-        <div id="footer"></div>
+        <div id="footer">
+          <div class="footer__text-container">
+            <h2>
+              Get Insights on Healthcare <br />
+              Provision Strategies
+            </h2>
+            <p>
+              Explore datasets used to cluster shortage areas and create your
+              own clusters to find targeted shortage areas for your provision
+              plan. Explore datasets used to cluster shortage areas and create
+              your own clusters to find targeted shortage areas for your
+              provision plan. Explore datasets used to cluster shortage areas
+              and create your own clusters to find targeted shortage areas for
+              your provision plan.
+            </p>
+          </div>
+          <button class="button_blue" onclick="navigateToSection('explore')">
+            Explore
+          </button>
+        </div>
       </div>
     </section>
 

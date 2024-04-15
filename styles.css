@@ -10,6 +10,14 @@ body {
   padding: 0;
 }
 
+h2 {
+  line-height: 2.2rem;
+}
+
+p {
+  line-height: 1.5rem;
+}
+
 /* Navbar */
 #navbar {
   display: flex;
@@ -23,7 +31,7 @@ body {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 0.9rem;
-  border-bottom: 0.5px solid rgb(150, 150, 150);
+  border-bottom: 0.5px solid rgb(220, 220, 220);
   transition: all 300ms ease-in-out;
 
   > .container_menu {
@@ -35,13 +43,12 @@ body {
 
   & #navbar_header {
     font-size: 1rem;
-    font-weight: bolder;
     transition: all 300ms ease-in-out;
   }
 
   & a {
     color: rgb(150, 150, 150);
-    padding: 1rem 1.2rem;
+    padding: 1rem 1.8rem;
     text-decoration: none;
 
     &:hover,
@@ -89,54 +96,27 @@ body {
 }
 
 #header {
-  margin: auto;
-  min-height: 220vh;
+  min-height: 100vh;
+  padding: 0;
 
-  & .header__text {
-    padding-top: 80px;
-
-    & img {
-      display: block;
-      width: 700px;
-      margin: auto;
-    }
-
-    & .scroll_continue {
-      text-align: center;
-      padding: 20px;
-      padding-bottom: 60px;
-    }
-  }
-
-  & h1 {
-    font-weight: 700;
-    text-transform: uppercase;
-    text-align: left;
+  & .header_title {
+    font-size: 55px;
+    line-height: 120px;
+    font-weight: bolder;
+    font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+    color: black;
+    text-transform: capitalize;
+    padding-top: 25vh;
+    text-align: center;
+    max-width: 1000px;
     margin: auto;
-    max-width: 700px;
-    padding: 30px;
-    line-height: 1.5em;
   }
 
-  & h4 {
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 1.2rem;
-    line-height: 1.4em;
-    margin-bottom: 0.5em;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-    max-width: 700px;
-  }
-
-  & p {
-    font-weight: 400;
-    text-align: left;
-    font-size: 1.1rem;
-    max-width: 700px;
-    margin: 1em auto 1em auto;
-    line-height: 1.5em;
+  & .header_subtitle {
+    font-size: 30px;
+    font-weight: bold;
+    font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+    color: #333;
   }
 }
 
@@ -157,6 +137,18 @@ body {
     text-align: left;
     font-size: 1.2em;
     max-width: 50vw;
+  }
+}
+
+#footer {
+  background-color: white;
+  padding: 10rem;
+  text-align: center;
+
+  & .footer__text-container {
+    margin: auto;
+    padding-bottom: 2rem;
+    max-width: 600px;
   }
 }
 
@@ -257,6 +249,22 @@ body {
 
 .invisible {
   display: none;
+}
+
+.button_blue {
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 700;
+  padding: 1rem 2rem;
+  border: none;
+  background-color: #036bfccc;
+  border-radius: 0.5rem;
+  cursor: pointer;
+
+  &:hover {
+    color: white;
+    background-color: #036bfc;
+  }
 }
 
 /* Explore, Cluster, Select */
