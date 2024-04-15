@@ -28,13 +28,13 @@ function showSection(sectionId) {
   // Hide all sections
   const sections = document.querySelectorAll(".content");
   sections.forEach((section) => {
-    section.classList.remove("active");
+    section.classList.remove("selected");
   });
 
   // Show the selected section
   const activeSection = document.getElementById(sectionId);
   if (activeSection) {
-    activeSection.classList.add("active");
+    activeSection.classList.add("selected");
   }
 
   // Update current section
@@ -48,11 +48,36 @@ function showSection(sectionId) {
   } else {
     navbar.style.position = "static";
   }
+}
 
-  document
-    .querySelectorAll(".menu")
-    .forEach((menu) => menu.classList.remove("selected"));
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+}
 
-  const selectedMenu = document.getElementsByClassName(sectionId)[0];
-  selectedMenu.classList.add("selected");
+function checkProgress(stepNumber) {
+  const steps = document.querySelectorAll(".progressbar li");
+  steps.forEach((step, index) => {
+    if (index < stepNumber) {
+      step.classList.add("checked");
+    } else {
+      step.classList.remove("checked");
+    }
+
+    if (index + 1 < stepNumber) {
+      step.classList.add("progressed");
+    } else {
+      step.classList.remove("progressed");
+    }
+  });
+}
+
+function resetProgress() {
+  const steps = document.querySelectorAll(".progressbar li");
+  steps.forEach((step) => {
+    step.classList.remove("checked");
+    step.classList.remove("progressed");
+  });
 }

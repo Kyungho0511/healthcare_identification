@@ -21,45 +21,28 @@
   <body>
     <!-- Static Navbar with Single Page Application (SPA) functionality -->
     <nav id="navbar" class="highlight">
-      <div class="container_header">
+      <div>
         <a
           href="#"
           id="navbar_header"
-          class="menu home selected"
-          onclick="navigateToSection('home'); return false"
-          >Healthcare Provision</a
+          class="menu home"
+          onclick="navigateToSection('home'); scrollToTop(); resetProgress(); return false"
+          >Provision Healthcare</a
         >
       </div>
-      <div class="container_menu">
-        <a
-          href="#"
-          class="menu explore"
-          onclick="navigateToSection('explore'); return false;"
-          >1. Explore</a
-        >
-        <a
-          href="#"
-          class="menu cluster"
-          onclick="navigateToSection('cluster'); return false;"
-          >2. Cluster</a
-        >
-        <a
-          href="#"
-          class="menu select"
-          onclick="navigateToSection('select'); return false;"
-          >3. Select</a
-        >
-        <a
-          href="#"
-          class="menu about"
-          onclick="navigateToSection('about'); return false;"
-          >About</a
-        >
+
+      <div class="navbar__progressbar">
+        <ul class="progressbar">
+          <li>County</li>
+          <li>Explore</li>
+          <li>Cluster</li>
+          <li>Select</li>
+        </ul>
       </div>
     </nav>
 
     <!-- App.js: Contents are shown and hidden based on user interaction (SPA)-->
-    <section id="home" class="content active">
+    <section id="home" class="content selected">
       <div id="map"></div>
       <div id="story">
         <div id="header">
@@ -70,32 +53,34 @@
         <div id="footer">
           <div class="footer__text-container">
             <h2>
-              Get Insights on Healthcare <br />
-              Provision Strategies
+              Unlock insights into your own <br />
+              healthcare provision strategies.
             </h2>
             <p>
-              Explore datasets used to cluster shortage areas and create your
-              own clusters to find targeted shortage areas for your provision
-              plan. Explore datasets used to cluster shortage areas and create
-              your own clusters to find targeted shortage areas for your
-              provision plan. Explore datasets used to cluster shortage areas
-              and create your own clusters to find targeted shortage areas for
-              your provision plan.
+              Choose the county for your healthcare provision plan. Once you've
+              chosen, you will see healthcare shortage areas within the county.
+              Explore datasets associated with medcial shortage and create your
+              own clusters to identify targeted shortage areas for your
+              provision plan. Finally, select specific locations for your
+              healthcare facilities to cover the most targeted shortage areas.
             </p>
           </div>
-          <button class="button_blue" onclick="navigateToSection('explore')">
-            Explore
+          <button class="button_blue" onclick="navigateToSection('county')">
+            start
           </button>
         </div>
       </div>
     </section>
 
-    <section id="explore" class="content">explore</section>
+    <section id="county" class="content">county</section>
+
+    <section id="explore" class="content">
+      <aside class="sidebar"></aside>
+      explore
+    </section>
 
     <section id="cluster" class="content">cluster</section>
 
     <section id="select" class="content">select</section>
-
-    <section id="about" class="content">about</section>
   </body>
 </html>

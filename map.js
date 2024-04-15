@@ -139,6 +139,9 @@ map.on("load", function () {
       if (chapter.legend) {
         chapter.legend.classList.remove("invisible");
       }
+      if (chapter.progress) {
+        checkProgress(chapter.progress);
+      }
     })
     .onStepExit((response) => {
       let chapter = config.chapters.find(
@@ -181,5 +184,6 @@ function scrollHandler() {
     navbar.classList.remove("highlight");
   } else {
     navbar.classList.add("highlight");
+    resetProgress();
   }
 }

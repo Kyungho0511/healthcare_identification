@@ -25,43 +25,27 @@ p {
   align-items: center;
   position: fixed;
   width: 100%;
-  height: 52px;
+  height: 60px;
   background-color: white;
   margin: auto;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 0.9rem;
   border-bottom: 0.5px solid rgb(220, 220, 220);
   transition: all 300ms ease-in-out;
 
-  > .container_menu {
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    transition: all 300ms ease-in-out;
-  }
-
   & #navbar_header {
+    text-transform: uppercase;
+    font-weight: bold;
     font-size: 1rem;
     transition: all 300ms ease-in-out;
-  }
-
-  & a {
-    color: rgb(150, 150, 150);
-    padding: 1rem 1.8rem;
     text-decoration: none;
-
-    &:hover,
-    &.selected {
-      color: black;
-    }
+    padding: 1rem 1.8rem;
+    color: black;
   }
 
   &.highlight {
     background-color: transparent;
     border-bottom-color: transparent;
 
-    > .container_menu {
+    > .navbar__progressbar {
       opacity: 0;
       pointer-events: none;
     }
@@ -77,12 +61,78 @@ p {
   }
 }
 
+/* Navbar progressbar */
+.navbar__progressbar {
+  width: 50%;
+  max-width: 450px;
+  margin: 0;
+  transition: all 300ms ease-in-out;
+}
+
+.progressbar {
+  counter-reset: step;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.progressbar li {
+  color: grey;
+  position: relative;
+  flex-basis: 0;
+  flex-grow: 1;
+  text-align: center;
+  font-size: 0.6rem;
+}
+
+.progressbar li:before {
+  content: counter(step);
+  counter-increment: step;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  border: 2px solid #ddd;
+  display: block;
+  text-align: center;
+  margin: 0 auto 6px auto;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.progressbar li:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background-color: #ddd;
+  top: 12px; /* Adjust this to ensure the line is centered vertically with the numbers */
+  left: -50%;
+  z-index: -1;
+}
+
+.progressbar li:first-child:after {
+  content: none;
+}
+
+.progressbar li.checked {
+  color: green;
+}
+
+.progressbar li.checked:before {
+  border-color: green;
+}
+
+.progressbar li.progressed + li:after {
+  background-color: green;
+}
+
 /* Contents */
 .content {
   display: none;
 }
 
-.active {
+.selected {
   display: block;
 }
 
@@ -148,7 +198,7 @@ p {
   & .footer__text-container {
     margin: auto;
     padding-bottom: 2rem;
-    max-width: 600px;
+    max-width: 500px;
   }
 }
 
@@ -166,7 +216,7 @@ p {
 }
 .light {
   color: black;
-  background-color: #fafafa;
+  background-color: #ffffff;
   border-radius: 10px;
 }
 .dark {
@@ -259,6 +309,7 @@ p {
   border: none;
   background-color: #036bfccc;
   border-radius: 0.5rem;
+  text-transform: uppercase;
   cursor: pointer;
 
   &:hover {
@@ -267,7 +318,8 @@ p {
   }
 }
 
-/* Explore, Cluster, Select */
+/* County, Explore, Cluster, Select */
+#county,
 #explore,
 #cluster,
 #select {
