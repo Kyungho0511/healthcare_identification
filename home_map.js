@@ -1,5 +1,3 @@
-import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
-
 const layerTypes = {
   fill: ["fill-opacity"],
   line: ["line-opacity"],
@@ -23,6 +21,7 @@ const story = document.querySelector("#story");
 const navbar = document.querySelector("#navbar");
 const navbarHeight = navbar.getBoundingClientRect().height;
 const footer = document.querySelector("#footer");
+const buttonSkip = document.querySelector("#button_skip");
 
 /**
  * Features
@@ -54,13 +53,6 @@ config.chapters.forEach((record, idx) => {
     const story = document.createElement("p");
     story.innerHTML = record.description;
     chapter.appendChild(story);
-  }
-
-  // Creates the legends for the vignette
-  if (record.legend) {
-    const legend = document.createElement("section");
-    legend.innerHTML = record.legend;
-    chapter.appendChild(legend);
   }
 
   // Sets the id for the vignette and adds the step css attribute
@@ -109,55 +101,44 @@ const map = new mapboxgl.Map({
 const scroller = scrollama();
 
 map.on("load", function () {
-  // This is the function that finds the first symbol layer
-  const layers = map.getStyle().layers;
-  var firstSymbolId;
-  for (let i = 0; i < layers.length; i++) {
-    // console.log(layers[i].id);
-    if (layers[i].type === "symbol") {
-      firstSymbolId = layers[i].id;
-      break;
-    }
-  }
+  // Run mapbox associated scrollama logic only when current section is home
+  if (currentSection == "home") {
+    // Setup the instance, pass callback functions
+    scroller
+      .setup({
+        step: ".step",
+        offset: 0.5,
+        progress: true,
+        preventDefault: true,
+      })
+      .onStepEnter((response) => {
+        let chapter = config.chapters.find(
+          (chap) => chap.id === response.element.id
+        );
+        map.flyTo(chapter.location);
 
-  // Setup the instance, pass callback functions
-  scroller
-    .setup({
-      step: ".step",
-      offset: 0.5,
-      progress: true,
-      preventDefault: true,
-    })
-    .onStepEnter((response) => {
-      let chapter = config.chapters.find(
-        (chap) => chap.id === response.element.id
-      );
-      map.flyTo(chapter.location);
-      if (chapter.onChapterEnter.length > 0) {
-        chapter.onChapterEnter.forEach(setLayerOpacity);
-      }
-      if (chapter.legend) {
-        chapter.legend.classList.remove("invisible");
-      }
-      if (chapter.progress) {
-        checkProgress(chapter.progress);
-      }
-    })
-    .onStepExit((response) => {
-      let chapter = config.chapters.find(
-        (chap) => chap.id === response.element.id
-      );
-      if (chapter.onChapterExit.length > 0) {
-        chapter.onChapterExit.forEach(setLayerOpacity);
-      }
-      if (chapter.legend) {
-        chapter.legend.classList.add("invisible");
-      }
-    });
+        if (chapter.onChapterEnter.length > 0) {
+          chapter.onChapterEnter.forEach(setLayerOpacity);
+        }
+
+        // Hightlight the selected navbar item
+        const selected = document.querySelector(`#navbar_${chapter.category}`);
+        selectNavItem(selected);
+      })
+      .onStepExit((response) => {
+        let chapter = config.chapters.find(
+          (chap) => chap.id === response.element.id
+        );
+
+        if (chapter.onChapterExit.length > 0) {
+          chapter.onChapterExit.forEach(setLayerOpacity);
+        }
+      });
+  }
 });
 
 /* Here we watch for any resizing of the screen to
-adjust our scrolling setup */
+  adjust our scrolling setup */
 window.addEventListener("resize", scroller.resize);
 
 function getLayerPaintType(layer) {
@@ -172,18 +153,51 @@ function setLayerOpacity(layer) {
 }
 
 // Navbar interactivity as scrolling
-document.addEventListener("scroll", scrollHandler);
+document.addEventListener("scroll", navbarScrollHandler);
+document.addEventListener("scroll", footerScrollHandler);
 
-function scrollHandler() {
-  // make navbar transparent and highlight the title when on the top page
-  if (currentSection !== "home") {
-    navbar.classList.remove("highlight");
-    return;
+function navbarScrollHandler() {
+  if (currentSection == "home") {
+    if (window.scrollY > 0) {
+      navbar.classList.remove("highlight");
+    } else {
+      navbar.classList.add("highlight");
+      resetProgress();
+    }
   }
-  if (window.scrollY > 0) {
-    navbar.classList.remove("highlight");
-  } else {
-    navbar.classList.add("highlight");
-    resetProgress();
+}
+
+function footerScrollHandler() {
+  const footerTop = footer.offsetTop;
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  const viewportHeight = window.innerHeight;
+
+  // Control buttonSkip visibility based on the scroll position
+  if (scrollTop + viewportHeight >= footerTop || scrollTop == 0) {
+    offButton(buttonSkip);
+  } else if (scrollTop + viewportHeight < footerTop && scrollTop > 0) {
+    onButton(buttonSkip);
+  }
+}
+
+function offButton(button) {
+  button.style.opacity = 0;
+  button.style.pointerEvents = "none";
+}
+
+function onButton(button) {
+  button.style.opacity = 1;
+  button.style.pointerEvents = "auto";
+}
+
+function selectNavItem(selected) {
+  deselectNavItems();
+  selected.classList.add("active");
+}
+
+function deselectNavItems() {
+  const navItems = navbar.querySelectorAll("a");
+  for (let i = 0; i < navItems.length; i++) {
+    navItems[i].classList.remove("active");
   }
 }

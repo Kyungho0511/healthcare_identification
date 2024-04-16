@@ -44,9 +44,8 @@ function showSection(sectionId) {
   const navbar = document.querySelector("#navbar");
   if (sectionId == "home") {
     navbar.classList.add("highlight");
-    navbar.style.position = "fixed";
   } else {
-    navbar.style.position = "static";
+    navbar.classList.remove("highlight");
   }
 }
 

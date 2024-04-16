@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Equitable Healthcare Provision</title>
+    <title>Provision Healthcare</title>
     <link rel="stylesheet" href="https://use.typekit.net/uhn7mut.css" />
     <link
       href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
@@ -14,30 +14,28 @@
     <script src="https://unpkg.com/scrollama"></script>
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" defer></script>
-    <script src="config.js" defer></script>
-    <script type="module" src="map.js" defer></script>
+    <script src="home_config.js" defer></script>
+    <script src="home_map.js" defer></script>
+    <script src="select_map.js" defer></script>
   </head>
 
   <body>
     <!-- Static Navbar with Single Page Application (SPA) functionality -->
-    <nav id="navbar" class="highlight">
+    <nav id="navbar">
       <div>
         <a
           href="#"
           id="navbar_header"
-          class="menu home"
           onclick="navigateToSection('home'); scrollToTop(); resetProgress(); return false"
           >Provision Healthcare</a
         >
       </div>
-
-      <div class="navbar__progressbar">
-        <ul class="progressbar">
-          <li>County</li>
-          <li>Explore</li>
-          <li>Cluster</li>
-          <li>Select</li>
-        </ul>
+      <div class="navbar__container">
+        <a href="#step_start" id="navbar_start">start</a>
+        <a href="#step_explore" id="navbar_explore">explore</a>
+        <a href="#step_cluster" id="navbar_cluster">cluster</a>
+        <a href="#step_select" id="navbar_select">select</a>
+        <a href="#step_share" id="navbar_share">share</a>
       </div>
     </nav>
 
@@ -51,11 +49,22 @@
           </div>
         </div>
         <div id="footer">
-          <div class="footer__text-container">
-            <h2>
+          <div class="footer__container">
+            <h2 class="footer__title">
               Unlock insights into your own <br />
               healthcare provision strategies.
             </h2>
+            <br />
+            <div class="progressbar_container">
+              <ul class="progressbar">
+                <li>Start</li>
+                <li>Explore</li>
+                <li>Cluster</li>
+                <li>Select</li>
+                <li>Share</li>
+              </ul>
+            </div>
+            <br />
             <p>
               Choose the county for your healthcare provision plan. Once you've
               chosen, you will see healthcare shortage areas within the county.
@@ -68,19 +77,37 @@
           <button class="button_blue" onclick="navigateToSection('county')">
             start
           </button>
+          <button
+            id="button_skip"
+            class="button_grey"
+            onclick="navigateToSection('county');"
+          >
+            skip intro
+          </button>
         </div>
       </div>
     </section>
 
-    <section id="county" class="content">county</section>
+    <section id="county" class="content">
+      <aside class="sidebar"></aside>
+      county
+    </section>
 
     <section id="explore" class="content">
       <aside class="sidebar"></aside>
       explore
     </section>
 
-    <section id="cluster" class="content">cluster</section>
+    <section id="cluster" class="content">
+      <aside class="sidebar"></aside>
+      cluster
+    </section>
 
-    <section id="select" class="content">select</section>
+    <section id="select" class="content">
+      <aside class="sidebar"></aside>
+      select
+    </section>
+
+    <section id="map2" class="content"></section>
   </body>
 </html>
