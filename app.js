@@ -11,14 +11,14 @@ window.addEventListener("popstate", function (event) {
 // Handle direct navigation (when a user enters a URL directly into the browser or refreshes the page)
 document.addEventListener("DOMContentLoaded", function () {
   const sectionId = window.location.hash.replace("#", "");
-  if (sectionId) {
-    showSection(sectionId);
-  }
+  if (!sectionId) return;
+  if (sectionId.substring(0, 4) == "step") showSection("home");
+  else showSection(sectionId);
 });
 
 function navigateToSection(sectionId) {
   // Modify the URL without reloading the page
-  const url = `#${sectionId}`;
+  const url = sectionId == "home" ? "#" : `#${sectionId}`;
   const newState = { section: sectionId };
   history.pushState(newState, "", url);
   showSection(sectionId);

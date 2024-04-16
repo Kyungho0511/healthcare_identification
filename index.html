@@ -20,27 +20,27 @@
   </head>
 
   <body>
-    <!-- Static Navbar with Single Page Application (SPA) functionality -->
-    <nav id="navbar">
-      <div>
-        <a
-          href="#"
-          id="navbar_header"
-          onclick="navigateToSection('home'); scrollToTop(); resetProgress(); return false"
-          >Provision Healthcare</a
-        >
-      </div>
-      <div class="navbar__container">
-        <a href="#step_start" id="navbar_start">start</a>
-        <a href="#step_explore" id="navbar_explore">explore</a>
-        <a href="#step_cluster" id="navbar_cluster">cluster</a>
-        <a href="#step_select" id="navbar_select">select</a>
-        <a href="#step_share" id="navbar_share">share</a>
-      </div>
-    </nav>
-
     <!-- App.js: Contents are shown and hidden based on user interaction (SPA)-->
+    <!-- Home: scrolly telling section -->
     <section id="home" class="content selected">
+      <nav id="navbar">
+        <div>
+          <a
+            href="#"
+            id="navbar_header"
+            onclick="navigateToSection('home'); scrollToTop(); resetProgress(); return false"
+            >Provision Healthcare</a
+          >
+        </div>
+        <div class="navbar__container">
+          <a href="#step_start" id="navbar_start">start</a>
+          <a href="#step_explore" id="navbar_explore">explore</a>
+          <a href="#step_cluster" id="navbar_cluster">cluster</a>
+          <a href="#step_select" id="navbar_select">select</a>
+          <a href="#step_share" id="navbar_share">share</a>
+        </div>
+      </nav>
+
       <div id="map"></div>
       <div id="story">
         <div id="header">
@@ -88,9 +88,10 @@
       </div>
     </section>
 
-    <section id="county" class="content">
+    <!-- Start/Explore/Cluster/Select: users explore their own options -->
+    <section id="start" class="content">
       <aside class="sidebar"></aside>
-      county
+      start
     </section>
 
     <section id="explore" class="content">
