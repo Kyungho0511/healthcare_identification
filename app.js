@@ -57,19 +57,22 @@ function scrollToTop() {
 }
 
 function checkProgress(stepNumber) {
-  const steps = document.querySelectorAll(".progressbar li");
-  steps.forEach((step, index) => {
-    if (index < stepNumber) {
-      step.classList.add("checked");
-    } else {
-      step.classList.remove("checked");
-    }
+  const progressbar = document.querySelectorAll(".progressbar");
+  progressbar.forEach((bar) => {
+    const steps = bar.querySelectorAll("li");
+    steps.forEach((step, index) => {
+      if (index < stepNumber) {
+        step.classList.add("checked");
+      } else {
+        step.classList.remove("checked");
+      }
 
-    if (index + 1 < stepNumber) {
-      step.classList.add("progressed");
-    } else {
-      step.classList.remove("progressed");
-    }
+      if (index + 1 < stepNumber) {
+        step.classList.add("progressed");
+      } else {
+        step.classList.remove("progressed");
+      }
+    });
   });
 }
 

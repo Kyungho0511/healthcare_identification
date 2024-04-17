@@ -14,16 +14,18 @@
     <script src="https://unpkg.com/scrollama"></script>
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" defer></script>
-    <script src="home_config.js" defer></script>
-    <script src="home_map.js" defer></script>
-    <script src="select_map.js" defer></script>
+    <script src="config.js" defer></script>
+    <script src="map.js" defer></script>
+    <script src="data.js" defer></script>
   </head>
 
   <body>
+    <div id="map"></div>
+
     <!-- App.js: Contents are shown and hidden based on user interaction (SPA)-->
     <!-- Home: scrolly telling section -->
     <section id="home" class="content selected">
-      <nav id="navbar">
+      <nav id="navbar" class="highlight">
         <div>
           <a
             href="#"
@@ -41,7 +43,6 @@
         </div>
       </nav>
 
-      <div id="map"></div>
       <div id="story">
         <div id="header">
           <div class="header_title">
@@ -74,13 +75,16 @@
               healthcare facilities to cover the most targeted shortage areas.
             </p>
           </div>
-          <button class="button_blue" onclick="navigateToSection('county')">
+          <button
+            class="button_blue"
+            onclick="navigateToSection('start'); checkProgress(1); flyTo('start');"
+          >
             start
           </button>
           <button
             id="button_skip"
             class="button_grey"
-            onclick="navigateToSection('county');"
+            onclick="navigateToSection('start'); checkProgress(1); flyTo('start');"
           >
             skip intro
           </button>
@@ -89,26 +93,239 @@
     </section>
 
     <!-- Start/Explore/Cluster/Select: users explore their own options -->
+    <!-- Start section -->
     <section id="start" class="content">
-      <aside class="sidebar"></aside>
-      start
+      <div class="legend">
+        <h4 class="legend__title">unserved population / km2</h4>
+        <div class="legend__container">
+          <img src="./images/legend_image.PNG" alt="legend_image" />
+          <p>legned is displayed here!</p>
+        </div>
+      </div>
+
+      <aside class="sidebar">
+        <h2 class="sidebar__title">provision healthcare</h2>
+        <div class="sidebar__prompt">
+          Select the county for your healthcare provision plan. Once you have
+          made your selection, click the "Continue" button located at the bottom
+          right side of the page.
+        </div>
+        <div class="sidebar__chart">
+          <img src="./images/chart.PNG" alt="chart_image" />
+        </div>
+        <div class="sidebar__dataset">
+          <ul class="dataset__list">
+            <b>New York State Counties</b>
+            <li class="dataset__item">Albany</li>
+            <li class="dataset__item">Cayuga</li>
+            <li class="dataset__item">Chautauqua</li>
+            <li class="dataset__item">Cortland</li>
+            <li class="dataset__item">Erie</li>
+            <li class="dataset__item">Genesee</li>
+            <li class="dataset__item">Greene</li>
+            <li class="dataset__item">Hamilton</li>
+            <li class="dataset__item">Lewis</li>
+            <li class="dataset__item">Montgomery</li>
+            <li class="dataset__item">NYC-Bronx</li>
+            <li class="dataset__item">NYC-Kings(Brooklyn)</li>
+            <li class="dataset__item">NYC-New York(Manhattan)</li>
+            <li class="dataset__item">NYC-Queens</li>
+            <li class="dataset__item">NYC-Richmond(Staten Island)</li>
+            <li class="dataset__item">Oneida</li>
+            <li class="dataset__item">Ontario</li>
+            <li class="dataset__item">Orange</li>
+            <li class="dataset__item">Oswego</li>
+            <li class="dataset__item">Putnam</li>
+            <li class="dataset__item">Rensselaer</li>
+            <li class="dataset__item">Rockland</li>
+            <li class="dataset__item">Schuyler</li>
+            <li class="dataset__item">St.Lawrence</li>
+            <li class="dataset__item">Steuben</li>
+            <li class="dataset__item">Sullivan</li>
+            <li class="dataset__item">Tioga</li>
+            <li class="dataset__item">Tompkins</li>
+            <li class="dataset__item">Ulster</li>
+            <li class="dataset__item">Warren</li>
+            <li class="dataset__item">Westchester</li>
+          </ul>
+        </div>
+      </aside>
+
+      <footer class="footerbar">
+        <div class="progressbar_container">
+          <ul class="progressbar">
+            <li>Start</li>
+            <li>Explore</li>
+            <li>Cluster</li>
+            <li>Select</li>
+            <li>Share</li>
+          </ul>
+        </div>
+        <button
+          class="footerbar__button button_blue"
+          onclick="navigateToSection('explore'); checkProgress(2);"
+        >
+          continue
+        </button>
+      </footer>
     </section>
 
+    <!-- Explore section -->
     <section id="explore" class="content">
-      <aside class="sidebar"></aside>
-      explore
+      <div class="legend">
+        <h4 class="legend__title">unserved population / km2</h4>
+        <div class="legend__container">
+          <img src="./images/legend_image.PNG" alt="legend_image" />
+          <p>legned is displayed here!</p>
+        </div>
+      </div>
+
+      <aside class="sidebar">
+        <h2 class="sidebar__title">provision healthcare</h2>
+        <div class="sidebar__prompt">
+          Select the county for your healthcare provision plan. Once you have
+          made your selection, click the "Continue" button located at the bottom
+          right side of the page.
+        </div>
+        <div class="sidebar__chart">
+          <img src="./images/chart.PNG" alt="chart_image" />
+        </div>
+        <div class="sidebar__dataset">
+          <ul class="dataset__list">
+            <b>Selected Datasets</b>
+            <li class="dataset__item">Tioga</li>
+            <li class="dataset__item">Tompkins</li>
+            <li class="dataset__item">Ulster</li>
+            <li class="dataset__item">Warren</li>
+            <li class="dataset__item">Westchester</li>
+          </ul>
+        </div>
+      </aside>
+
+      <footer class="footerbar">
+        <div class="progressbar_container">
+          <ul class="progressbar">
+            <li>Start</li>
+            <li>Explore</li>
+            <li>Cluster</li>
+            <li>Select</li>
+            <li>Share</li>
+          </ul>
+        </div>
+        <button
+          class="footerbar__button button_blue"
+          onclick="navigateToSection('cluster'); checkProgress(3);"
+        >
+          continue
+        </button>
+      </footer>
     </section>
 
+    <!-- Cluster section -->
     <section id="cluster" class="content">
-      <aside class="sidebar"></aside>
-      cluster
+      <div class="legend">
+        <h4 class="legend__title">unserved population / km2</h4>
+        <div class="legend__container">
+          <img src="./images/legend_image.PNG" alt="legend_image" />
+          <p>legned is displayed here!</p>
+        </div>
+      </div>
+
+      <aside class="sidebar">
+        <h2 class="sidebar__title">provision healthcare</h2>
+        <div class="sidebar__prompt">
+          Select the county for your healthcare provision plan. Once you have
+          made your selection, click the "Continue" button located at the bottom
+          right side of the page.
+        </div>
+        <div class="sidebar__chart">
+          <img src="./images/chart.PNG" alt="chart_image" />
+        </div>
+        <div class="sidebar__dataset">
+          <ul class="dataset__list">
+            <b>Target Shortage Areas</b>
+            <li class="dataset__item">Tompkins</li>
+            <li class="dataset__item">Ulster</li>
+            <li class="dataset__item">Warren</li>
+            <li class="dataset__item">Westchester</li>
+          </ul>
+        </div>
+      </aside>
+
+      <footer class="footerbar">
+        <div class="progressbar_container">
+          <ul class="progressbar">
+            <li>Start</li>
+            <li>Explore</li>
+            <li>Cluster</li>
+            <li>Select</li>
+            <li>Share</li>
+          </ul>
+        </div>
+        <button
+          class="footerbar__button button_blue"
+          onclick="navigateToSection('select'); checkProgress(4);"
+        >
+          continue
+        </button>
+      </footer>
     </section>
 
+    <!-- Select section -->
     <section id="select" class="content">
-      <aside class="sidebar"></aside>
-      select
-    </section>
+      <div class="legend">
+        <h4 class="legend__title">unserved population / km2</h4>
+        <div class="legend__container">
+          <img src="./images/legend_image.PNG" alt="legend_image" />
+          <p>legned is displayed here!</p>
+        </div>
+      </div>
 
-    <section id="map2" class="content"></section>
+      <aside class="sidebar">
+        <h2 class="sidebar__title">provision healthcare</h2>
+        <div class="sidebar__prompt">
+          Select the county for your healthcare provision plan. Once you have
+          made your selection, click the "Continue" button located at the bottom
+          right side of the page.
+        </div>
+        <div class="sidebar__chart">
+          <img src="./images/chart.PNG" alt="chart_image" />
+        </div>
+        <div class="sidebar__dataset">
+          <ul class="dataset__list">
+            <b>Selected sites</b>
+            <li class="dataset__item">Rensselaer</li>
+            <li class="dataset__item">Rockland</li>
+            <li class="dataset__item">Schuyler</li>
+            <li class="dataset__item">St.Lawrence</li>
+            <li class="dataset__item">Steuben</li>
+            <li class="dataset__item">Sullivan</li>
+            <li class="dataset__item">Tioga</li>
+            <li class="dataset__item">Tompkins</li>
+            <li class="dataset__item">Ulster</li>
+            <li class="dataset__item">Warren</li>
+            <li class="dataset__item">Westchester</li>
+          </ul>
+        </div>
+      </aside>
+
+      <footer class="footerbar">
+        <div class="progressbar_container">
+          <ul class="progressbar">
+            <li>Start</li>
+            <li>Explore</li>
+            <li>Cluster</li>
+            <li>Select</li>
+            <li>Share</li>
+          </ul>
+        </div>
+        <button
+          class="footerbar__button button_blue"
+          onclick="checkProgress(5)"
+        >
+          share
+        </button>
+      </footer>
+    </section>
   </body>
 </html>

@@ -139,7 +139,9 @@ map.on("load", function () {
 
 /* Here we watch for any resizing of the screen to
   adjust our scrolling setup */
-window.addEventListener("resize", scroller.resize);
+window.addEventListener("resize", () => {
+  if (currentSection == "home") scroller.resize();
+});
 
 function getLayerPaintType(layer) {
   const layerType = map.getLayer(layer).type;
@@ -199,5 +201,32 @@ function deselectNavItems() {
   const navItems = navbar.querySelectorAll("a");
   for (let i = 0; i < navItems.length; i++) {
     navItems[i].classList.remove("active");
+  }
+}
+
+function flyTo(sectionId) {
+  if (sectionId == "start") {
+    map.flyTo(config.chapters[0].location);
+  } else if (sectionId == "explore" || sectionId == "cluster") {
+    map.flyTo({
+      center: [-73.981864, 40.725024],
+      zoom: 12,
+      pitch: 0,
+      bearing: 0,
+    });
+  } else if (sectionId == "select") {
+    map.flyTo({
+      center: [-73.981864, 40.725024],
+      zoom: 14,
+      pitch: 0,
+      bearing: 0,
+    });
+  } else if (sectionId == "share") {
+    map.flyTo({
+      center: [-73.981864, 40.725024],
+      zoom: 17,
+      pitch: 40,
+      bearing: 0,
+    });
   }
 }

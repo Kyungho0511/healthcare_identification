@@ -13,8 +13,8 @@ const config = {
         "Gyeonglidan-gil is situated near the Itaewon area, which is known for its international and multicultural atmosphere. Since the rent fee was relatively cheap compared to Itaewon, Gyeonglidan-gil attracted many young enterpreneurs and creative individuals who opened businesses catering to modern tastes. This way, the area underwent a transformation from a more traditional neighborhood to a trendy and stylish corridor.",
       legend: ``,
       location: {
-        center: [-73.981864, 40.725024],
-        zoom: 11.39,
+        center: [-76.090336, 42.252651],
+        zoom: 7,
         pitch: 0,
         bearing: 0,
       },
@@ -32,7 +32,7 @@ const config = {
       legend: ``,
       location: {
         center: [-73.981864, 40.725024],
-        zoom: 12.39,
+        zoom: 12,
         pitch: 0,
         bearing: 0,
       },
@@ -50,7 +50,7 @@ const config = {
       legend: ``,
       location: {
         center: [-73.981864, 40.725024],
-        zoom: 12.39,
+        zoom: 12,
         pitch: 0,
         bearing: 0,
       },
@@ -68,7 +68,7 @@ const config = {
       legend: ``,
       location: {
         center: [-73.981864, 40.725024],
-        zoom: 13.39,
+        zoom: 12,
         pitch: 0,
         bearing: 0,
       },
@@ -86,7 +86,7 @@ const config = {
       legend: ``,
       location: {
         center: [-73.981864, 40.725024],
-        zoom: 13.39,
+        zoom: 12,
         pitch: 0,
         bearing: 0,
       },
@@ -104,7 +104,7 @@ const config = {
       legend: ``,
       location: {
         center: [-73.981864, 40.725024],
-        zoom: 13.39,
+        zoom: 14,
         pitch: 0,
         bearing: 0,
       },
@@ -122,8 +122,8 @@ const config = {
       legend: ``,
       location: {
         center: [-73.981864, 40.725024],
-        zoom: 13.39,
-        pitch: 0,
+        zoom: 17,
+        pitch: 40,
         bearing: 0,
       },
       alignment: "left",
@@ -140,8 +140,8 @@ const config = {
       legend: ``,
       location: {
         center: [-73.981864, 40.725024],
-        zoom: 13.39,
-        pitch: 0,
+        zoom: 17,
+        pitch: 40,
         bearing: 0,
       },
       alignment: "left",
