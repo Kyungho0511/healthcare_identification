@@ -206,7 +206,7 @@ function deselectNavItems() {
 
 function flyTo(sectionId) {
   if (sectionId == "start") {
-    map.flyTo(config.chapters[0].location);
+    map.jumpTo(config.chapters[0].location);
   } else if (sectionId == "explore" || sectionId == "cluster") {
     map.flyTo({
       center: [-73.981864, 40.725024],
