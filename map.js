@@ -253,3 +253,34 @@ function onLayers(sectionId) {
     setLayerOpacity({ layer: layer, opacity: 1 });
   });
 }
+
+// map.on("load", () => {
+//   // Set paintproperty for mapbox layer features to have thicker outlines when hovered
+//   setHoverPaintProperty("united-states-outline-hover");
+//   setHoverPaintProperty("united-states-counties-outline-hover");
+//   setHoverPaintProperty("medicaid-disparity-counties-filter-line-hover-2021");
+//   setHoverPaintProperty("montgomery-cbg-outline-hover");
+//   setHoverPaintProperty("montgomery-filter-outline-hover");
+// });
+
+// function setHoverPaintProperty(layer) {
+//   // corner case for "montgomery-cbg-outline-hover" layer
+//   // it does not have unique id column, therefore use area column instead
+//   if (layer === "montgomery-cbg-outline-hover") {
+//     setPaintPropertyCase(layer, "area");
+//   } else if (layer === "montgomery-filter-outline-hover") {
+//     map.setPaintProperty(layer, "line-dasharray", [1, 0]);
+//     setPaintPropertyCase(layer, "id");
+//   } else {
+//     setPaintPropertyCase(layer, "id");
+//   }
+// }
+
+// function setPaintPropertyCase(layer, property) {
+//   map.setPaintProperty(layer, "line-width", [
+//     "case",
+//     ["==", ["get", property], ["feature-state", "id"]],
+//     4,
+//     0,
+//   ]);
+// }
