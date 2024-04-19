@@ -24,3 +24,7 @@ startDatasetList.addEventListener("click", (event) => {
       : event.target.classList.add("selectedData");
   }
 });
+
+/**
+ * Explore section
+ */
