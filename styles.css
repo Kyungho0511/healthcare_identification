@@ -535,14 +535,22 @@ ul {
   border-radius: 0.5rem;
 }
 
-.legend__container {
-  & img {
-    width: 200px;
-    margin: auto;
-  }
+.legend__title {
+  text-align: center;
+  margin-top: 0;
 }
 
-.legend__title {
-  text-transform: capitalize;
-  margin-top: 0;
+.gradient-bar {
+  height: 0.8rem;
+  background: linear-gradient(
+    to right,
+    var(--color-white) 0%,
+    var(--color-blue) 100%
+  );
+  margin-bottom: 0.5rem;
+}
+
+.scale {
+  display: flex;
+  justify-content: space-between;
 }
