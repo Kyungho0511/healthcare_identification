@@ -5,15 +5,32 @@ let currentSection = "home";
 window.addEventListener("popstate", function (event) {
   if (event.state && event.state.section) {
     showSection(event.state.section);
+
+    // Run necessary functions to display contents based on sectionId
+    const sectionId = event.state.section;
+    if (sectionId !== "home" || sectionId.substring(0, 4) !== "step") {
+      checkProgress(sectionId);
+      flyTo(sectionId);
+      onLayers(sectionId);
+    }
   }
 });
 
-// Handle direct navigation (when a user enters a URL directly into the browser or refreshes the page)
 document.addEventListener("DOMContentLoaded", function () {
+  // Handle direct navigation (when a user enters a URL directly into the browser or refreshes the page)
   const sectionId = window.location.hash.replace("#", "");
   if (!sectionId) return;
-  if (sectionId.substring(0, 4) == "step") showSection("home");
+  if (sectionId.substring(0, 4) === "step") showSection("home");
   else showSection(sectionId);
+
+  // Run necessary functions to display contents based on sectionId
+  if (sectionId !== "home" || sectionId.substring(0, 4) !== "step") {
+    map.on("load", () => {
+      checkProgress(sectionId);
+      flyTo(sectionId);
+      onLayers(sectionId);
+    });
+  }
 });
 
 function navigateToSection(sectionId) {
@@ -56,7 +73,13 @@ function scrollToTop() {
   });
 }
 
-function checkProgress(stepNumber) {
+const progressSteps = [];
+Array.from(document.querySelector(".progressbar").children).forEach((step) => {
+  progressSteps.push(step.innerText.toLowerCase());
+});
+
+function checkProgress(sectionId) {
+  const stepNumber = progressSteps.indexOf(sectionId) + 1;
   const progressbar = document.querySelectorAll(".progressbar");
   progressbar.forEach((bar) => {
     const steps = bar.querySelectorAll("li");

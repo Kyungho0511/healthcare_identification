@@ -13,9 +13,9 @@
     <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
     <script src="https://unpkg.com/scrollama"></script>
     <link rel="stylesheet" href="styles.css" />
-    <script src="app.js" defer></script>
     <script src="config.js" defer></script>
     <script src="map.js" defer></script>
+    <script src="app.js" defer></script>
     <script src="data.js" defer></script>
   </head>
 
@@ -31,7 +31,7 @@
             href="#"
             id="navbar_header"
             onclick="navigateToSection('home'); scrollToTop(); resetProgress(); return false"
-            >Provision Healthcare</a
+            >Equitable Provision</a
           >
         </div>
         <div class="navbar__container">
@@ -58,11 +58,12 @@
             <br />
             <div class="progressbar_container">
               <ul class="progressbar">
-                <li>Start</li>
-                <li>Explore</li>
-                <li>Cluster</li>
-                <li>Select</li>
-                <li>Share</li>
+                <li>start</li>
+                <li>explore</li>
+                <li>cluster1</li>
+                <li>cluster2</li>
+                <li>select</li>
+                <li>share</li>
               </ul>
             </div>
             <br />
@@ -77,14 +78,14 @@
           </div>
           <button
             class="button_blue"
-            onclick="navigateToSection('start'); checkProgress(1); flyTo('start');"
+            onclick="navigateToSection('start'); checkProgress('start'); flyTo('start'); onLayers('start')"
           >
             start
           </button>
           <button
             id="button_skip"
             class="button_grey"
-            onclick="navigateToSection('start'); checkProgress(1); flyTo('start');"
+            onclick="navigateToSection('start'); checkProgress('start'); flyTo('start'); onLayers('start')"
           >
             skip intro
           </button>
@@ -104,49 +105,16 @@
       </div>
 
       <aside class="sidebar">
-        <h2 class="sidebar__title">provision healthcare</h2>
+        <h2 class="sidebar__title">Equitable provision</h2>
         <div class="sidebar__prompt">
-          Select the county for your healthcare provision plan. Once you have
-          made your selection, click the "Continue" button located at the bottom
-          right side of the page.
-        </div>
-        <div class="sidebar__chart">
-          <img src="./images/chart.PNG" alt="chart_image" />
+          <h4>Select A County</h4>
+          Select a county or a group of counties for your healthcare provision
+          plan. Once you have made your selection, click the "Continue" button
+          at the bottom right side.
         </div>
         <div class="sidebar__dataset">
           <ul class="dataset__list">
-            <b>New York State Counties</b>
-            <li class="dataset__item">Albany</li>
-            <li class="dataset__item">Cayuga</li>
-            <li class="dataset__item">Chautauqua</li>
-            <li class="dataset__item">Cortland</li>
-            <li class="dataset__item">Erie</li>
-            <li class="dataset__item">Genesee</li>
-            <li class="dataset__item">Greene</li>
-            <li class="dataset__item">Hamilton</li>
-            <li class="dataset__item">Lewis</li>
-            <li class="dataset__item">Montgomery</li>
-            <li class="dataset__item">NYC-Bronx</li>
-            <li class="dataset__item">NYC-Kings(Brooklyn)</li>
-            <li class="dataset__item">NYC-New York(Manhattan)</li>
-            <li class="dataset__item">NYC-Queens</li>
-            <li class="dataset__item">NYC-Richmond(Staten Island)</li>
-            <li class="dataset__item">Oneida</li>
-            <li class="dataset__item">Ontario</li>
-            <li class="dataset__item">Orange</li>
-            <li class="dataset__item">Oswego</li>
-            <li class="dataset__item">Putnam</li>
-            <li class="dataset__item">Rensselaer</li>
-            <li class="dataset__item">Rockland</li>
-            <li class="dataset__item">Schuyler</li>
-            <li class="dataset__item">St.Lawrence</li>
-            <li class="dataset__item">Steuben</li>
-            <li class="dataset__item">Sullivan</li>
-            <li class="dataset__item">Tioga</li>
-            <li class="dataset__item">Tompkins</li>
-            <li class="dataset__item">Ulster</li>
-            <li class="dataset__item">Warren</li>
-            <li class="dataset__item">Westchester</li>
+            <h4>New York State Counties</h4>
           </ul>
         </div>
       </aside>
@@ -154,16 +122,17 @@
       <footer class="footerbar">
         <div class="progressbar_container">
           <ul class="progressbar">
-            <li>Start</li>
-            <li>Explore</li>
-            <li>Cluster</li>
-            <li>Select</li>
-            <li>Share</li>
+            <li>start</li>
+            <li>explore</li>
+            <li>cluster1</li>
+            <li>cluster2</li>
+            <li>select</li>
+            <li>share</li>
           </ul>
         </div>
         <button
           class="footerbar__button button_blue"
-          onclick="navigateToSection('explore'); checkProgress(2); flyTo('explore')"
+          onclick="navigateToSection('explore'); checkProgress('explore'); flyTo('explore'); onLayers('explore')"
         >
           continue
         </button>
@@ -187,9 +156,6 @@
           made your selection, click the "Continue" button located at the bottom
           right side of the page.
         </div>
-        <div class="sidebar__chart">
-          <img src="./images/chart.PNG" alt="chart_image" />
-        </div>
         <div class="sidebar__dataset">
           <ul class="dataset__list">
             <b>Selected Datasets</b>
@@ -205,24 +171,25 @@
       <footer class="footerbar">
         <div class="progressbar_container">
           <ul class="progressbar">
-            <li>Start</li>
-            <li>Explore</li>
-            <li>Cluster</li>
-            <li>Select</li>
-            <li>Share</li>
+            <li>start</li>
+            <li>explore</li>
+            <li>cluster1</li>
+            <li>cluster2</li>
+            <li>select</li>
+            <li>share</li>
           </ul>
         </div>
         <button
           class="footerbar__button button_blue"
-          onclick="navigateToSection('cluster'); checkProgress(3); flyTo('cluster')"
+          onclick="navigateToSection('cluster1'); checkProgress('cluster1'); flyTo('cluster1')"
         >
           continue
         </button>
       </footer>
     </section>
 
-    <!-- Cluster section -->
-    <section id="cluster" class="content">
+    <!-- Cluster1 section -->
+    <section id="cluster1" class="content">
       <div class="legend">
         <h4 class="legend__title">unserved population / km2</h4>
         <div class="legend__container">
@@ -238,8 +205,53 @@
           made your selection, click the "Continue" button located at the bottom
           right side of the page.
         </div>
-        <div class="sidebar__chart">
-          <img src="./images/chart.PNG" alt="chart_image" />
+        <div class="sidebar__dataset">
+          <ul class="dataset__list">
+            <b>Target Shortage Areas</b>
+            <li class="dataset__item">Tompkins</li>
+            <li class="dataset__item">Ulster</li>
+            <li class="dataset__item">Warren</li>
+            <li class="dataset__item">Westchester</li>
+          </ul>
+        </div>
+      </aside>
+
+      <footer class="footerbar">
+        <div class="progressbar_container">
+          <ul class="progressbar">
+            <li>start</li>
+            <li>explore</li>
+            <li>cluster1</li>
+            <li>cluster2</li>
+            <li>select</li>
+            <li>share</li>
+          </ul>
+        </div>
+        <button
+          class="footerbar__button button_blue"
+          onclick="navigateToSection('cluster2'); checkProgress('cluster2'); flyTo('cluster2')"
+        >
+          continue
+        </button>
+      </footer>
+    </section>
+
+    <!-- Cluster2 section -->
+    <section id="cluster2" class="content">
+      <div class="legend">
+        <h4 class="legend__title">unserved population / km2</h4>
+        <div class="legend__container">
+          <img src="./images/legend_image.PNG" alt="legend_image" />
+          <p>legned is displayed here!</p>
+        </div>
+      </div>
+
+      <aside class="sidebar">
+        <h2 class="sidebar__title">provision healthcare</h2>
+        <div class="sidebar__prompt">
+          Select the county for your healthcare provision plan. Once you have
+          made your selection, click the "Continue" button located at the bottom
+          right side of the page.
         </div>
         <div class="sidebar__dataset">
           <ul class="dataset__list">
@@ -255,16 +267,17 @@
       <footer class="footerbar">
         <div class="progressbar_container">
           <ul class="progressbar">
-            <li>Start</li>
-            <li>Explore</li>
-            <li>Cluster</li>
-            <li>Select</li>
-            <li>Share</li>
+            <li>start</li>
+            <li>explore</li>
+            <li>cluster1</li>
+            <li>cluster2</li>
+            <li>select</li>
+            <li>share</li>
           </ul>
         </div>
         <button
           class="footerbar__button button_blue"
-          onclick="navigateToSection('select'); checkProgress(4); flyTo('select')"
+          onclick="navigateToSection('select'); checkProgress('select'); flyTo('select')"
         >
           continue
         </button>
@@ -288,9 +301,6 @@
           made your selection, click the "Continue" button located at the bottom
           right side of the page.
         </div>
-        <div class="sidebar__chart">
-          <img src="./images/chart.PNG" alt="chart_image" />
-        </div>
         <div class="sidebar__dataset">
           <ul class="dataset__list">
             <b>Selected sites</b>
@@ -312,16 +322,17 @@
       <footer class="footerbar">
         <div class="progressbar_container">
           <ul class="progressbar">
-            <li>Start</li>
-            <li>Explore</li>
-            <li>Cluster</li>
-            <li>Select</li>
-            <li>Share</li>
+            <li>start</li>
+            <li>explore</li>
+            <li>cluster1</li>
+            <li>cluster2</li>
+            <li>select</li>
+            <li>share</li>
           </ul>
         </div>
         <button
           class="footerbar__button button_blue"
-          onclick="checkProgress(5); flyTo('share')"
+          onclick="checkProgress('share'); flyTo('share')"
         >
           share
         </button>

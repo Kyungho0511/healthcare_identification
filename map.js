@@ -93,9 +93,13 @@ const map = new mapboxgl.Map({
   zoom: config.chapters[0].location.zoom,
   bearing: config.chapters[0].location.bearing,
   pitch: config.chapters[0].location.pitch,
-  scrollZoom: false,
+  scrollZoom: true,
+  minZoom: 6.3,
   transformRequest: transformRequest,
 });
+// Disable rotation using touch and mouse
+map.dragRotate.disable();
+map.touchZoomRotate.disableRotation();
 
 // Instantiates the scrollama function
 const scroller = scrollama();
@@ -207,7 +211,11 @@ function deselectNavItems() {
 function flyTo(sectionId) {
   if (sectionId == "start") {
     map.jumpTo(config.chapters[0].location);
-  } else if (sectionId == "explore" || sectionId == "cluster") {
+  } else if (
+    sectionId == "explore" ||
+    sectionId == "cluster1" ||
+    sectionId == "cluster2"
+  ) {
     map.flyTo({
       center: [-73.981864, 40.725024],
       zoom: 12,
@@ -229,4 +237,19 @@ function flyTo(sectionId) {
       bearing: 0,
     });
   }
+}
+
+function onLayers(sectionId) {
+  // Off all layers in sections
+  config.sections.forEach((sec) => {
+    sec.layers?.forEach((layer) => {
+      setLayerOpacity({ layer: layer, opacity: 0 });
+    });
+  });
+
+  // On layers for the selected sectionId
+  let section = config.sections.find((sec) => sec.id === sectionId);
+  section?.layers?.forEach((layer) => {
+    setLayerOpacity({ layer: layer, opacity: 1 });
+  });
 }

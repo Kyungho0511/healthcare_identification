@@ -3,6 +3,16 @@ const config = {
     "pk.eyJ1Ijoia2xlZTA1MTEiLCJhIjoiY2xrYnFibnNjMGV4cjNrbzRqdGg1d21sYiJ9.nN0pE1qocGhTLnD_xPuYdg",
   style: "mapbox://styles/klee0511/clv0xyqe0016v01pe0ogo6xre",
   theme: "light",
+  sections: [
+    {
+      id: "start",
+      layers: ["counties-others", "32counties"],
+    },
+    // {
+    //   id: "explore",
+    //   layers: [],
+    // },
+  ],
   chapters: [
     {
       id: "step_start",
@@ -13,8 +23,8 @@ const config = {
         "Gyeonglidan-gil is situated near the Itaewon area, which is known for its international and multicultural atmosphere. Since the rent fee was relatively cheap compared to Itaewon, Gyeonglidan-gil attracted many young enterpreneurs and creative individuals who opened businesses catering to modern tastes. This way, the area underwent a transformation from a more traditional neighborhood to a trendy and stylish corridor.",
       legend: ``,
       location: {
-        center: [-76.090336, 42.252651],
-        zoom: 7,
+        center: [-76.890336, 42.552651],
+        zoom: 6.5,
         pitch: 0,
         bearing: 0,
       },

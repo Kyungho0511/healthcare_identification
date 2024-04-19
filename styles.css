@@ -99,7 +99,7 @@ ul {
 }
 
 .progressbar {
-  max-width: 600px;
+  max-width: 800px;
   width: 100%;
   counter-reset: step;
   list-style: none;
@@ -116,6 +116,7 @@ ul {
   flex-grow: 1;
   text-align: center;
   font-size: 0.6rem;
+  text-transform: capitalize;
 }
 
 .progressbar li:before {
@@ -389,7 +390,7 @@ ul {
   top: 0;
   width: 350px;
   height: 100%;
-  background-color: #ffffffee;
+  background-color: #ffffff;
   padding: 1rem;
   overflow: scroll;
   overflow-x: hidden;
@@ -413,6 +414,12 @@ ul {
   margin: 0.5rem 0;
   background-color: rgb(242, 242, 242);
   border-radius: 0.5rem;
+
+  & h4 {
+    font-size: 1rem;
+    margin: 0;
+    margin-bottom: 0.5rem;
+  }
 }
 
 .sidebar__prompt {
@@ -425,7 +432,8 @@ ul {
   cursor: pointer;
   padding: 0.2rem 0;
 
-  &:hover {
+  &:hover,
+  &.selectedData {
     color: #036bfc;
     font-weight: bold;
   }
@@ -441,11 +449,11 @@ ul {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #b1b1b1ee;
+  background: #b1b1b1;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #949494ee;
+  background: #949494;
 }
 
 .footerbar {
@@ -456,8 +464,8 @@ ul {
   bottom: 0;
   right: 0;
   width: calc(100vw - 350px);
-  height: 70px;
-  background-color: #ffffffee;
+  height: 80px;
+  background-color: #ffffff;
 }
 
 .footerbar__button {
@@ -474,7 +482,7 @@ ul {
   right: 0;
   margin: 1rem;
   padding: 1rem;
-  background-color: #ffffffee;
+  background-color: #ffffff;
   border-radius: 0.5rem;
 }
 
