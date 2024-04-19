@@ -152,6 +152,7 @@ function getLayerPaintType(layer) {
   return layerTypes[layerType];
 }
 function setLayerOpacity(layer) {
+  console.log(layer);
   const paintProps = getLayerPaintType(layer.layer);
   paintProps.forEach(function (prop) {
     map.setPaintProperty(layer.layer, prop, layer.opacity);
@@ -240,47 +241,154 @@ function flyTo(sectionId) {
 }
 
 function onLayers(sectionId) {
-  // Off all layers in sections
+  map.once("render", () => {
+    offLayers();
+    let section = config.sections.find((sec) => sec.id === sectionId);
+    section?.layers?.forEach((layer) => {
+      setLayerOpacity({ layer: layer, opacity: 1 });
+    });
+  });
+}
+
+function offLayers() {
   config.sections.forEach((sec) => {
     sec.layers?.forEach((layer) => {
       setLayerOpacity({ layer: layer, opacity: 0 });
     });
   });
-
-  // On layers for the selected sectionId
-  let section = config.sections.find((sec) => sec.id === sectionId);
-  section?.layers?.forEach((layer) => {
-    setLayerOpacity({ layer: layer, opacity: 1 });
-  });
 }
 
-// map.on("load", () => {
-//   // Set paintproperty for mapbox layer features to have thicker outlines when hovered
-//   setHoverPaintProperty("united-states-outline-hover");
-//   setHoverPaintProperty("united-states-counties-outline-hover");
-//   setHoverPaintProperty("medicaid-disparity-counties-filter-line-hover-2021");
-//   setHoverPaintProperty("montgomery-cbg-outline-hover");
-//   setHoverPaintProperty("montgomery-filter-outline-hover");
-// });
+// Hover effect (mapbox studio duplicates feature ids by mistake, when uploading geojson)
+// solution: set id states with a unique feature property for every geometry within feature
+// then in setPaintProperty, do self-reference. so features with the same id are uniquely identifiable.
+map.on("load", () => {
+  setHoverPaintProperty("32counties-outline", "id");
+});
 
-// function setHoverPaintProperty(layer) {
-//   // corner case for "montgomery-cbg-outline-hover" layer
-//   // it does not have unique id column, therefore use area column instead
-//   if (layer === "montgomery-cbg-outline-hover") {
-//     setPaintPropertyCase(layer, "area");
-//   } else if (layer === "montgomery-filter-outline-hover") {
-//     map.setPaintProperty(layer, "line-dasharray", [1, 0]);
-//     setPaintPropertyCase(layer, "id");
-//   } else {
-//     setPaintPropertyCase(layer, "id");
-//   }
-// }
+function onHover(chapter, feature) {
+  if (chapter.id === "background") {
+    for (let i = 0; i < 27; i++) {
+      map.setFeatureState(
+        {
+          source: "composite",
+          sourceLayer: "insurance_percent-bokrxj",
+          id: i,
+        },
+        { id: feature.properties.id }
+      );
+    }
+  } else if (chapter.id === "background2" || chapter.id === "disparity_index") {
+    for (let i = 0; i < 60; i++) {
+      map.setFeatureState(
+        {
+          source: "composite",
+          sourceLayer: "medicaid_counties-cn3p9u",
+          id: i,
+        },
+        { id: feature.properties.id }
+      );
+    }
+  } else if (chapter.id === "disparity_index2") {
+    for (let i = 0; i < 7; i++) {
+      map.setFeatureState(
+        {
+          source: "composite",
+          sourceLayer: "medicaid_counties_filter-606o8r",
+          id: i,
+        },
+        { id: feature.properties.id }
+      );
+    }
+  } else if (chapter.id === "site2") {
+    for (let i = 0; i < 40; i++) {
+      map.setFeatureState(
+        {
+          source: "composite",
+          sourceLayer: "medicaid_density_montgomery-8wfbcr",
+          id: i,
+        },
+        { id: feature.properties.area }
+      );
+    }
+  } else if (chapter.id === "site3") {
+    for (let i = 0; i < 5; i++) {
+      map.setFeatureState(
+        {
+          source: "composite",
+          sourceLayer: "neighbors_disparity-8ptuyk",
+          id: i,
+        },
+        { id: feature.properties.id }
+      );
+    }
+  }
+}
 
-// function setPaintPropertyCase(layer, property) {
-//   map.setPaintProperty(layer, "line-width", [
-//     "case",
-//     ["==", ["get", property], ["feature-state", "id"]],
-//     4,
-//     0,
-//   ]);
-// }
+function offHover(chapter) {
+  // delete id states for every geometry within feature
+  if (chapter.id === "background") {
+    for (let i = 0; i < 27; i++) {
+      map.setFeatureState(
+        {
+          source: "composite",
+          sourceLayer: "insurance_percent-bokrxj",
+          id: i,
+        },
+        { id: null }
+      );
+    }
+  } else if (chapter.id === "background2" || chapter.id === "disparity_index") {
+    for (let i = 0; i < 60; i++) {
+      map.setFeatureState(
+        {
+          source: "composite",
+          sourceLayer: "medicaid_counties-cn3p9u",
+          id: i,
+        },
+        { id: null }
+      );
+    }
+  } else if (chapter.id === "disparity_index2") {
+    for (let i = 0; i < 7; i++) {
+      map.setFeatureState(
+        {
+          source: "composite",
+          sourceLayer: "medicaid_counties_filter-606o8r",
+          id: i,
+        },
+        { id: null }
+      );
+    }
+  } else if (chapter.id === "site2") {
+    for (let i = 0; i < 40; i++) {
+      map.setFeatureState(
+        {
+          source: "composite",
+          sourceLayer: "medicaid_density_montgomery-8wfbcr",
+          id: i,
+        },
+        { id: null }
+      );
+    }
+  } else if (chapter.id === "site3") {
+    for (let i = 0; i < 5; i++) {
+      map.setFeatureState(
+        {
+          source: "composite",
+          sourceLayer: "neighbors_disparity-8ptuyk",
+          id: i,
+        },
+        { id: null }
+      );
+    }
+  }
+}
+
+function setHoverPaintProperty(layer, property) {
+  map.setPaintProperty(layer, "line-width", [
+    "case",
+    ["==", ["get", property], ["feature-state", "id"]],
+    4,
+    0,
+  ]);
+}

@@ -29,8 +29,14 @@ const config = {
         bearing: 0,
       },
       alignment: "left",
-      onChapterEnter: [],
-      onChapterExit: [],
+      onChapterEnter: [
+        { layer: "counties-others", opacity: 1 },
+        { layer: "32counties", opacity: 1 },
+      ],
+      onChapterExit: [
+        { layer: "counties-others", opacity: 0 },
+        { layer: "32counties", opacity: 0 },
+      ],
     },
     {
       id: "step_explore",

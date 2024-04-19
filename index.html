@@ -4,14 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Provision Healthcare</title>
-    <link rel="stylesheet" href="https://use.typekit.net/uhn7mut.css" />
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- mapbox GL JS -->
     <link
       href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
       rel="stylesheet"
     />
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+
+    <!-- scrolly telling library -->
     <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
     <script src="https://unpkg.com/scrollama"></script>
+
+    <!-- my files -->
     <link rel="stylesheet" href="styles.css" />
     <script src="config.js" defer></script>
     <script src="map.js" defer></script>
@@ -26,13 +39,11 @@
     <!-- Home: scrolly telling section -->
     <section id="home" class="content selected">
       <nav id="navbar" class="highlight">
-        <div>
-          <a
-            href="#"
-            id="navbar_header"
-            onclick="navigateToSection('home'); scrollToTop(); resetProgress(); return false"
-            >Equitable Provision</a
-          >
+        <div
+          id="navbar_header"
+          onclick="navigateToSection('home'); scrollToTop()"
+        >
+          <img class="logo" src="./images/logo2.png" alt="logo_image" />
         </div>
         <div class="navbar__container">
           <a href="#step_start" id="navbar_start">start</a>
@@ -106,7 +117,14 @@
       </div>
 
       <aside class="sidebar">
-        <h2 class="sidebar__title">equitable provision</h2>
+        <div class="sidebar__title">
+          <img
+            class="logo"
+            src="./images/logo2.PNG"
+            alt="logo_image"
+            onclick="navigateToSection('home'); resetProgress(); offLayers(); flyTo('start')"
+          />
+        </div>
         <div class="sidebar__prompt">
           <h4>Select A County</h4>
           Select a county or a group of counties for your healthcare provision
