@@ -153,6 +153,7 @@
         <button
           class="footerbar__button button_blue"
           onclick="navigateToSection('explore'); checkProgress('explore'); zoomToFeature(); onLayers('explore')"
+          disabled
         >
           continue
         </button>
@@ -162,29 +163,83 @@
     <!-- Explore section -->
     <section id="explore" class="content">
       <div class="legend">
-        <h4 class="legend__title">unserved population / km2</h4>
-        <div class="legend__container">
-          <img src="./images/legend_image.PNG" alt="legend_image" />
-          <p>legned is displayed here!</p>
+        <h4 class="legend__title">Unserved Population / km2</h4>
+        <div class="gradient-bar"></div>
+        <div class="scale">
+          <span class="scale-min">0</span>
+          <span class="scale-max">2000+</span>
         </div>
       </div>
 
       <aside class="sidebar">
-        <h2 class="sidebar__title">equitable provision</h2>
-        <div class="sidebar__prompt">
-          Select the county for your healthcare provision plan. Once you have
-          made your selection, click the "Continue" button located at the bottom
-          right side of the page.
+        <div class="sidebar__title">
+          <img
+            class="logo"
+            src="./images/logo2.PNG"
+            alt="logo_image"
+            onclick="navigateToSection('home'); resetProgress(); offLayers(); flyTo('start')"
+          />
         </div>
-        <div class="sidebar__dataset">
-          <ul class="dataset__list">
-            <b>Selected Datasets</b>
-            <li class="dataset__item">Tioga</li>
-            <li class="dataset__item">Tompkins</li>
-            <li class="dataset__item">Ulster</li>
-            <li class="dataset__item">Warren</li>
-            <li class="dataset__item">Westchester</li>
+        <div class="sidebar__prompt">
+          <h4>Explore Datasets</h4>
+          Explore datasets associated with shortage areas and select datasets
+          you would like to include in the clustering analysis. When you are
+          done click continue.
+        </div>
+        <div class="sidebar__dataset dropdown">
+          <button class="dropbtn">
+            <span class="triangle"></span>Selected Dataset
+          </button>
+          <ul class="dataset__list dropdown-content selected_dataset">
+            <li class="dataset__item">Median Household Income</li>
+            <li class="dataset__item">Average Land Price per sqft</li>
+            <li class="dataset__item">Unserved Commercial / km2</li>
+            <li class="dataset__item">Unserved Medicaid / km2</li>
           </ul>
+        </div>
+        <div class="sidebar__dataset dropdown">
+          <button class="dropbtn">
+            <span class="triangle"></span>Health Insurance Coverage
+          </button>
+          <ul
+            class="dataset__list dropdown-content health_insurance_coverage"
+          ></ul>
+          <br />
+
+          <button class="dropbtn">
+            <span class="triangle"></span>Unserved Population
+          </button>
+          <ul class="dataset__list dropdown-content unserved_population"></ul>
+          <br />
+
+          <button class="dropbtn">
+            <span class="triangle"></span>Health Behaviors
+          </button>
+          <ul class="dataset__list dropdown-content health_behaviors"></ul>
+          <br />
+
+          <button class="dropbtn">
+            <span class="triangle"></span>Health Status
+          </button>
+          <ul class="dataset__list dropdown-content health_status"></ul>
+          <br />
+
+          <button class="dropbtn">
+            <span class="triangle"></span>Income & Expenses
+          </button>
+          <ul class="dataset__list dropdown-content income_and_expenses"></ul>
+          <br />
+
+          <button class="dropbtn">
+            <span class="triangle"></span>Land Use & Parcels
+          </button>
+          <ul class="dataset__list dropdown-content land_use_and_parcels"></ul>
+          <br />
+
+          <button class="dropbtn">
+            <span class="triangle"></span>Transportation
+          </button>
+          <ul class="dataset__list dropdown-content transportation"></ul>
         </div>
       </aside>
 
@@ -211,28 +266,43 @@
     <!-- Cluster1 section -->
     <section id="cluster1" class="content">
       <div class="legend">
-        <h4 class="legend__title">unserved population / km2</h4>
-        <div class="legend__container">
-          <img src="./images/legend_image.PNG" alt="legend_image" />
-          <p>legned is displayed here!</p>
+        <h4 class="legend__title">Unserved Population / km2</h4>
+        <div class="gradient-bar"></div>
+        <div class="scale">
+          <span class="scale-min">0</span>
+          <span class="scale-max">2000+</span>
         </div>
       </div>
 
       <aside class="sidebar">
-        <h2 class="sidebar__title">equitable provision</h2>
-        <div class="sidebar__prompt">
-          Select the county for your healthcare provision plan. Once you have
-          made your selection, click the "Continue" button located at the bottom
-          right side of the page.
+        <div class="sidebar__title">
+          <img
+            class="logo"
+            src="./images/logo2.PNG"
+            alt="logo_image"
+            onclick="navigateToSection('home'); resetProgress(); offLayers(); flyTo('start')"
+          />
         </div>
-        <div class="sidebar__dataset">
-          <ul class="dataset__list">
-            <b>Target Shortage Areas</b>
-            <li class="dataset__item">Tompkins</li>
-            <li class="dataset__item">Ulster</li>
-            <li class="dataset__item">Warren</li>
-            <li class="dataset__item">Westchester</li>
-          </ul>
+        <div class="sidebar__prompt">
+          <h4>Cluster Selected Dataset</h4>
+          See how the datasets below are used to identify distinct clusters of
+          primary care shortage areas. Add or remove datasets to customize your
+          clusters. Click the 'Cluster' button when you are ready.
+        </div>
+        <div class="sidebar__dataset dropdown">
+          <button class="dropbtn">
+            <span class="triangle"></span>Selected Dataset
+          </button>
+          <ul class="dataset__list dropdown-content selected_dataset"></ul>
+        </div>
+
+        <div class="sidebar__dataset dropdown">
+          <button class="dropbtn">
+            <span class="triangle"></span>Health Vulnerability Cluster
+          </button>
+          <ul
+            class="dataset__list dropdown-content health_vulnerability_cluster"
+          ></ul>
         </div>
       </aside>
 
@@ -259,15 +329,23 @@
     <!-- Cluster2 section -->
     <section id="cluster2" class="content">
       <div class="legend">
-        <h4 class="legend__title">unserved population / km2</h4>
-        <div class="legend__container">
-          <img src="./images/legend_image.PNG" alt="legend_image" />
-          <p>legned is displayed here!</p>
+        <h4 class="legend__title">Unserved Population / km2</h4>
+        <div class="gradient-bar"></div>
+        <div class="scale">
+          <span class="scale-min">0</span>
+          <span class="scale-max">2000+</span>
         </div>
       </div>
 
       <aside class="sidebar">
-        <h2 class="sidebar__title">equitable provision</h2>
+        <div class="sidebar__title">
+          <img
+            class="logo"
+            src="./images/logo2.PNG"
+            alt="logo_image"
+            onclick="navigateToSection('home'); resetProgress(); offLayers(); flyTo('start')"
+          />
+        </div>
         <div class="sidebar__prompt">
           Select the county for your healthcare provision plan. Once you have
           made your selection, click the "Continue" button located at the bottom
@@ -307,15 +385,23 @@
     <!-- Select section -->
     <section id="select" class="content">
       <div class="legend">
-        <h4 class="legend__title">unserved population / km2</h4>
-        <div class="legend__container">
-          <img src="./images/legend_image.PNG" alt="legend_image" />
-          <p>legned is displayed here!</p>
+        <h4 class="legend__title">Unserved Population / km2</h4>
+        <div class="gradient-bar"></div>
+        <div class="scale">
+          <span class="scale-min">0</span>
+          <span class="scale-max">2000+</span>
         </div>
       </div>
 
       <aside class="sidebar">
-        <h2 class="sidebar__title">equitable provision</h2>
+        <div class="sidebar__title">
+          <img
+            class="logo"
+            src="./images/logo2.PNG"
+            alt="logo_image"
+            onclick="navigateToSection('home'); resetProgress(); offLayers(); flyTo('start')"
+          />
+        </div>
         <div class="sidebar__prompt">
           Select the county for your healthcare provision plan. Once you have
           made your selection, click the "Continue" button located at the bottom

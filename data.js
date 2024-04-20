@@ -9,7 +9,7 @@ function setHoverPaintProperty(layer, property) {
   map.setPaintProperty(layer, "line-width", [
     "case",
     ["==", ["get", property], ["feature-state", "id"]],
-    4,
+    5,
     0,
   ]);
 }
@@ -109,18 +109,23 @@ function selectFeatureByName(layerId, propertyName, value) {
 /**
  * Dropdown dataset menu interaction
  */
-const dropdownButton = document.querySelector(".dropbtn");
-const dropdownContent = document.querySelector(".dropdown-content");
-const triangle = document.querySelector(".triangle");
+const dropdowns = document.querySelectorAll(".dropdown");
+dropdowns.forEach((dropdown) => {
+  const dropdownButtons = dropdown.querySelectorAll(".dropbtn");
+  const dropdownContents = dropdown.querySelectorAll(".dropdown-content");
+  const triangles = dropdown.querySelectorAll(".triangle");
 
-dropdownButton.onclick = function () {
-  dropdownContent.style.display =
-    dropdownContent.style.display === "block" ? "none" : "block";
-  triangle.style.transform =
-    dropdownContent.style.display === "block"
-      ? "rotate(90deg) translateY(-10%)"
-      : "rotate(0deg) translateY(-10%)";
-};
+  dropdownButtons.forEach((btn, idx) => {
+    dropdownButtons[idx].addEventListener("click", () => {
+      dropdownContents[idx].style.display =
+        dropdownContents[idx].style.display === "block" ? "none" : "block";
+      triangles[idx].style.transform =
+        dropdownContents[idx].style.display == "block"
+          ? "rotate(90deg) translateY(-10%)"
+          : "rotate(0deg) translateY(-10%)";
+    });
+  });
+});
 
 /**
  * Start section
@@ -155,6 +160,7 @@ startDatasetList.addEventListener("click", (event) => {
 
     // Highlight selected data
     event.target.classList.add("selectedData");
+    start.querySelector(".footerbar__button").disabled = false;
 
     // Highlight associated Mapbox layer
     thickenOutline(event.target.innerText);
@@ -178,6 +184,7 @@ map.on("click", "32counties", (event) => {
     "NAME",
     feature[0].properties.NAME
   );
+  start.querySelector(".footerbar__button").disabled = false;
 
   // highlight associated dataset item
   Array.from(startDatasetList.children).forEach((data) => {
@@ -193,7 +200,23 @@ map.on("click", "32counties", (event) => {
  * Explore section
  */
 const explore = document.querySelector("#explore");
-const exploreDatasetList = start.querySelector(".dataset__list");
+const exploreDatasetLists = explore.querySelectorAll(".dataset__list");
 
 // fill dataset container with layers on the mapbox studio
 map.on("load", () => {});
+
+// Mouse interaction with dataset item
+exploreDatasetLists.forEach((datasetList) => {
+  datasetList.addEventListener("click", (event) => {
+    if (event.target.tagName === "LI") {
+      // Deselect all data
+      Array.from(datasetList.children).forEach((data) => {
+        data.classList.remove("selectedData");
+      });
+
+      // Highlight selected data
+      event.target.classList.add("selectedData");
+      // start.querySelector(".footerbar__button").disabled = false;
+    }
+  });
+});

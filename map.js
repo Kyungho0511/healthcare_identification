@@ -211,31 +211,6 @@ function deselectNavItems() {
 function flyTo(sectionId) {
   if (sectionId == "start") {
     map.jumpTo(config.chapters[0].location);
-  } else if (
-    sectionId == "explore" ||
-    sectionId == "cluster1" ||
-    sectionId == "cluster2"
-  ) {
-    map.flyTo({
-      center: [-73.981864, 40.725024],
-      zoom: 12,
-      pitch: 0,
-      bearing: 0,
-    });
-  } else if (sectionId == "select") {
-    map.flyTo({
-      center: [-73.981864, 40.725024],
-      zoom: 14,
-      pitch: 0,
-      bearing: 0,
-    });
-  } else if (sectionId == "share") {
-    map.flyTo({
-      center: [-73.981864, 40.725024],
-      zoom: 17,
-      pitch: 40,
-      bearing: 0,
-    });
   }
 }
 
@@ -244,7 +219,7 @@ function onLayers(sectionId) {
     offLayers();
     let section = config.sections.find((sec) => sec.id === sectionId);
     section?.layers?.forEach((layer) => {
-      setLayerOpacity({ layer: layer, opacity: 1 });
+      setLayerOpacity(layer);
     });
   });
 }
@@ -252,7 +227,7 @@ function onLayers(sectionId) {
 function offLayers() {
   config.sections.forEach((sec) => {
     sec.layers?.forEach((layer) => {
-      setLayerOpacity({ layer: layer, opacity: 0 });
+      setLayerOpacity({ layer: layer.layer, opacity: 0 });
     });
   });
 }

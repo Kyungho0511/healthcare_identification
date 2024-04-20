@@ -6,7 +6,10 @@ const config = {
   sections: [
     {
       id: "start",
-      layers: ["counties-others", "32counties"],
+      layers: [
+        { layer: "counties-others", opacity: 1 },
+        { layer: "32counties", opacity: 0.75 },
+      ],
     },
     // {
     //   id: "explore",
@@ -31,7 +34,7 @@ const config = {
       alignment: "left",
       onChapterEnter: [
         { layer: "counties-others", opacity: 1 },
-        { layer: "32counties", opacity: 1 },
+        { layer: "32counties", opacity: 0.75 },
       ],
       onChapterExit: [
         { layer: "counties-others", opacity: 0 },
