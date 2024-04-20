@@ -13,6 +13,12 @@
       rel="stylesheet"
     />
 
+    <!-- fontawesome icons -->
+    <script
+      src="https://kit.fontawesome.com/dffe10735f.js"
+      crossorigin="anonymous"
+    ></script>
+
     <!-- mapbox GL JS -->
     <link
       href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
@@ -32,11 +38,11 @@
     <script src="data.js" defer></script>
   </head>
 
+  <!-- App.js: Contents are shown and hidden based on user interaction (SPA)-->
   <body>
     <!-- mapbox -->
     <div id="map"></div>
 
-    <!-- App.js: Contents are shown and hidden based on user interaction (SPA)-->
     <!-- Home: scrolly telling section -->
     <section id="home" class="content selected">
       <nav id="navbar" class="highlight">
@@ -105,7 +111,6 @@
       </div>
     </section>
 
-    <!-- Start/Explore/Cluster/Select: users explore their own options -->
     <!-- Start section -->
     <section id="start" class="content">
       <div class="legend">
@@ -131,11 +136,11 @@
           Select a county for your healthcare provision plan. Once you have made
           your selection, click the "Continue" button at the bottom right side.
         </div>
-        <div class="sidebar__dataset dropdown">
+        <div class="sidebar__dataset dropdown selectable">
           <button class="dropbtn">
-            <span class="triangle"></span>New York State Counties
+            <span class="triangle expanded"></span>New York State Counties
           </button>
-          <ul class="dataset__list dropdown-content"></ul>
+          <ul class="dataset__list dropdown-content expanded"></ul>
         </div>
       </aside>
 
@@ -182,34 +187,56 @@
         </div>
         <div class="sidebar__prompt">
           <h4>Explore Datasets</h4>
-          Explore datasets associated with shortage areas and select datasets
-          you would like to include in the clustering analysis. When you are
-          done click continue.
+          Explore datasets related to shortage areas by comparing target data on
+          shortages with other secondary data. Add or remove datasets as needed
+          for the clustering analysis of healthcare shortages. Once you are
+          finished, click the "Continue" button.
         </div>
-        <div class="sidebar__dataset dropdown">
+
+        <div class="sidebar__dataset dropdown selectable yellow">
+          <h4>Select Target Data</h4>
           <button class="dropbtn">
-            <span class="triangle"></span>Selected Dataset
-          </button>
-          <ul class="dataset__list dropdown-content selected_dataset">
-            <li class="dataset__item">Median Household Income</li>
-            <li class="dataset__item">Average Land Price per sqft</li>
-            <li class="dataset__item">Unserved Commercial / km2</li>
-            <li class="dataset__item">Unserved Medicaid / km2</li>
-          </ul>
-        </div>
-        <div class="sidebar__dataset dropdown">
-          <button class="dropbtn">
-            <span class="triangle"></span>Health Insurance Coverage
+            <span class="triangle expanded"></span>Unserved Population Density
           </button>
           <ul
-            class="dataset__list dropdown-content health_insurance_coverage"
-          ></ul>
-          <br />
+            class="dataset__list dropdown-content unserved_population expanded"
+          >
+            <li class="dataset__item">
+              <p>Unserved Population / km2</p>
+              <i class="fa-regular fa-square-plus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>Unserved Medicaid Enrollees / km2</p>
+              <i class="fa-regular fa-square-plus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>Unserved Commercial Enrollees / km2</p>
+              <i class="fa-regular fa-square-plus"></i>
+            </li>
+          </ul>
+        </div>
 
+        <div class="sidebar__dataset dropdown selectable">
+          <h4>Select Second Data</h4>
           <button class="dropbtn">
-            <span class="triangle"></span>Unserved Population
+            <span class="triangle expanded"></span>Health Insurance Coverage
           </button>
-          <ul class="dataset__list dropdown-content unserved_population"></ul>
+          <ul
+            class="dataset__list dropdown-content health_insurance_coverage expanded"
+          >
+            <li class="dataset__item">
+              <p>Health Insurance Total</p>
+              <i class="fa-regular fa-square-plus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>Medicaid Enrollments</p>
+              <i class="fa-regular fa-square-plus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>Commercial Insurance</p>
+              <i class="fa-regular fa-square-plus"></i>
+            </li>
+          </ul>
           <br />
 
           <button class="dropbtn">
@@ -240,6 +267,15 @@
             <span class="triangle"></span>Transportation
           </button>
           <ul class="dataset__list dropdown-content transportation"></ul>
+        </div>
+
+        <div class="sidebar__dataset dropdown">
+          <button class="dropbtn">
+            <span class="triangle expanded"></span>Selected Dataset
+          </button>
+          <ul
+            class="dataset__list dropdown-content selected_dataset expanded"
+          ></ul>
         </div>
       </aside>
 

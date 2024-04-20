@@ -127,6 +127,17 @@ dropdowns.forEach((dropdown) => {
   });
 });
 
+map.on("load", () => {
+  const expandedLists = document.querySelectorAll(".expanded.dataset__list");
+  const expandedTriangles = document.querySelectorAll(".expanded.triangle");
+
+  // expand selected_dataset menu on load
+  expandedLists.forEach((list) => (list.style.display = "block"));
+  expandedTriangles.forEach(
+    (triangle) => (triangle.style.transform = "rotate(90deg) translateY(-10%)")
+  );
+});
+
 /**
  * Start section
  */
@@ -139,23 +150,20 @@ map.on("load", () => {
   const features = map.queryRenderedFeatures({ layers: [layer.id] });
   features.forEach((feature) => {
     const li = document.createElement("li");
+    const p = document.createElement("p");
     li.classList.add("dataset__item");
-    li.innerText = feature.properties.NAME;
+    p.innerText = feature.properties.NAME;
+    li.appendChild(p);
     startDatasetList.appendChild(li);
-
-    // expand dataset menu on load
-    startDatasetList.style.display = "block";
-    start.querySelector(".triangle").style.transform =
-      "rotate(90deg) translateY(-10%)";
   });
 });
 
 // Mouse interaction with dataset item
 startDatasetList.addEventListener("click", (event) => {
-  if (event.target.tagName === "LI") {
+  if (event.target.tagName === "P") {
     // Deselect all data
-    Array.from(startDatasetList.children).forEach((data) => {
-      data.classList.remove("selectedData");
+    Array.from(startDatasetList.children).forEach((item) => {
+      item.querySelector("p").classList.remove("selectedData");
     });
 
     // Highlight selected data
@@ -174,6 +182,10 @@ startDatasetList.addEventListener("click", (event) => {
 
 // Mouse interaction with Mapbox layer
 map.on("click", "32counties", (event) => {
+  // Check the opacity of the layer and If opacity is 0, return and do nothing
+  const layerOpacity = map.getPaintProperty("32counties", "fill-opacity");
+  if (layerOpacity === 0) return;
+
   const feature = map.queryRenderedFeatures(event.point, {
     layers: ["32counties"],
   });
@@ -187,11 +199,11 @@ map.on("click", "32counties", (event) => {
   start.querySelector(".footerbar__button").disabled = false;
 
   // highlight associated dataset item
-  Array.from(startDatasetList.children).forEach((data) => {
-    if (data.innerText === feature[0].properties.NAME) {
-      data.classList.add("selectedData");
+  Array.from(startDatasetList.children).forEach((item) => {
+    if (item.innerText === feature[0].properties.NAME) {
+      item.querySelector("p").classList.add("selectedData");
     } else {
-      data.classList.remove("selectedData");
+      item.querySelector("p").classList.remove("selectedData");
     }
   });
 });
@@ -200,23 +212,58 @@ map.on("click", "32counties", (event) => {
  * Explore section
  */
 const explore = document.querySelector("#explore");
-const exploreDatasetLists = explore.querySelectorAll(".dataset__list");
+const exploreDatasetContainers = explore.querySelectorAll(".sidebar__dataset");
 
 // fill dataset container with layers on the mapbox studio
 map.on("load", () => {});
-
 // Mouse interaction with dataset item
-exploreDatasetLists.forEach((datasetList) => {
-  datasetList.addEventListener("click", (event) => {
-    if (event.target.tagName === "LI") {
+exploreDatasetContainers.forEach((container) => {
+  if (!container.classList.contains("selectable")) return;
+
+  container.addEventListener("click", (event) => {
+    if (event.target.tagName === "P") {
       // Deselect all data
-      Array.from(datasetList.children).forEach((data) => {
-        data.classList.remove("selectedData");
+      container.querySelectorAll("p").forEach((item) => {
+        item.classList.remove("selectedData");
       });
 
       // Highlight selected data
       event.target.classList.add("selectedData");
       // start.querySelector(".footerbar__button").disabled = false;
+    }
+  });
+});
+
+// Add data to the selected dataset container when plus icon is clicked
+explore.querySelectorAll(".fa-square-plus").forEach((icon) => {
+  icon.addEventListener("click", function () {
+    const originalListItem = icon.closest(".dataset__item");
+
+    // Clone the 'li' element
+    const clonedListItem = originalListItem.cloneNode(true); // 'true' means deep clone including children
+
+    // Change the icon class in the cloned item from 'fa-square-plus' to 'fa-square-minus'
+    const clonedIcon = clonedListItem.querySelector(".fa-square-plus");
+    if (clonedIcon) {
+      clonedIcon.classList.remove("fa-square-plus");
+      clonedIcon.classList.add("fa-square-minus");
+
+      // Remove data from the selected dataset container when minus icon is clicked
+      clonedIcon.addEventListener("click", () => {
+        clonedListItem.remove();
+        icon.classList.remove("added");
+      });
+    }
+
+    // Find the target 'ul' element where the cloned 'li' should be appended
+    const targetList = document.querySelector(
+      ".dataset__list.selected_dataset"
+    );
+
+    // Append the cloned 'li' to the target 'ul' if targetList doesn't have the same item
+    if (!icon.classList.contains("added")) {
+      targetList.appendChild(clonedListItem);
+      icon.classList.add("added");
     }
   });
 });

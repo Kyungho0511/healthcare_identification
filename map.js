@@ -215,12 +215,10 @@ function flyTo(sectionId) {
 }
 
 function onLayers(sectionId) {
-  map.once("render", () => {
-    offLayers();
-    let section = config.sections.find((sec) => sec.id === sectionId);
-    section?.layers?.forEach((layer) => {
-      setLayerOpacity(layer);
-    });
+  offLayers();
+  let section = config.sections.find((sec) => sec.id === sectionId);
+  section?.layers?.forEach((layer) => {
+    setLayerOpacity(layer);
   });
 }
 

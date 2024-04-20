@@ -9,6 +9,9 @@
   --color-white: white;
   --color-blue: #036bfc;
   --color-blue-transparent: #036bfccc;
+  --color-yellow: #ffc400;
+  --color-red: #e52817;
+  --color-red-transparent: #e52817cc;
 
   /* Font weight */
   --font-thin: 100;
@@ -125,10 +128,10 @@ ul {
 .logo {
   display: block;
   margin: auto;
-  padding: 0.5rem;
-  padding-top: 0;
+  padding: 1rem;
+  padding-top: 0.5rem;
   opacity: 0.75;
-  width: 90%;
+  width: 95%;
   cursor: pointer;
 
   &:hover {
@@ -396,8 +399,8 @@ ul {
   }
 
   &:disabled {
-    color: #666;
-    background-color: #ccc;
+    color: var(--color-grey);
+    background-color: var(--color-light-grey);
     cursor: not-allowed;
   }
 }
@@ -443,6 +446,8 @@ ul {
 
 .sidebar__prompt,
 .sidebar__dataset {
+  font-size: 0.9rem;
+  line-height: 1.2rem;
   padding: 1rem;
   margin: 0.5rem 0;
   background-color: var(--color-light-white);
@@ -451,24 +456,58 @@ ul {
   & h4 {
     font-size: 1rem;
     margin: 0;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
 }
 
-.sidebar__prompt {
-  font-size: 0.9rem;
-  line-height: 1.2rem;
+.sidebar__dataset.selectable .dataset__item {
+  & p {
+    cursor: pointer;
+
+    &:hover,
+    &.selectedData {
+      color: var(--color-blue);
+      font-weight: var(--font-bold);
+    }
+  }
+}
+
+.sidebar__dataset.selectable.yellow .dataset__item {
+  & p {
+    cursor: pointer;
+
+    &:hover,
+    &.selectedData {
+      color: var(--color-yellow);
+      font-weight: var(--font-bold);
+    }
+  }
 }
 
 .dataset__item {
-  color: var(--color-grey);
-  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-dark-grey);
   padding: 0.2rem 0;
 
-  &:hover,
-  &.selectedData {
-    color: var(--color-blue);
-    font-weight: var(--font-bold);
+  & p {
+    width: 100%;
+    margin: 0;
+  }
+
+  & .fa-square-plus,
+  .fa-square-minus {
+    font-size: 1.15rem;
+    opacity: 0.3;
+    cursor: pointer;
+
+    &:hover,
+    &.added {
+      opacity: 0.7;
+      font-weight: bold;
+      color: var(--color-grey);
+    }
   }
 }
 
@@ -478,7 +517,7 @@ ul {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-light-white);
+  background: var(--color-white);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -492,9 +531,11 @@ ul {
 /* dropdown menu on sidebar */
 .dropbtn {
   display: block;
+  width: 100%;
+  text-align: start;
   padding: 0;
-  font-size: 1rem;
-  font-weight: var(--font-bold);
+  font-size: 0.9rem;
+  font-weight: var(--font-medium);
   border: none;
   cursor: pointer;
   background-color: var(--color-light-white);
@@ -533,12 +574,12 @@ ul {
   bottom: 0;
   right: 0;
   width: calc(100vw - 350px);
-  height: 80px;
+  height: 85px;
   background-color: var(--color-white);
 }
 
 .footerbar__button {
-  font-size: 1rem;
+  font-size: 1.3rem;
   font-weight: var(--font-bold);
   margin-right: 0.6rem;
   width: 200px;
