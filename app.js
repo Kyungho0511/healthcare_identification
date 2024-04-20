@@ -1,6 +1,3 @@
-// Default section on load
-let currentSection = "home";
-
 // Listen to window popstate for browser history
 window.addEventListener("popstate", function (event) {
   if (event.state && event.state.section) {
@@ -53,9 +50,6 @@ function showSection(sectionId) {
   if (activeSection) {
     activeSection.classList.add("selected");
   }
-
-  // Update current section
-  currentSection = sectionId;
 
   // Change navbar state based on the section
   const navbar = document.querySelector("#navbar");

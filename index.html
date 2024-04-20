@@ -33,6 +33,7 @@
   </head>
 
   <body>
+    <!-- mapbox -->
     <div id="map"></div>
 
     <!-- App.js: Contents are shown and hidden based on user interaction (SPA)-->
@@ -127,9 +128,8 @@
         </div>
         <div class="sidebar__prompt">
           <h4>Select A County</h4>
-          Select a county or a group of counties for your healthcare provision
-          plan. Once you have made your selection, click the "Continue" button
-          at the bottom right side.
+          Select a county for your healthcare provision plan. Once you have made
+          your selection, click the "Continue" button at the bottom right side.
         </div>
         <div class="sidebar__dataset dropdown">
           <button class="dropbtn">
@@ -152,7 +152,7 @@
         </div>
         <button
           class="footerbar__button button_blue"
-          onclick="navigateToSection('explore'); checkProgress('explore'); flyTo('explore'); onLayers('explore')"
+          onclick="navigateToSection('explore'); checkProgress('explore'); zoomToFeature(); onLayers('explore')"
         >
           continue
         </button>
@@ -201,7 +201,7 @@
         </div>
         <button
           class="footerbar__button button_blue"
-          onclick="navigateToSection('cluster1'); checkProgress('cluster1'); flyTo('cluster1')"
+          onclick="navigateToSection('cluster1'); checkProgress('cluster1')"
         >
           continue
         </button>
@@ -249,7 +249,7 @@
         </div>
         <button
           class="footerbar__button button_blue"
-          onclick="navigateToSection('cluster2'); checkProgress('cluster2'); flyTo('cluster2')"
+          onclick="navigateToSection('cluster2'); checkProgress('cluster2')"
         >
           continue
         </button>
@@ -297,7 +297,7 @@
         </div>
         <button
           class="footerbar__button button_blue"
-          onclick="navigateToSection('select'); checkProgress('select'); flyTo('select')"
+          onclick="navigateToSection('select'); checkProgress('select')"
         >
           continue
         </button>
@@ -352,7 +352,7 @@
         </div>
         <button
           class="footerbar__button button_blue"
-          onclick="checkProgress('share'); flyTo('share')"
+          onclick="checkProgress('share')"
         >
           share
         </button>

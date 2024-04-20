@@ -1,3 +1,5 @@
 Bugs to fix:
 
-1. browser back button does not reload the 'home' section page.
+1. skip intro in the middle of scrolly telling does not turn on layers correctly.
+
+2. browser back button from App to scrolly telling does not activate scroller.
