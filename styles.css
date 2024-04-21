@@ -565,6 +565,18 @@ ul {
   min-width: 160px;
 }
 
+.select-counties {
+  & p {
+    color: var(--color-blue);
+  }
+
+  &:hover,
+  &.added {
+    color: var(--color-blue);
+    font-weight: var(--font-bold);
+  }
+}
+
 /* footerbar */
 .footerbar {
   display: flex;

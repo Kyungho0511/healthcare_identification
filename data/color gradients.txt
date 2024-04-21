@@ -1,0 +1,13 @@
+blue min: #f5f9ff
+blue max: #006efe
+blue cluster:
+#ebfffe
+#a7eaff
+#3b9dff
+#0145ff
+#2500cc
+
+yellow cluster:
+yellow min:
+yellow max:
+

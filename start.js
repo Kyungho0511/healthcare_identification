@@ -163,7 +163,12 @@ map.on("load", () => {
  */
 const start = document.querySelector("#start");
 const startDatasetContainers = start.querySelectorAll(".dataset__list");
-const countiesContainer = start.querySelector(".new_york_state_counties");
+const countiesContainer = start.querySelector(".counties");
+const upstateCountiesContainer = start.querySelector(".upstate_counties");
+const nycCountiesContainer = start.querySelector(".nyc_counties");
+
+// List of nyc counties
+nycCounties = ["Richmond", "Queens", "New York", "Kings", "Bronx"];
 
 // Min, max for layers in start section
 const startLayerBounds = [
@@ -179,10 +184,36 @@ map.on("load", () => {
   features.forEach((feature) => {
     const li = document.createElement("li");
     const p = document.createElement("p");
+    p.style.color = "#036bfc";
     li.classList.add("dataset__item");
     p.innerText = feature.properties.NAME;
     li.appendChild(p);
-    countiesContainer.appendChild(li);
+
+    if (nycCounties.includes(feature.properties.NAME)) {
+      nycCountiesContainer.appendChild(li);
+    } else {
+      upstateCountiesContainer.appendChild(li);
+    }
+  });
+});
+
+// Temporary code for adding county groups at once
+const selectCountiesBtn = start.querySelectorAll(".select-counties");
+selectCountiesBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    if (btn.classList.contains("added")) {
+      btn.classList.remove("added");
+    } else {
+      btn.classList.add("added");
+    }
+
+    // Activate continue button when user selected counties
+    start.querySelector(".footerbar__button").disabled = true;
+    selectCountiesBtn.forEach((btn) => {
+      if (btn.classList.contains("added")) {
+        start.querySelector(".footerbar__button").disabled = false;
+      }
+    });
   });
 });
 
@@ -235,108 +266,40 @@ startDatasetContainers.forEach((container) => {
         });
       }
 
-      // Highlight associated Mapbox layer
-      thickenOutline(event.target.innerText);
-      selectedFeature = selectFeatureByName(
-        "32counties",
-        "NAME",
-        event.target.innerText
-      );
+      // // Highlight associated Mapbox layer
+      // thickenOutline(event.target.innerText);
+      // selectedFeature = selectFeatureByName(
+      //   "32counties",
+      //   "NAME",
+      //   event.target.innerText
+      // );
     }
   });
 });
 
-// Mouse interaction with Mapbox layer
-map.on("click", "32counties", (event) => {
-  // Check the opacity of the layer and If opacity is 0, return and do nothing
-  const layerOpacity = map.getPaintProperty("32counties", "fill-opacity");
-  if (layerOpacity === 0) return;
+// // Mouse interaction with Mapbox layer
+// map.on("click", "32counties", (event) => {
+//   // Check the opacity of the layer and If opacity is 0, return and do nothing
+//   const layerOpacity = map.getPaintProperty("32counties", "fill-opacity");
+//   if (layerOpacity === 0) return;
 
-  const feature = map.queryRenderedFeatures(event.point, {
-    layers: ["32counties"],
-  });
-  thickenOutline(feature[0].properties.NAME);
-  selectedFeature = selectFeatureByName(
-    "32counties",
-    "NAME",
-    feature[0].properties.NAME
-  );
-  start.querySelector(".footerbar__button").disabled = false;
+//   const feature = map.queryRenderedFeatures(event.point, {
+//     layers: ["32counties"],
+//   });
+//   thickenOutline(feature[0].properties.NAME);
+//   selectedFeature = selectFeatureByName(
+//     "32counties",
+//     "NAME",
+//     feature[0].properties.NAME
+//   );
+//   start.querySelector(".footerbar__button").disabled = false;
 
-  // highlight associated dataset item
-  Array.from(countiesContainer.children).forEach((item) => {
-    if (item.innerText === feature[0].properties.NAME) {
-      item.querySelector("p").classList.add("selectedData");
-    } else {
-      item.querySelector("p").classList.remove("selectedData");
-    }
-  });
-});
-
-/**
- * Explore section
- */
-const explore = document.querySelector("#explore");
-const exploreDatasetContainers = explore.querySelectorAll(".sidebar__dataset");
-
-map.on("load", () => {});
-// Mouse interaction with dataset item
-exploreDatasetContainers.forEach((container) => {
-  if (!container.classList.contains("selectable")) return;
-
-  container.addEventListener("click", (event) => {
-    if (event.target.tagName === "P") {
-      // Deselect all data
-      container.querySelectorAll("p").forEach((item) => {
-        item.classList.remove("selectedData");
-      });
-
-      // Highlight selected data
-      event.target.classList.add("selectedData");
-      // start.querySelector(".footerbar__button").disabled = false;
-    }
-  });
-});
-
-// Add data to the selected dataset container when plus icon is clicked
-explore.querySelectorAll(".fa-square-plus").forEach((icon) => {
-  icon.addEventListener("click", function () {
-    const originalListItem = icon.closest(".dataset__item");
-
-    // Clone the 'li' element
-    const clonedListItem = originalListItem.cloneNode(true); // 'true' means deep clone including children
-
-    // Change the icon class in the cloned item from 'fa-square-plus' to 'fa-square-minus'
-    const clonedIcon = clonedListItem.querySelector(".fa-square-plus");
-    if (clonedIcon) {
-      clonedIcon.classList.remove("fa-square-plus");
-      clonedIcon.classList.add("fa-square-minus");
-
-      // Remove data from the selected dataset container when minus icon is clicked
-      clonedIcon.addEventListener("click", () => {
-        clonedListItem.remove();
-        icon.classList.remove("added");
-      });
-    }
-
-    // Find the target 'ul' element where the cloned 'li' should be appended
-    const targetList = document.querySelector(
-      ".dataset__list.selected_dataset"
-    );
-
-    // Append the cloned 'li' to the target 'ul' if targetList doesn't have the same item
-    if (!icon.classList.contains("added")) {
-      targetList.appendChild(clonedListItem);
-      icon.classList.add("added");
-    } else {
-      icon.classList.remove("added");
-      targetList.querySelectorAll("li").forEach((item) => {
-        if (
-          item.querySelector("p").innerText ===
-          clonedListItem.querySelector("p").innerText
-        )
-          item.remove();
-      });
-    }
-  });
-});
+//   // highlight associated dataset item
+//   countiesContainer.querySelectorAll("li").forEach((item) => {
+//     if (item.innerText === feature[0].properties.NAME) {
+//       item.querySelector("p").classList.add("selectedData");
+//     } else {
+//       item.querySelector("p").classList.remove("selectedData");
+//     }
+//   });
+// });

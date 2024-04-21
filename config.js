@@ -1,3 +1,8 @@
+const color = {
+  blue: ["#ebfffe", "#a7eaff", "#3b9dff", "#0145ff", "#2500cc"],
+  yellow: ["#ffffcd", "#ffef77", "#ffd249", "#ffb031", "#ff8000"],
+};
+
 const config = {
   accessToken:
     "pk.eyJ1Ijoia2xlZTA1MTEiLCJhIjoiY2xrYnFibnNjMGV4cjNrbzRqdGg1d21sYiJ9.nN0pE1qocGhTLnD_xPuYdg",
@@ -11,10 +16,15 @@ const config = {
         { layer: "32counties", opacity: 0.85 },
       ],
     },
-    // {
-    //   id: "explore",
-    //   layers: [],
-    // },
+    {
+      id: "explore",
+      layers: [
+        { layer: "counties-others", opacity: 0.5 },
+        { layer: "tracts", opacity: 1 },
+        { layer: "shortage-tracts-with-features1", opacity: 0.85 },
+        { layer: "shortage-tracts-with-features2", opacity: 0.85 },
+      ],
+    },
   ],
   chapters: [
     {

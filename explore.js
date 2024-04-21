@@ -1,0 +1,180 @@
+/**
+ * Explore section
+ */
+const explore = document.querySelector("#explore");
+const exploreDatasetContainers = explore.querySelectorAll(".sidebar__dataset");
+
+// Min, max for layers in start section
+const exploreLayerBounds = [
+  { name: "medicaid enrollees / km2", min: 1, max: 55470 },
+  { name: "commercial enrollees / km2", min: 5, max: 42290 },
+  { name: "insured population / km2", min: 10, max: 76410 },
+  { name: "unserved medicaid enrollees / km2", min: 0, max: 45000 },
+  { name: "unserved commercial enrollees / km2", min: 0, max: 12500 },
+  { name: "average land price / ft2", min: 0.0, max: 34.29 },
+  { name: "agricultural land percent", min: 0.0, max: 0.25 },
+  { name: "residential district percent", min: 0.0, max: 1.0 },
+  { name: "vacant land percent", min: 0.0, max: 0.53 },
+  { name: "commercial district percent", min: 0.0, max: 0.57 },
+  { name: "industrial district percent", min: 0.0, max: 0.18 },
+  { name: "residential area / ft2", min: 0.0, max: 2.64 },
+  { name: "commercial area / ft2", min: 0.0, max: 1.12 },
+  { name: "drove alone percent", min: 0.01, max: 0.98 },
+  { name: "carpooled percent", min: 0.0, max: 0.3 },
+  { name: "public transit percent", min: 0.0, max: 0.94 },
+  { name: "walked percent", min: 0.0, max: 0.58 },
+  { name: "worked from home percent", min: 0.0, max: 0.34 },
+  { name: "no leisure-time physical activity", min: 13.0, max: 53.0 },
+  { name: "binge drinking", min: 8.8, max: 28.7 },
+  { name: "sleeping less than 7 hours", min: 25.7, max: 47.3 },
+  { name: "current smoking", min: 7.4, max: 40.4 },
+  { name: "cholesterol screening", min: 59.2, max: 92.9 },
+  { name: "current lack of health insurance", min: 2.7, max: 30.4 },
+  { name: "taking medicine for high blood pressure", min: 22.2, max: 86.8 },
+  { name: "visits to dentist or dental clinic", min: 29.4, max: 81.5 },
+  { name: "visits to doctor for routine checkup", min: 63.5, max: 87.2 },
+  { name: "physical health not good for >=14 days", min: 4.6, max: 22.0 },
+  { name: "mental health not good for >=14 days", min: 9.9, max: 29.3 },
+  { name: "fair or poor self-rated health status", min: 5.6, max: 42.1 },
+  { name: "median household income", min: 16628.0, max: 239028.0 },
+  { name: "median household disposable income", min: 3107.0, max: 205404.0 },
+  { name: "median monthly housing cost", min: 388.0, max: 3923.0 },
+  { name: "unserved population / km2", min: 0.2, max: 45000 },
+];
+
+map.on("load", () => {});
+// Mouse interaction with dataset item
+exploreDatasetContainers.forEach((container) => {
+  if (!container.classList.contains("selectable")) return;
+
+  container.addEventListener("click", (event) => {
+    if (event.target.tagName === "P") {
+      // Deselect all data
+      container.querySelectorAll("p").forEach((item) => {
+        item.classList.remove("selectedData");
+      });
+
+      // Highlight selected data
+      event.target.classList.add("selectedData");
+      // start.querySelector(".footerbar__button").disabled = false;
+    }
+  });
+});
+
+// Add data to the selected dataset container when plus icon is clicked
+explore.querySelectorAll(".fa-square-plus").forEach((icon) => {
+  icon.addEventListener("click", function () {
+    const originalListItem = icon.closest(".dataset__item");
+
+    // Clone the 'li' element
+    const clonedListItem = originalListItem.cloneNode(true); // 'true' means deep clone including children
+
+    // Change the icon class in the cloned item from 'fa-square-plus' to 'fa-square-minus'
+    const clonedIcon = clonedListItem.querySelector(".fa-square-plus");
+    if (clonedIcon) {
+      clonedIcon.classList.remove("fa-square-plus");
+      clonedIcon.classList.add("fa-square-minus");
+
+      // Remove data from the selected dataset container when minus icon is clicked
+      clonedIcon.addEventListener("click", () => {
+        clonedListItem.remove();
+        icon.classList.remove("added");
+      });
+    }
+
+    // Find the target 'ul' element where the cloned 'li' should be appended
+    const targetList = document.querySelector(
+      ".dataset__list.selected_dataset"
+    );
+
+    // Append the cloned 'li' to the target 'ul' if targetList doesn't have the same item
+    if (!icon.classList.contains("added")) {
+      targetList.appendChild(clonedListItem);
+      icon.classList.add("added");
+    } else {
+      icon.classList.remove("added");
+      targetList.querySelectorAll("li").forEach((item) => {
+        if (
+          item.querySelector("p").innerText ===
+          clonedListItem.querySelector("p").innerText
+        )
+          item.remove();
+      });
+    }
+  });
+});
+
+//  Mouse interaction with dataset item
+exploreDatasetContainers.forEach((container) => {
+  if (!container.classList.contains("selectable")) return;
+
+  // Target Data:
+  if (container.classList.contains("target_data")) {
+    container.addEventListener("click", (event) => {
+      if (event.target.tagName === "P") {
+        // Deselect all data
+        container.querySelectorAll("p").forEach((item) => {
+          item.classList.remove("selectedData");
+        });
+
+        // Highlight selected data
+        event.target.classList.add("selectedData");
+
+        exploreLayerBounds.forEach((bound) => {
+          if (bound.name === event.target.innerText.toLowerCase()) {
+            updateLayerStyle(
+              "shortage-tracts-with-features1",
+              bound.name,
+              bound.min,
+              bound.max,
+              color.blue[0],
+              color.blue[4],
+              ["exponential", 0.993]
+            );
+
+            updateLegend(
+              explore.querySelector(".legend__title"),
+              explore.querySelector(".scale-min"),
+              explore.querySelector(".scale-max"),
+              bound
+            );
+          }
+        });
+      }
+    });
+    // Second Data:
+  } else if (container.classList.contains("second_data")) {
+    container.addEventListener("click", (event) => {
+      if (event.target.tagName === "P") {
+        // Deselect all data
+        container.querySelectorAll("p").forEach((item) => {
+          item.classList.remove("selectedData");
+        });
+
+        // Highlight selected data
+        event.target.classList.add("selectedData");
+
+        exploreLayerBounds.forEach((bound) => {
+          if (bound.name === event.target.innerText.toLowerCase()) {
+            updateLayerStyle(
+              "shortage-tracts-with-features2",
+              bound.name,
+              bound.min,
+              bound.max,
+              color.yellow[0],
+              color.yellow[4],
+              ["exponential", 0.993]
+            );
+
+            updateLegend(
+              explore.querySelector(".legend__title"),
+              explore.querySelector(".scale-min"),
+              explore.querySelector(".scale-max"),
+              bound
+            );
+          }
+        });
+      }
+    });
+  }
+});

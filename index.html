@@ -35,7 +35,8 @@
     <script src="config.js" defer></script>
     <script src="map.js" defer></script>
     <script src="app.js" defer></script>
-    <script src="data.js" defer></script>
+    <script src="start.js" defer></script>
+    <script src="explore.js" defer></script>
     <script src="legend.js" defer></script>
   </head>
 
@@ -82,7 +83,6 @@
                 <li>cluster1</li>
                 <li>cluster2</li>
                 <li>select</li>
-                <li>share</li>
               </ul>
             </div>
             <br />
@@ -135,36 +135,25 @@
         <div class="sidebar__prompt">
           <h4>Start Your Analysis</h4>
           Observe the distribution of the unserved population across counties in
-          New York State. Choose a county for your healthcare provision plan.
+          New York State. Choose counties for your healthcare provision plan.
           After making your selection, click the "Continue" button at the bottom
           right side.
         </div>
-        <div class="sidebar__dataset dropdown selectable">
-          <h4>Observe Target Data</h4>
-          <button class="dropbtn">
-            <span class="triangle expanded"></span>Unserved Population Density
+
+        <div class="sidebar__dataset counties dropdown">
+          <h4>Select Counties</h4>
+          <button class="dropbtn select-counties">
+            <span class="triangle"></span>NYC Counties
           </button>
           <ul
-            class="dataset__list dropdown-content unserved_population_density expanded selectable"
-          >
-            <li class="dataset__item">
-              <p class="selectedData">Unserved population / km2</p>
-            </li>
-            <li class="dataset__item">
-              <p>Unserved Medicaid enrollees / km2</p>
-            </li>
-            <li class="dataset__item">
-              <p>Unserved Commercial enrollees / km2</p>
-            </li>
-          </ul>
-        </div>
-        <div class="sidebar__dataset dropdown selectable">
-          <h4>Choose a County</h4>
-          <button class="dropbtn">
-            <span class="triangle expanded"></span>New York State Counties
+            class="dataset__list dropdown-content nyc_counties selectable"
+          ></ul>
+          <br />
+          <button class="dropbtn select-counties">
+            <span class="triangle"></span>Upstate NY Counties
           </button>
           <ul
-            class="dataset__list dropdown-content new_york_state_counties expanded selectable"
+            class="dataset__list dropdown-content upstate_counties selectable"
           ></ul>
         </div>
       </aside>
@@ -177,7 +166,6 @@
             <li>cluster1</li>
             <li>cluster2</li>
             <li>select</li>
-            <li>share</li>
           </ul>
         </div>
         <button
@@ -218,7 +206,7 @@
           finished, click the "Continue" button.
         </div>
 
-        <div class="sidebar__dataset dropdown selectable">
+        <div class="sidebar__dataset target_data dropdown selectable">
           <h4>Select Target Data</h4>
           <button class="dropbtn">
             <span class="triangle expanded"></span>Unserved Population Density
@@ -241,7 +229,7 @@
           </ul>
         </div>
 
-        <div class="sidebar__dataset dropdown selectable yellow">
+        <div class="sidebar__dataset second_data dropdown selectable yellow">
           <h4>Select Second Data</h4>
           <button class="dropbtn">
             <span class="triangle expanded"></span>Insured Population Density
@@ -429,7 +417,6 @@
             <li>cluster1</li>
             <li>cluster2</li>
             <li>select</li>
-            <li>share</li>
           </ul>
         </div>
         <button
@@ -492,7 +479,6 @@
             <li>cluster1</li>
             <li>cluster2</li>
             <li>select</li>
-            <li>share</li>
           </ul>
         </div>
         <button
@@ -548,7 +534,6 @@
             <li>cluster1</li>
             <li>cluster2</li>
             <li>select</li>
-            <li>share</li>
           </ul>
         </div>
         <button
@@ -611,7 +596,6 @@
             <li>cluster1</li>
             <li>cluster2</li>
             <li>select</li>
-            <li>share</li>
           </ul>
         </div>
         <button
