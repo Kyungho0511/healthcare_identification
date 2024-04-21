@@ -36,6 +36,7 @@
     <script src="map.js" defer></script>
     <script src="app.js" defer></script>
     <script src="data.js" defer></script>
+    <script src="legend.js" defer></script>
   </head>
 
   <!-- App.js: Contents are shown and hidden based on user interaction (SPA)-->
@@ -114,11 +115,11 @@
     <!-- Start section -->
     <section id="start" class="content">
       <div class="legend">
-        <h4 class="legend__title">Unserved Population / km2</h4>
+        <h4 class="legend__title">unserved population / km2</h4>
         <div class="gradient-bar"></div>
         <div class="scale">
           <span class="scale-min">0</span>
-          <span class="scale-max">2000+</span>
+          <span class="scale-max">2220</span>
         </div>
       </div>
 
@@ -132,15 +133,39 @@
           />
         </div>
         <div class="sidebar__prompt">
-          <h4>Select A County</h4>
-          Select a county for your healthcare provision plan. Once you have made
-          your selection, click the "Continue" button at the bottom right side.
+          <h4>Start Your Analysis</h4>
+          Observe the distribution of the unserved population across counties in
+          New York State. Choose a county for your healthcare provision plan.
+          After making your selection, click the "Continue" button at the bottom
+          right side.
         </div>
         <div class="sidebar__dataset dropdown selectable">
+          <h4>Observe Target Data</h4>
+          <button class="dropbtn">
+            <span class="triangle expanded"></span>Unserved Population Density
+          </button>
+          <ul
+            class="dataset__list dropdown-content unserved_population_density expanded selectable"
+          >
+            <li class="dataset__item">
+              <p class="selectedData">Unserved population / km2</p>
+            </li>
+            <li class="dataset__item">
+              <p>Unserved Medicaid enrollees / km2</p>
+            </li>
+            <li class="dataset__item">
+              <p>Unserved Commercial enrollees / km2</p>
+            </li>
+          </ul>
+        </div>
+        <div class="sidebar__dataset dropdown selectable">
+          <h4>Choose a County</h4>
           <button class="dropbtn">
             <span class="triangle expanded"></span>New York State Counties
           </button>
-          <ul class="dataset__list dropdown-content expanded"></ul>
+          <ul
+            class="dataset__list dropdown-content new_york_state_counties expanded selectable"
+          ></ul>
         </div>
       </aside>
 
@@ -193,13 +218,13 @@
           finished, click the "Continue" button.
         </div>
 
-        <div class="sidebar__dataset dropdown selectable yellow">
+        <div class="sidebar__dataset dropdown selectable">
           <h4>Select Target Data</h4>
           <button class="dropbtn">
             <span class="triangle expanded"></span>Unserved Population Density
           </button>
           <ul
-            class="dataset__list dropdown-content unserved_population expanded"
+            class="dataset__list dropdown-content unserved_population_density expanded"
           >
             <li class="dataset__item">
               <p>Unserved population / km2</p>
@@ -216,7 +241,7 @@
           </ul>
         </div>
 
-        <div class="sidebar__dataset dropdown selectable">
+        <div class="sidebar__dataset dropdown selectable yellow">
           <h4>Select Second Data</h4>
           <button class="dropbtn">
             <span class="triangle expanded"></span>Insured Population Density

@@ -19,7 +19,7 @@ function thickenOutline(name) {
     map.setFeatureState(
       {
         source: "composite",
-        sourceLayer: "shortage_counties-2zvmkt",
+        sourceLayer: "shortage_counties-4sc41a",
         id: i,
       },
       { id: name }
@@ -106,6 +106,26 @@ function selectFeatureByName(layerId, propertyName, value) {
   return selectedFeature;
 }
 
+function updateLayerStyle(
+  layer,
+  attribute,
+  min,
+  max,
+  minColor,
+  maxColor,
+  rateOfChange
+) {
+  map.setPaintProperty(layer, "fill-color", [
+    "interpolate",
+    rateOfChange,
+    ["get", attribute],
+    min,
+    minColor,
+    max,
+    maxColor,
+  ]);
+}
+
 /**
  * Dropdown dataset menu interaction
  */
@@ -142,7 +162,15 @@ map.on("load", () => {
  * Start section
  */
 const start = document.querySelector("#start");
-const startDatasetList = start.querySelector(".dataset__list");
+const startDatasetContainers = start.querySelectorAll(".dataset__list");
+const countiesContainer = start.querySelector(".new_york_state_counties");
+
+// Min, max for layers in start section
+const startLayerBounds = [
+  { name: "unserved medicaid enrollees / km2", min: 0, max: 1785 },
+  { name: "unserved commercial enrollees / km2", min: 0, max: 460 },
+  { name: "unserved population / km2", min: 0, max: 2220 },
+];
 
 // fill dataset container with layers on the mapbox studio
 map.on("load", () => {
@@ -154,30 +182,68 @@ map.on("load", () => {
     li.classList.add("dataset__item");
     p.innerText = feature.properties.NAME;
     li.appendChild(p);
-    startDatasetList.appendChild(li);
+    countiesContainer.appendChild(li);
   });
 });
 
 // Mouse interaction with dataset item
-startDatasetList.addEventListener("click", (event) => {
-  if (event.target.tagName === "P") {
-    // Deselect all data
-    Array.from(startDatasetList.children).forEach((item) => {
-      item.querySelector("p").classList.remove("selectedData");
-    });
+startDatasetContainers.forEach((container) => {
+  if (!container.classList.contains("selectable")) return;
 
-    // Highlight selected data
-    event.target.classList.add("selectedData");
-    start.querySelector(".footerbar__button").disabled = false;
+  container.addEventListener("click", (event) => {
+    if (event.target.tagName === "P") {
+      // Deselect all data
+      container.querySelectorAll("p").forEach((item) => {
+        item.classList.remove("selectedData");
+      });
 
-    // Highlight associated Mapbox layer
-    thickenOutline(event.target.innerText);
-    selectedFeature = selectFeatureByName(
-      "32counties",
-      "NAME",
-      event.target.innerText
-    );
-  }
+      // Highlight selected data
+      event.target.classList.add("selectedData");
+
+      if (
+        event.target.parentElement.parentElement.classList.contains(
+          "new_york_state_counties"
+        )
+      ) {
+        start.querySelector(".footerbar__button").disabled = false;
+      }
+
+      if (
+        event.target.parentElement.parentElement.classList.contains(
+          "unserved_population_density"
+        )
+      ) {
+        startLayerBounds.forEach((bound) => {
+          if (bound.name === event.target.innerText.toLowerCase()) {
+            updateLayerStyle(
+              "32counties",
+              bound.name,
+              bound.min,
+              bound.max,
+              "#f5f9ff",
+              "#006efe",
+              ["exponential", 0.995]
+            );
+
+            updateLegend(
+              start.querySelector(".legend__title"),
+              start.querySelector(".scale-min"),
+              start.querySelector(".scale-max"),
+              bound
+            );
+          }
+        });
+      }
+
+      // Highlight associated Mapbox layer
+      thickenOutline(event.target.innerText);
+      selectedFeature = selectFeatureByName(
+        "32counties",
+        "NAME",
+        event.target.innerText
+      );
+    }
+  });
 });
 
 // Mouse interaction with Mapbox layer
@@ -189,7 +255,6 @@ map.on("click", "32counties", (event) => {
   const feature = map.queryRenderedFeatures(event.point, {
     layers: ["32counties"],
   });
-  console.log(feature[0].geometry);
   thickenOutline(feature[0].properties.NAME);
   selectedFeature = selectFeatureByName(
     "32counties",
@@ -199,7 +264,7 @@ map.on("click", "32counties", (event) => {
   start.querySelector(".footerbar__button").disabled = false;
 
   // highlight associated dataset item
-  Array.from(startDatasetList.children).forEach((item) => {
+  Array.from(countiesContainer.children).forEach((item) => {
     if (item.innerText === feature[0].properties.NAME) {
       item.querySelector("p").classList.add("selectedData");
     } else {
@@ -214,7 +279,6 @@ map.on("click", "32counties", (event) => {
 const explore = document.querySelector("#explore");
 const exploreDatasetContainers = explore.querySelectorAll(".sidebar__dataset");
 
-// fill dataset container with layers on the mapbox studio
 map.on("load", () => {});
 // Mouse interaction with dataset item
 exploreDatasetContainers.forEach((container) => {
@@ -264,6 +328,15 @@ explore.querySelectorAll(".fa-square-plus").forEach((icon) => {
     if (!icon.classList.contains("added")) {
       targetList.appendChild(clonedListItem);
       icon.classList.add("added");
+    } else {
+      icon.classList.remove("added");
+      targetList.querySelectorAll("li").forEach((item) => {
+        if (
+          item.querySelector("p").innerText ===
+          clonedListItem.querySelector("p").innerText
+        )
+          item.remove();
+      });
     }
   });
 });

@@ -7,8 +7,8 @@ const config = {
     {
       id: "start",
       layers: [
-        { layer: "counties-others", opacity: 1 },
-        { layer: "32counties", opacity: 0.75 },
+        { layer: "counties-others", opacity: 0.75 },
+        { layer: "32counties", opacity: 0.85 },
       ],
     },
     // {

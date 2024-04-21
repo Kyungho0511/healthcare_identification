@@ -86,6 +86,11 @@ const transformRequest = (url) => {
   };
 };
 
+const bounds = [
+  [-83, 38], // Southwest coordinates
+  [-67, 46], // Northeast coordinates
+];
+
 const map = new mapboxgl.Map({
   container: "map",
   style: config.style,
@@ -95,6 +100,7 @@ const map = new mapboxgl.Map({
   pitch: config.chapters[0].location.pitch,
   scrollZoom: true,
   minZoom: 6.3,
+  maxBounds: bounds,
   transformRequest: transformRequest,
 });
 // Disable rotation using touch and mouse

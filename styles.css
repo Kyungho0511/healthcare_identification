@@ -517,7 +517,7 @@ ul {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-white);
+  background: var(--color-light-white);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -587,6 +587,7 @@ ul {
 
 /* legend */
 .legend {
+  width: 300px;
   font-size: 0.9rem;
   position: fixed;
   top: 0;
@@ -601,7 +602,7 @@ ul {
 }
 
 .legend__title {
-  text-align: center;
+  text-align: start;
   margin-top: 0;
 }
 
