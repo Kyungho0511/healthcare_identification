@@ -115,3 +115,40 @@ function offLayersMap2() {
     });
   });
 }
+
+/**
+ * Map synchronization
+ */
+function syncMap(sourceMap, targetMap) {
+  return function () {
+    const center = sourceMap.getCenter();
+    const zoom = sourceMap.getZoom();
+    const bearing = sourceMap.getBearing();
+    const pitch = sourceMap.getPitch();
+
+    // Temporarily disable the listener on the target map
+    targetMap.off("move", targetMap.sync);
+
+    // Update the target map's view
+    targetMap.jumpTo({
+      center: center,
+      zoom: zoom,
+      bearing: bearing,
+      pitch: pitch,
+    });
+
+    // Re-enable the listener on the target map after the update
+    requestAnimationFrame(() => {
+      targetMap.on("move", targetMap.sync);
+    });
+  };
+}
+
+function enableSyncMap() {
+  // Attach the synchronization handlers
+  map.sync = syncMap(map, map2);
+  map2.sync = syncMap(map2, map);
+
+  map.on("move", map.sync);
+  map2.on("move", map2.sync);
+}

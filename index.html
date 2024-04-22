@@ -46,7 +46,7 @@
     <section id="start" class="content selected">
       <div class="legend legend-map">
         <h4 class="legend__title">unserved population / km2</h4>
-        <div class="gradient-bar"></div>
+        <div class="gradient-bar-blue"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">1220</span>
@@ -55,7 +55,7 @@
 
       <div class="legend legend-map2">
         <h4 class="legend__title">unserved population / km2</h4>
-        <div class="gradient-bar"></div>
+        <div class="gradient-bar-blue"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">5220</span>
@@ -68,7 +68,7 @@
             class="logo"
             src="./images/logo2.PNG"
             alt="logo_image"
-            onclick="navigateToSection('start'); resetProgress(); offLayers(); offLayersMap2();"
+            onclick="navigateToSection('start'); resetProgress(); onLayers('start'); onLayersMap2('start');"
           />
         </div>
         <div class="sidebar__prompt">
@@ -169,7 +169,7 @@
         </div>
         <button
           class="footerbar__button button_blue"
-          onclick="navigateToSection('explore'); checkProgress('explore'); onLayers('explore')"
+          onclick="navigateToSection('explore'); checkProgress('explore'); onLayers('explore'); onLayersMap2('explore'); flyTo(); enableSyncMap()"
           disabled
         >
           continue
@@ -181,7 +181,7 @@
     <section id="explore" class="content">
       <div class="legend legend-map">
         <h4 class="legend__title">Unserved Population / km2</h4>
-        <div class="gradient-bar"></div>
+        <div class="gradient-bar-blue"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">2000+</span>
@@ -190,7 +190,7 @@
 
       <div class="legend legend-map2">
         <h4 class="legend__title">Unserved Population / km2</h4>
-        <div class="gradient-bar"></div>
+        <div class="gradient-bar-yellow"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">2000+</span>
@@ -203,7 +203,7 @@
             class="logo"
             src="./images/logo2.PNG"
             alt="logo_image"
-            onclick="navigateToSection('start'); resetProgress(); offLayers(); offLayersMap2();"
+            onclick="navigateToSection('start'); resetProgress(); onLayers('start'); onLayersMap2('start');"
           />
         </div>
         <div class="sidebar__prompt">
@@ -440,7 +440,7 @@
     <section id="cluster" class="content">
       <div class="legend">
         <h4 class="legend__title">Unserved Population / km2</h4>
-        <div class="gradient-bar"></div>
+        <div class="gradient-bar-blue"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">2000+</span>
@@ -453,7 +453,7 @@
             class="logo"
             src="./images/logo2.PNG"
             alt="logo_image"
-            onclick="navigateToSection('start'); resetProgress(); offLayers(); offLayersMap2();"
+            onclick="navigateToSection('start'); resetProgress(); onLayers('start'); onLayersMap2('start');"
           />
         </div>
         <div class="sidebar__prompt">
@@ -502,7 +502,7 @@
     <section id="select" class="content">
       <div class="legend">
         <h4 class="legend__title">Unserved Population / km2</h4>
-        <div class="gradient-bar"></div>
+        <div class="gradient-bar-blue"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">2000+</span>
@@ -515,7 +515,7 @@
             class="logo"
             src="./images/logo2.PNG"
             alt="logo_image"
-            onclick="navigateToSection('start'); resetProgress(); offLayers(); offLayersMap2();"
+            onclick="navigateToSection('start'); resetProgress(); onLayers('start'); onLayersMap2('start');"
           />
         </div>
         <div class="sidebar__prompt">
@@ -557,7 +557,7 @@
     <section id="share" class="content">
       <div class="legend">
         <h4 class="legend__title">Unserved Population / km2</h4>
-        <div class="gradient-bar"></div>
+        <div class="gradient-bar-blue"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">2000+</span>
@@ -570,7 +570,7 @@
             class="logo"
             src="./images/logo2.PNG"
             alt="logo_image"
-            onclick="navigateToSection('start'); resetProgress(); offLayers(); offLayersMap2();"
+            onclick="navigateToSection('start'); resetProgress(); onLayers('start'); onLayersMap2('start');"
           />
         </div>
         <div class="sidebar__prompt">

@@ -146,6 +146,17 @@ function updateLayerStyleMap2(
   ]);
 }
 
+let selectedCounties = null;
+function flyTo() {
+  if (selectedCounties === "NYC Counties") {
+    map.jumpTo(config.location);
+    map2.jumpTo(config.location);
+  } else if (selectedCounties === "Upstate NY Counties") {
+    map.jumpTo(config2.location);
+    map2.jumpTo(config2.location);
+  }
+}
+
 /**
  * Dropdown dataset menu interaction
  */
@@ -194,10 +205,13 @@ const startLayerBounds = [
   { name: "unserved population / km2", min: 0, max: 2220 },
 ];
 
-// Temporary code for adding county groups at once
+// Temporary: adding county groups at once
 const selectCountiesBtn = start.querySelectorAll(".select-counties");
 selectCountiesBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
+    // Store selected counties
+    selectedCounties = btn.innerText;
+
     if (btn.classList.contains("added")) {
       btn.classList.remove("added");
     } else {

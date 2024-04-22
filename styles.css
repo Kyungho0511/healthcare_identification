@@ -631,12 +631,22 @@ ul {
   margin-top: 0;
 }
 
-.gradient-bar {
+.gradient-bar-blue {
   height: 0.8rem;
   background: linear-gradient(
     to right,
     var(--color-white) 0%,
     var(--color-blue) 100%
+  );
+  margin-bottom: 0.5rem;
+}
+
+.gradient-bar-yellow {
+  height: 0.8rem;
+  background: linear-gradient(
+    to right,
+    var(--color-white) 0%,
+    var(--color-yellow) 100%
   );
   margin-bottom: 0.5rem;
 }
