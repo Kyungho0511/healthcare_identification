@@ -26,10 +26,6 @@
     />
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 
-    <!-- scrolly telling library -->
-    <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
-    <script src="https://unpkg.com/scrollama"></script>
-
     <!-- my files -->
     <link rel="stylesheet" href="styles.css" />
     <script src="config.js" defer></script>
@@ -44,82 +40,25 @@
   <body>
     <!-- mapbox -->
     <div id="map"></div>
-
-    <!-- Home: scrolly telling section -->
-    <section id="home" class="content selected">
-      <nav id="navbar" class="highlight">
-        <div
-          id="navbar_header"
-          onclick="navigateToSection('home'); scrollToTop()"
-        >
-          <img class="logo" src="./images/logo2.png" alt="logo_image" />
-        </div>
-        <div class="navbar__container">
-          <a href="#step_start" id="navbar_start">start</a>
-          <a href="#step_explore" id="navbar_explore">explore</a>
-          <a href="#step_cluster" id="navbar_cluster">cluster</a>
-          <a href="#step_select" id="navbar_select">select</a>
-          <a href="#step_share" id="navbar_share">share</a>
-        </div>
-      </nav>
-
-      <div id="story">
-        <div id="header">
-          <div class="header_title">
-            <h1>what's happening in healthcare shortage?</h1>
-          </div>
-        </div>
-        <div id="footer">
-          <div class="footer__container">
-            <h2 class="footer__title">
-              Unlock insights into your own <br />
-              healthcare provision strategies.
-            </h2>
-            <br />
-            <div class="progressbar_container">
-              <ul class="progressbar">
-                <li>start</li>
-                <li>explore</li>
-                <li>cluster1</li>
-                <li>cluster2</li>
-                <li>select</li>
-              </ul>
-            </div>
-            <br />
-            <p>
-              Choose the county for your healthcare provision plan. Once you've
-              chosen, you will see healthcare shortage areas within the county.
-              Explore datasets associated with medcial shortage and create your
-              own clusters to identify targeted shortage areas for your
-              provision plan. Finally, select specific locations for your
-              healthcare facilities to cover the most targeted shortage areas.
-            </p>
-          </div>
-          <button
-            class="button_blue"
-            onclick="navigateToSection('start'); checkProgress('start'); flyTo('start'); onLayers('start')"
-          >
-            start
-          </button>
-          <button
-            id="button_skip"
-            class="button_grey"
-            onclick="navigateToSection('start'); checkProgress('start'); flyTo('start'); onLayers('start')"
-          >
-            skip intro
-          </button>
-        </div>
-      </div>
-    </section>
+    <div id="map2"></div>
 
     <!-- Start section -->
-    <section id="start" class="content">
-      <div class="legend">
+    <section id="start" class="content selected">
+      <div class="legend legend-map">
         <h4 class="legend__title">unserved population / km2</h4>
         <div class="gradient-bar"></div>
         <div class="scale">
           <span class="scale-min">0</span>
-          <span class="scale-max">2220</span>
+          <span class="scale-max">1220</span>
+        </div>
+      </div>
+
+      <div class="legend legend-map2">
+        <h4 class="legend__title">unserved population / km2</h4>
+        <div class="gradient-bar"></div>
+        <div class="scale">
+          <span class="scale-min">0</span>
+          <span class="scale-max">5220</span>
         </div>
       </div>
 
@@ -129,7 +68,7 @@
             class="logo"
             src="./images/logo2.PNG"
             alt="logo_image"
-            onclick="navigateToSection('home'); resetProgress(); offLayers(); flyTo('start')"
+            onclick="navigateToSection('start'); resetProgress(); offLayers(); offLayersMap2();"
           />
         </div>
         <div class="sidebar__prompt">
@@ -145,16 +84,76 @@
           <button class="dropbtn select-counties">
             <span class="triangle"></span>NYC Counties
           </button>
-          <ul
-            class="dataset__list dropdown-content nyc_counties selectable"
-          ></ul>
+          <ul class="dataset__list dropdown-content nyc_counties selectable">
+            <li class="dataset__item"><p style="color: #036bfc">Bronx</p></li>
+            <li class="dataset__item"><p style="color: #036bfc">Kings</p></li>
+            <li class="dataset__item">
+              <p style="color: #036bfc">New York</p>
+            </li>
+            <li class="dataset__item"><p style="color: #036bfc">Queens</p></li>
+            <li class="dataset__item">
+              <p style="color: #036bfc">Richmond</p>
+            </li>
+          </ul>
           <br />
           <button class="dropbtn select-counties">
             <span class="triangle"></span>Upstate NY Counties
           </button>
           <ul
             class="dataset__list dropdown-content upstate_counties selectable"
-          ></ul>
+          >
+            <li class="dataset__item"><p style="color: #036bfc">Albany</p></li>
+            <li class="dataset__item"><p style="color: #036bfc">Cayuga</p></li>
+            <li class="dataset__item">
+              <p style="color: #036bfc">Chautauqua</p>
+            </li>
+            <li class="dataset__item">
+              <p style="color: #036bfc">Cortland</p>
+            </li>
+            <li class="dataset__item"><p style="color: #036bfc">Erie</p></li>
+            <li class="dataset__item"><p style="color: #036bfc">Genesee</p></li>
+            <li class="dataset__item"><p style="color: #036bfc">Greene</p></li>
+            <li class="dataset__item">
+              <p style="color: #036bfc">Hamilton</p>
+            </li>
+            <li class="dataset__item"><p style="color: #036bfc">Lewis</p></li>
+            <li class="dataset__item">
+              <p style="color: #036bfc">Montgomery</p>
+            </li>
+            <li class="dataset__item"><p style="color: #036bfc">Oneida</p></li>
+            <li class="dataset__item">
+              <p style="color: #036bfc">Onondaga</p>
+            </li>
+            <li class="dataset__item"><p style="color: #036bfc">Ontario</p></li>
+            <li class="dataset__item"><p style="color: #036bfc">Orange</p></li>
+            <li class="dataset__item"><p style="color: #036bfc">Oswego</p></li>
+            <li class="dataset__item"><p style="color: #036bfc">Putnam</p></li>
+            <li class="dataset__item">
+              <p style="color: #036bfc">Rensselaer</p>
+            </li>
+            <li class="dataset__item">
+              <p style="color: #036bfc">Rockland</p>
+            </li>
+            <li class="dataset__item">
+              <p style="color: #036bfc">Schuyler</p>
+            </li>
+            <li class="dataset__item">
+              <p style="color: #036bfc">St Lawrence</p>
+            </li>
+            <li class="dataset__item"><p style="color: #036bfc">Steuben</p></li>
+            <li class="dataset__item">
+              <p style="color: #036bfc">Sullivan</p>
+            </li>
+            <li class="dataset__item"><p style="color: #036bfc">Tioga</p></li>
+            <li class="dataset__item">
+              <p style="color: #036bfc">Tompkins</p>
+            </li>
+            <li class="dataset__item"><p style="color: #036bfc">Ulster</p></li>
+            <li class="dataset__item"><p style="color: #036bfc">Warren</p></li>
+            <li class="dataset__item">
+              <p style="color: #036bfc">Westchester</p>
+            </li>
+          </ul>
         </div>
       </aside>
 
@@ -163,14 +162,14 @@
           <ul class="progressbar">
             <li>start</li>
             <li>explore</li>
-            <li>cluster1</li>
-            <li>cluster2</li>
+            <li>cluster</li>
             <li>select</li>
+            <li>share</li>
           </ul>
         </div>
         <button
           class="footerbar__button button_blue"
-          onclick="navigateToSection('explore'); checkProgress('explore'); zoomToFeature(); onLayers('explore')"
+          onclick="navigateToSection('explore'); checkProgress('explore'); onLayers('explore')"
           disabled
         >
           continue
@@ -180,7 +179,16 @@
 
     <!-- Explore section -->
     <section id="explore" class="content">
-      <div class="legend">
+      <div class="legend legend-map">
+        <h4 class="legend__title">Unserved Population / km2</h4>
+        <div class="gradient-bar"></div>
+        <div class="scale">
+          <span class="scale-min">0</span>
+          <span class="scale-max">2000+</span>
+        </div>
+      </div>
+
+      <div class="legend legend-map2">
         <h4 class="legend__title">Unserved Population / km2</h4>
         <div class="gradient-bar"></div>
         <div class="scale">
@@ -195,7 +203,7 @@
             class="logo"
             src="./images/logo2.PNG"
             alt="logo_image"
-            onclick="navigateToSection('home'); resetProgress(); offLayers(); flyTo('start')"
+            onclick="navigateToSection('start'); resetProgress(); offLayers(); offLayersMap2();"
           />
         </div>
         <div class="sidebar__prompt">
@@ -215,7 +223,7 @@
             class="dataset__list dropdown-content unserved_population_density expanded"
           >
             <li class="dataset__item">
-              <p>Unserved population / km2</p>
+              <p class="selectedData">Unserved population / km2</p>
               <i class="fa-regular fa-square-plus"></i>
             </li>
             <li class="dataset__item">
@@ -242,7 +250,7 @@
               <i class="fa-regular fa-square-plus"></i>
             </li>
             <li class="dataset__item">
-              <p>Medicaid enrollees / km2</p>
+              <p class="selectedData">Medicaid enrollees / km2</p>
               <i class="fa-regular fa-square-plus"></i>
             </li>
             <li class="dataset__item">
@@ -414,22 +422,22 @@
           <ul class="progressbar">
             <li>start</li>
             <li>explore</li>
-            <li>cluster1</li>
-            <li>cluster2</li>
+            <li>cluster</li>
             <li>select</li>
+            <li>share</li>
           </ul>
         </div>
         <button
           class="footerbar__button button_blue"
-          onclick="navigateToSection('cluster1'); checkProgress('cluster1')"
+          onclick="navigateToSection('cluster'); checkProgress('cluster')"
         >
           continue
         </button>
       </footer>
     </section>
 
-    <!-- Cluster1 section -->
-    <section id="cluster1" class="content">
+    <!-- Cluster section -->
+    <section id="cluster" class="content">
       <div class="legend">
         <h4 class="legend__title">Unserved Population / km2</h4>
         <div class="gradient-bar"></div>
@@ -445,7 +453,7 @@
             class="logo"
             src="./images/logo2.PNG"
             alt="logo_image"
-            onclick="navigateToSection('home'); resetProgress(); offLayers(); flyTo('start')"
+            onclick="navigateToSection('start'); resetProgress(); offLayers(); offLayersMap2();"
           />
         </div>
         <div class="sidebar__prompt">
@@ -476,64 +484,9 @@
           <ul class="progressbar">
             <li>start</li>
             <li>explore</li>
-            <li>cluster1</li>
-            <li>cluster2</li>
+            <li>cluster</li>
             <li>select</li>
-          </ul>
-        </div>
-        <button
-          class="footerbar__button button_blue"
-          onclick="navigateToSection('cluster2'); checkProgress('cluster2')"
-        >
-          continue
-        </button>
-      </footer>
-    </section>
-
-    <!-- Cluster2 section -->
-    <section id="cluster2" class="content">
-      <div class="legend">
-        <h4 class="legend__title">Unserved Population / km2</h4>
-        <div class="gradient-bar"></div>
-        <div class="scale">
-          <span class="scale-min">0</span>
-          <span class="scale-max">2000+</span>
-        </div>
-      </div>
-
-      <aside class="sidebar">
-        <div class="sidebar__title">
-          <img
-            class="logo"
-            src="./images/logo2.PNG"
-            alt="logo_image"
-            onclick="navigateToSection('home'); resetProgress(); offLayers(); flyTo('start')"
-          />
-        </div>
-        <div class="sidebar__prompt">
-          Select the county for your healthcare provision plan. Once you have
-          made your selection, click the "Continue" button located at the bottom
-          right side of the page.
-        </div>
-        <div class="sidebar__dataset">
-          <ul class="dataset__list">
-            <b>Target Shortage Areas</b>
-            <li class="dataset__item">Tompkins</li>
-            <li class="dataset__item">Ulster</li>
-            <li class="dataset__item">Warren</li>
-            <li class="dataset__item">Westchester</li>
-          </ul>
-        </div>
-      </aside>
-
-      <footer class="footerbar">
-        <div class="progressbar_container">
-          <ul class="progressbar">
-            <li>start</li>
-            <li>explore</li>
-            <li>cluster1</li>
-            <li>cluster2</li>
-            <li>select</li>
+            <li>share</li>
           </ul>
         </div>
         <button
@@ -562,7 +515,62 @@
             class="logo"
             src="./images/logo2.PNG"
             alt="logo_image"
-            onclick="navigateToSection('home'); resetProgress(); offLayers(); flyTo('start')"
+            onclick="navigateToSection('start'); resetProgress(); offLayers(); offLayersMap2();"
+          />
+        </div>
+        <div class="sidebar__prompt">
+          Select the county for your healthcare provision plan. Once you have
+          made your selection, click the "Continue" button located at the bottom
+          right side of the page.
+        </div>
+        <div class="sidebar__dataset">
+          <ul class="dataset__list">
+            <b>Target Shortage Areas</b>
+            <li class="dataset__item">Tompkins</li>
+            <li class="dataset__item">Ulster</li>
+            <li class="dataset__item">Warren</li>
+            <li class="dataset__item">Westchester</li>
+          </ul>
+        </div>
+      </aside>
+
+      <footer class="footerbar">
+        <div class="progressbar_container">
+          <ul class="progressbar">
+            <li>start</li>
+            <li>explore</li>
+            <li>cluster</li>
+            <li>select</li>
+            <li>share</li>
+          </ul>
+        </div>
+        <button
+          class="footerbar__button button_blue"
+          onclick="navigateToSection('share'); checkProgress('share')"
+        >
+          continue
+        </button>
+      </footer>
+    </section>
+
+    <!-- Share section -->
+    <section id="share" class="content">
+      <div class="legend">
+        <h4 class="legend__title">Unserved Population / km2</h4>
+        <div class="gradient-bar"></div>
+        <div class="scale">
+          <span class="scale-min">0</span>
+          <span class="scale-max">2000+</span>
+        </div>
+      </div>
+
+      <aside class="sidebar">
+        <div class="sidebar__title">
+          <img
+            class="logo"
+            src="./images/logo2.PNG"
+            alt="logo_image"
+            onclick="navigateToSection('start'); resetProgress(); offLayers(); offLayersMap2();"
           />
         </div>
         <div class="sidebar__prompt">
@@ -593,9 +601,9 @@
           <ul class="progressbar">
             <li>start</li>
             <li>explore</li>
-            <li>cluster1</li>
-            <li>cluster2</li>
+            <li>cluster</li>
             <li>select</li>
+            <li>share</li>
           </ul>
         </div>
         <button

@@ -8,72 +8,9 @@ const layerTypes = {
   symbol: ["text-opacity"],
   "fill-extrusion": ["fill-extrusion-opacity"],
 };
-const alignments = {
-  left: "lefty",
-  center: "centered",
-  right: "righty",
-};
 
 /**
- * Main 'story' and header/footer
- */
-const story = document.querySelector("#story");
-const navbar = document.querySelector("#navbar");
-const navbarHeight = navbar.getBoundingClientRect().height;
-const footer = document.querySelector("#footer");
-const buttonSkip = document.querySelector("#button_skip");
-
-/**
- * Features
- */
-const features = document.createElement("div");
-features.classList.add(alignments[config.alignment]);
-features.setAttribute("id", "features");
-
-config.chapters.forEach((record, idx) => {
-  const container = document.createElement("div");
-  const chapter = document.createElement("div");
-
-  // Creates the title for the vignettes
-  if (record.title) {
-    const title = document.createElement("h3");
-    title.innerText = record.title;
-    chapter.appendChild(title);
-  }
-
-  // Creates the image for the vignette
-  if (record.image) {
-    const image = new Image();
-    image.src = record.image;
-    chapter.appendChild(image);
-  }
-
-  // Creates the description for the vignette
-  if (record.description) {
-    const story = document.createElement("p");
-    story.innerHTML = record.description;
-    chapter.appendChild(story);
-  }
-
-  // Sets the id for the vignette and adds the step css attribute
-  container.setAttribute("id", record.id);
-  container.classList.add(alignments[record.alignment]);
-  container.classList.add("step");
-  if (idx === 0) {
-    container.classList.add("active");
-  }
-
-  // Sets the overall theme to the chapter element
-  chapter.classList.add(config.theme);
-  container.appendChild(chapter);
-  features.appendChild(container);
-});
-
-// Appends the features element (with the vignettes) to the story element
-story.insertBefore(features, footer);
-
-/**
- * Mapbox & Scrollama
+ * Mapbox
  */
 mapboxgl.accessToken = config.accessToken;
 const transformRequest = (url) => {
@@ -87,137 +24,52 @@ const transformRequest = (url) => {
 };
 
 const bounds = [
-  [-83, 38], // Southwest coordinates
-  [-67, 46], // Northeast coordinates
+  [-85, 36], // Southwest coordinates
+  [-65, 48], // Northeast coordinates
 ];
 
 const map = new mapboxgl.Map({
   container: "map",
   style: config.style,
-  center: config.chapters[0].location.center,
-  zoom: config.chapters[0].location.zoom,
-  bearing: config.chapters[0].location.bearing,
-  pitch: config.chapters[0].location.pitch,
+  center: config.location.center,
+  zoom: config.location.zoom,
+  bearing: config.location.bearing,
+  pitch: config.location.pitch,
   scrollZoom: true,
-  minZoom: 6.3,
   maxBounds: bounds,
   transformRequest: transformRequest,
 });
+
 // Disable rotation using touch and mouse
 map.dragRotate.disable();
 map.touchZoomRotate.disableRotation();
 
-// Instantiates the scrollama function
-const scroller = scrollama();
-
-map.on("load", function () {
-  // Run mapbox associated scrollama logic only when current section is home
-  if (document.querySelector(".selected").id === "home") {
-    // Setup the instance, pass callback functions
-    scroller
-      .setup({
-        step: ".step",
-        offset: 0.5,
-        progress: true,
-        preventDefault: true,
-      })
-      .onStepEnter((response) => {
-        let chapter = config.chapters.find(
-          (chap) => chap.id === response.element.id
-        );
-        map.flyTo(chapter.location);
-
-        if (chapter.onChapterEnter.length > 0) {
-          chapter.onChapterEnter.forEach(setLayerOpacity);
-        }
-
-        // Hightlight the selected navbar item
-        const selected = document.querySelector(`#navbar_${chapter.category}`);
-        selectNavItem(selected);
-      })
-      .onStepExit((response) => {
-        let chapter = config.chapters.find(
-          (chap) => chap.id === response.element.id
-        );
-
-        if (chapter.onChapterExit.length > 0) {
-          chapter.onChapterExit.forEach(setLayerOpacity);
-        }
-      });
-  }
+const map2 = new mapboxgl.Map({
+  container: "map2",
+  style: config2.style,
+  center: config2.location.center,
+  zoom: config2.location.zoom,
+  bearing: config2.location.bearing,
+  pitch: config2.location.pitch,
+  scrollZoom: true,
+  maxBounds: bounds,
+  transformRequest: transformRequest,
 });
 
-/* Here we watch for any resizing of the screen to
-  adjust our scrolling setup */
-window.addEventListener("resize", () => {
-  if (document.querySelector(".selected").id === "home") scroller.resize();
-});
+// Disable rotation using touch and mouse
+map2.dragRotate.disable();
+map2.touchZoomRotate.disableRotation();
 
 function getLayerPaintType(layer) {
   const layerType = map.getLayer(layer).type;
   return layerTypes[layerType];
 }
+
 function setLayerOpacity(layer) {
   const paintProps = getLayerPaintType(layer.layer);
   paintProps.forEach(function (prop) {
     map.setPaintProperty(layer.layer, prop, layer.opacity);
   });
-}
-
-// Navbar interactivity as scrolling
-document.addEventListener("scroll", navbarScrollHandler);
-document.addEventListener("scroll", footerScrollHandler);
-
-function navbarScrollHandler() {
-  if (document.querySelector(".selected").id === "home") {
-    if (window.scrollY > 0) {
-      navbar.classList.remove("highlight");
-    } else {
-      navbar.classList.add("highlight");
-      resetProgress();
-    }
-  }
-}
-
-function footerScrollHandler() {
-  const footerTop = footer.offsetTop;
-  const scrollTop = window.scrollY || document.documentElement.scrollTop;
-  const viewportHeight = window.innerHeight;
-
-  // Control buttonSkip visibility based on the scroll position
-  if (scrollTop + viewportHeight >= footerTop || scrollTop == 0) {
-    offButton(buttonSkip);
-  } else if (scrollTop + viewportHeight < footerTop && scrollTop > 0) {
-    onButton(buttonSkip);
-  }
-}
-
-function offButton(button) {
-  button.style.opacity = 0;
-  button.style.pointerEvents = "none";
-}
-
-function onButton(button) {
-  button.style.opacity = 1;
-  button.style.pointerEvents = "auto";
-}
-
-function selectNavItem(selected) {
-  deselectNavItems();
-  selected.classList.add("active");
-}
-
-function deselectNavItems() {
-  const navItems = navbar.querySelectorAll("a");
-  for (let i = 0; i < navItems.length; i++) {
-    navItems[i].classList.remove("active");
-  }
-}
-
-function flyTo(sectionId) {
-  if (sectionId == "start") {
-    map.jumpTo(config.chapters[0].location);
-  }
 }
 
 function onLayers(sectionId) {
@@ -232,6 +84,34 @@ function offLayers() {
   config.sections.forEach((sec) => {
     sec.layers?.forEach((layer) => {
       setLayerOpacity({ layer: layer.layer, opacity: 0 });
+    });
+  });
+}
+
+function getLayerPaintTypeMap2(layer) {
+  const layerType = map2.getLayer(layer).type;
+  return layerTypes[layerType];
+}
+
+function setLayerOpacityMap2(layer) {
+  const paintProps = getLayerPaintType(layer.layer);
+  paintProps.forEach(function (prop) {
+    map2.setPaintProperty(layer.layer, prop, layer.opacity);
+  });
+}
+
+function onLayersMap2(sectionId) {
+  offLayersMap2();
+  let section = config2.sections.find((sec) => sec.id === sectionId);
+  section?.layers?.forEach((layer) => {
+    setLayerOpacityMap2(layer);
+  });
+}
+
+function offLayersMap2() {
+  config2.sections.forEach((sec) => {
+    sec.layers?.forEach((layer) => {
+      setLayerOpacityMap2({ layer: layer.layer, opacity: 0 });
     });
   });
 }

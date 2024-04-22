@@ -9,8 +9,8 @@ const exploreLayerBounds = [
   { name: "medicaid enrollees / km2", min: 1, max: 55470 },
   { name: "commercial enrollees / km2", min: 5, max: 42290 },
   { name: "insured population / km2", min: 10, max: 76410 },
-  { name: "unserved medicaid enrollees / km2", min: 0, max: 45000 },
-  { name: "unserved commercial enrollees / km2", min: 0, max: 12500 },
+  { name: "unserved medicaid enrollees / km2", min: 0, max: 25000 },
+  { name: "unserved commercial enrollees / km2", min: 0, max: 25000 },
   { name: "average land price / ft2", min: 0.0, max: 34.29 },
   { name: "agricultural land percent", min: 0.0, max: 0.25 },
   { name: "residential district percent", min: 0.0, max: 1.0 },
@@ -29,7 +29,7 @@ const exploreLayerBounds = [
   { name: "sleeping less than 7 hours", min: 25.7, max: 47.3 },
   { name: "current smoking", min: 7.4, max: 40.4 },
   { name: "cholesterol screening", min: 59.2, max: 92.9 },
-  { name: "current lack of health insurance", min: 2.7, max: 30.4 },
+  { name: "current lack of health insurance", min: 2.7, max: 10.4 },
   { name: "taking medicine for high blood pressure", min: 22.2, max: 86.8 },
   { name: "visits to dentist or dental clinic", min: 29.4, max: 81.5 },
   { name: "visits to doctor for routine checkup", min: 63.5, max: 87.2 },
@@ -39,10 +39,9 @@ const exploreLayerBounds = [
   { name: "median household income", min: 16628.0, max: 239028.0 },
   { name: "median household disposable income", min: 3107.0, max: 205404.0 },
   { name: "median monthly housing cost", min: 388.0, max: 3923.0 },
-  { name: "unserved population / km2", min: 0.2, max: 45000 },
+  { name: "unserved population / km2", min: 0, max: 25000 },
 ];
 
-map.on("load", () => {});
 // Mouse interaction with dataset item
 exploreDatasetContainers.forEach((container) => {
   if (!container.classList.contains("selectable")) return;
@@ -56,7 +55,6 @@ exploreDatasetContainers.forEach((container) => {
 
       // Highlight selected data
       event.target.classList.add("selectedData");
-      // start.querySelector(".footerbar__button").disabled = false;
     }
   });
 });
@@ -123,25 +121,27 @@ exploreDatasetContainers.forEach((container) => {
         exploreLayerBounds.forEach((bound) => {
           if (bound.name === event.target.innerText.toLowerCase()) {
             updateLayerStyle(
-              "shortage-tracts-with-features1",
+              "shortage-tracts-with-features",
               bound.name,
               bound.min,
               bound.max,
-              color.blue[0],
-              color.blue[4],
-              ["exponential", 0.993]
+              color.blue.min,
+              color.blue.max,
+              ["exponential", 0.995]
             );
 
+            const legend1 = explore.querySelector(".legend-map");
             updateLegend(
-              explore.querySelector(".legend__title"),
-              explore.querySelector(".scale-min"),
-              explore.querySelector(".scale-max"),
+              legend1.querySelector(".legend__title"),
+              legend1.querySelector(".scale-min"),
+              legend1.querySelector(".scale-max"),
               bound
             );
           }
         });
       }
     });
+
     // Second Data:
   } else if (container.classList.contains("second_data")) {
     container.addEventListener("click", (event) => {
@@ -156,20 +156,21 @@ exploreDatasetContainers.forEach((container) => {
 
         exploreLayerBounds.forEach((bound) => {
           if (bound.name === event.target.innerText.toLowerCase()) {
-            updateLayerStyle(
-              "shortage-tracts-with-features2",
+            updateLayerStyleMap2(
+              "shortage-tracts-with-features",
               bound.name,
               bound.min,
               bound.max,
-              color.yellow[0],
-              color.yellow[4],
-              ["exponential", 0.993]
+              color.yellow.min,
+              color.yellow.max,
+              ["exponential", 0.995]
             );
 
+            const legend2 = explore.querySelector(".legend-map2");
             updateLegend(
-              explore.querySelector(".legend__title"),
-              explore.querySelector(".scale-min"),
-              explore.querySelector(".scale-max"),
+              legend2.querySelector(".legend__title"),
+              legend2.querySelector(".scale-min"),
+              legend2.querySelector(".scale-max"),
               bound
             );
           }

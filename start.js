@@ -111,8 +111,8 @@ function updateLayerStyle(
   attribute,
   min,
   max,
-  minColor,
-  maxColor,
+  colorMin,
+  colorMax,
   rateOfChange
 ) {
   map.setPaintProperty(layer, "fill-color", [
@@ -120,9 +120,29 @@ function updateLayerStyle(
     rateOfChange,
     ["get", attribute],
     min,
-    minColor,
+    colorMin,
     max,
-    maxColor,
+    colorMax,
+  ]);
+}
+
+function updateLayerStyleMap2(
+  layer,
+  attribute,
+  min,
+  max,
+  colorMin,
+  colorMax,
+  rateOfChange
+) {
+  map2.setPaintProperty(layer, "fill-color", [
+    "interpolate",
+    rateOfChange,
+    ["get", attribute],
+    min,
+    colorMin,
+    max,
+    colorMax,
   ]);
 }
 
@@ -167,35 +187,12 @@ const countiesContainer = start.querySelector(".counties");
 const upstateCountiesContainer = start.querySelector(".upstate_counties");
 const nycCountiesContainer = start.querySelector(".nyc_counties");
 
-// List of nyc counties
-nycCounties = ["Richmond", "Queens", "New York", "Kings", "Bronx"];
-
 // Min, max for layers in start section
 const startLayerBounds = [
   { name: "unserved medicaid enrollees / km2", min: 0, max: 1785 },
   { name: "unserved commercial enrollees / km2", min: 0, max: 460 },
   { name: "unserved population / km2", min: 0, max: 2220 },
 ];
-
-// fill dataset container with layers on the mapbox studio
-map.on("load", () => {
-  const layer = map.getLayer("32counties");
-  const features = map.queryRenderedFeatures({ layers: [layer.id] });
-  features.forEach((feature) => {
-    const li = document.createElement("li");
-    const p = document.createElement("p");
-    p.style.color = "#036bfc";
-    li.classList.add("dataset__item");
-    p.innerText = feature.properties.NAME;
-    li.appendChild(p);
-
-    if (nycCounties.includes(feature.properties.NAME)) {
-      nycCountiesContainer.appendChild(li);
-    } else {
-      upstateCountiesContainer.appendChild(li);
-    }
-  });
-});
 
 // Temporary code for adding county groups at once
 const selectCountiesBtn = start.querySelectorAll(".select-counties");
@@ -251,8 +248,8 @@ startDatasetContainers.forEach((container) => {
               bound.name,
               bound.min,
               bound.max,
-              "#f5f9ff",
-              "#006efe",
+              color.blue.min,
+              color.blue.max,
               ["exponential", 0.995]
             );
 
