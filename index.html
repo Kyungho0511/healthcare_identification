@@ -47,7 +47,7 @@
     <section id="start" class="content selected">
       <div class="legend legend-map">
         <h4 class="legend__title">unserved population / km2</h4>
-        <div class="gradient-bar-yellow"></div>
+        <div class="gradient-bar yellow"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">1220</span>
@@ -56,7 +56,7 @@
 
       <div class="legend legend-map2">
         <h4 class="legend__title">unserved population / km2</h4>
-        <div class="gradient-bar-yellow"></div>
+        <div class="gradient-bar yellow"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">5220</span>
@@ -154,7 +154,7 @@
     <section id="explore" class="content">
       <div class="legend legend-map">
         <h4 class="legend__title">Unserved Population / km2</h4>
-        <div class="gradient-bar-yellow"></div>
+        <div class="gradient-bar yellow"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">2000+</span>
@@ -163,7 +163,7 @@
 
       <div class="legend legend-map2">
         <h4 class="legend__title">Unserved Population / km2</h4>
-        <div class="gradient-bar-blue"></div>
+        <div class="gradient-bar blue"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">2000+</span>
@@ -414,7 +414,7 @@
     <section id="cluster" class="content">
       <div class="legend legend-map">
         <h4 class="legend__title">Unserved Population / km2</h4>
-        <div class="gradient-bar-yellow"></div>
+        <div class="gradient-bar yellow"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">2000+</span>
@@ -423,11 +423,34 @@
 
       <div class="legend legend-map2">
         <h4 class="legend__title">Unserved Population / km2</h4>
-        <div class="gradient-bar-blue"></div>
+        <div class="gradient-bar blue"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">2000+</span>
         </div>
+      </div>
+
+      <div class="legend cluster-legend-map invisible">
+        <h4 class="legend__title">VULNERABILITY CLUSTERS</h4>
+        <ul class="cluster-legend-list">
+          <li><span class="color-box"></span>Inconsistent Healthcare</li>
+          <li><span class="color-box"></span>High-Risk, Healthcare Averse</li>
+          <li><span class="color-box"></span>Moderate Vigilance</li>
+          <li>
+            <span class="color-box"></span>Health-Conscious, Well-Serviced
+          </li>
+        </ul>
+      </div>
+
+      <div class="legend cluster-legend-map2 invisible">
+        <h4 class="legend__title">PROFITABILITY CLUSTERS</h4>
+        <ul class="cluster-legend-list">
+          <li><span class="color-box"></span>Emerging Markets, Low Cost</li>
+          <li><span class="color-box"></span>High Commercial, Profitable</li>
+          <li><span class="color-box"></span>High Medicaid, High Cost</li>
+          <li><span class="color-box"></span>Affluent Niche</li>
+          <li><span class="color-box"></span>Moderate Demand, High Cost</li>
+        </ul>
       </div>
 
       <aside class="sidebar">
@@ -448,10 +471,10 @@
 
         <div class="sidebar__dataset dropdown vulnerability_cluster selectable">
           <button class="dropbtn">
-            <span class="triangle"></span
+            <span class="triangle expanded"></span
             ><b style="font-size: 1rem">VULNERABILITY CLUSTER</b>
           </button>
-          <ul class="dataset__list dropdown-content">
+          <ul class="dataset__list dropdown-content expanded">
             <li class="dataset__item">
               <p>Unserved Medicaid enrollees / km2</p>
               <i class="fa-regular fa-square-minus"></i>
@@ -505,17 +528,19 @@
               <i class="fa-regular fa-square-minus"></i>
             </li>
           </ul>
-          <button class="sidebar__button button_grey">CLUSTER</button>
+          <button class="sidebar__button button_grey cluster-map">
+            CLUSTER
+          </button>
         </div>
 
         <div
           class="sidebar__dataset dropdown profitability_cluster selectable blue"
         >
           <button class="dropbtn">
-            <span class="triangle"></span
+            <span class="triangle expanded"></span
             ><b style="font-size: 1rem">PROFITABILITY CLUSTER</b>
           </button>
-          <ul class="dataset__list dropdown-content">
+          <ul class="dataset__list dropdown-content expanded">
             <li class="dataset__item">
               <p>Unserved Medicaid enrollees / km2</p>
               <i class="fa-regular fa-square-minus"></i>
@@ -541,7 +566,9 @@
               <i class="fa-regular fa-square-minus"></i>
             </li>
           </ul>
-          <button class="sidebar__button button_grey">CLUSTER</button>
+          <button class="sidebar__button button_grey cluster-map2">
+            CLUSTER
+          </button>
         </div>
 
         <div class="sidebar__dataset dropdown">
@@ -578,7 +605,7 @@
     <section id="select" class="content">
       <div class="legend">
         <h4 class="legend__title">Unserved Population / km2</h4>
-        <div class="gradient-bar-yellow"></div>
+        <div class="gradient-bar yellow"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">2000+</span>
@@ -633,7 +660,7 @@
     <section id="share" class="content">
       <div class="legend">
         <h4 class="legend__title">Unserved Population / km2</h4>
-        <div class="gradient-bar-yellow"></div>
+        <div class="gradient-bar yellow"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">2000+</span>

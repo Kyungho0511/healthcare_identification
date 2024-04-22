@@ -82,3 +82,15 @@ clusterDatasetContainers.forEach((container) => {
     });
   }
 });
+
+// Handle cluster button to update cluster legend
+const clusterLegendMap = cluster.querySelector(".cluster-legend-map");
+const clusterLegendMap2 = cluster.querySelector(".cluster-legend-map2");
+
+cluster
+  .querySelector(".cluster-map")
+  .addEventListener("click", () => updateClusterLegend(clusterLegendMap));
+
+cluster
+  .querySelector(".cluster-map2")
+  .addEventListener("click", () => updateClusterLegend(clusterLegendMap2));

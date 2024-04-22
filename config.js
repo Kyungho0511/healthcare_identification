@@ -1,6 +1,6 @@
 const color = {
   blue: {
-    categorized: ["#ebfffe", "##97d9ff", "#3399ff", "#0145ff", "#2500cc"],
+    categorized: ["#ebfffe", "#97d9ff", "#3399ff", "#0145ff", "#2500cc"],
     min: "#f5f9ff",
     max: "#006efe",
   },
