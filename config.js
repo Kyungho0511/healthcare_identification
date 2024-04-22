@@ -1,11 +1,11 @@
 const color = {
   blue: {
-    gradient: ["#ebfffe", "##97d9ff", "#3399ff", "#0145ff", "#2500cc"],
+    categorized: ["#ebfffe", "##97d9ff", "#3399ff", "#0145ff", "#2500cc"],
     min: "#f5f9ff",
     max: "#006efe",
   },
   yellow: {
-    gradient: ["#f9ffd7", "#fff767", "#ffdb39", "#ffa621", "#e27100"],
+    categorized: ["#f9ffd7", "#fff767", "#ffdb39", "#ffa621", "#e27100"],
     min: "#fffaec",
     max: "#ffc000",
   },
@@ -27,7 +27,6 @@ const config = {
       layers: [
         { layer: "counties-others", opacity: 0.6 },
         { layer: "tracts", opacity: 0.7 },
-        { layer: "32counties", opacity: 0.1 },
         { layer: "shortage-tracts-with-features", opacity: 0.9 },
       ],
     },
@@ -36,7 +35,15 @@ const config = {
       layers: [
         { layer: "counties-others", opacity: 0.6 },
         { layer: "tracts", opacity: 1 },
-        { layer: "shortage-tracts-with-features", opacity: 1 },
+        { layer: "shortage-tracts-with-features", opacity: 0.9 },
+      ],
+    },
+    {
+      id: "cluster",
+      layers: [
+        { layer: "counties-others", opacity: 0.6 },
+        { layer: "tracts", opacity: 1 },
+        { layer: "shortage-tracts-with-features", opacity: 0.9 },
       ],
     },
   ],
@@ -68,6 +75,14 @@ const config2 = {
         { layer: "counties-others", opacity: 0.6 },
         { layer: "tracts", opacity: 1 },
         { layer: "shortage-tracts-with-features", opacity: 0.9 },
+        { layer: "shortage-tracts-with-features", opacity: 0.9 },
+      ],
+    },
+    {
+      id: "cluster",
+      layers: [
+        { layer: "counties-others", opacity: 0.6 },
+        { layer: "tracts", opacity: 1 },
         { layer: "shortage-tracts-with-features", opacity: 0.9 },
       ],
     },

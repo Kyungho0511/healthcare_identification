@@ -34,6 +34,9 @@ document.addEventListener("DOMContentLoaded", function () {
     checkProgress(sectionId);
     onLayers(sectionId);
     onLayersMap2(sectionId);
+    if (sectionId !== "start") {
+      enableSyncMap();
+    }
   });
 });
 

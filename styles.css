@@ -9,7 +9,8 @@
   --color-white: white;
   --color-blue: #036bfc;
   --color-blue-transparent: #036bfccc;
-  --color-yellow: #ffc400;
+  --color-yellow: #ffc000;
+  --color-yellow-transparent: #ffc000cc;
   --color-red: #e52817;
   --color-red-transparent: #e52817cc;
 
@@ -198,15 +199,15 @@ ul {
 }
 
 .progressbar li.checked {
-  color: var(--color-blue);
+  color: var(--color-dark-grey);
 }
 
 .progressbar li.checked:before {
-  border-color: var(--color-blue);
+  border-color: var(--color-dark-grey);
 }
 
 .progressbar li.progressed + li:after {
-  background-color: var(--color-blue);
+  background-color: var(--color-dark-grey);
 }
 
 /* Contents */
@@ -391,7 +392,7 @@ ul {
   display: none;
 }
 
-.button_blue {
+.button_yellow {
   color: var(--color-white);
   font-size: 1.4rem;
   font-weight: var(--font-bold);
@@ -427,6 +428,19 @@ ul {
     color: var(--color-white);
     background-color: var(--color-dark-grey);
   }
+
+  &:disabled {
+    color: var(--color-grey);
+    background-color: var(--color-light-grey);
+    cursor: not-allowed;
+  }
+}
+
+.sidebar__button {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 0.8rem;
+  width: 100%;
 }
 
 #button_skip {
@@ -475,25 +489,26 @@ ul {
 
     &:hover,
     &.selectedData {
-      color: var(--color-blue);
-      font-weight: var(--font-bold);
-    }
-  }
-}
-
-.sidebar__dataset.selectable.yellow .dataset__item {
-  & p {
-    cursor: pointer;
-
-    &:hover,
-    &.selectedData {
       color: var(--color-yellow);
       font-weight: var(--font-bold);
     }
   }
 }
 
+.sidebar__dataset.selectable.blue .dataset__item {
+  & p {
+    cursor: pointer;
+
+    &:hover,
+    &.selectedData {
+      color: var(--color-blue);
+      font-weight: var(--font-bold);
+    }
+  }
+}
+
 .dataset__item {
+  font-size: 0.9rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -543,7 +558,7 @@ ul {
   width: 100%;
   text-align: start;
   padding: 0;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: var(--font-medium);
   border: none;
   cursor: pointer;
@@ -557,15 +572,15 @@ ul {
   height: 0;
   margin-right: 0.8rem;
   vertical-align: middle;
-  border-left: 0.5rem solid var(--color-grey);
-  border-top: 0.5rem solid transparent;
-  border-bottom: 0.5rem solid transparent;
+  border-left: 0.4rem solid var(--color-grey);
+  border-top: 0.4rem solid transparent;
+  border-bottom: 0.4rem solid transparent;
   transition: transform 300ms ease;
   transform: translateY(-10%);
 }
 
 .dropbtn:hover .triangle {
-  border-left: 0.5rem solid var(--color-dark-grey);
+  border-left: 0.4rem solid var(--color-dark-grey);
 }
 
 .dropdown-content {
@@ -576,12 +591,12 @@ ul {
 
 .select-counties {
   & p {
-    color: var(--color-blue);
+    color: var(--color-yellow);
   }
 
   &:hover,
   &.added {
-    color: var(--color-blue);
+    color: var(--color-yellow);
     font-weight: var(--font-bold);
   }
 }

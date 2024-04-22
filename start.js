@@ -198,13 +198,6 @@ const countiesContainer = start.querySelector(".counties");
 const upstateCountiesContainer = start.querySelector(".upstate_counties");
 const nycCountiesContainer = start.querySelector(".nyc_counties");
 
-// Min, max for layers in start section
-const startLayerBounds = [
-  { name: "unserved medicaid enrollees / km2", min: 0, max: 1785 },
-  { name: "unserved commercial enrollees / km2", min: 0, max: 460 },
-  { name: "unserved population / km2", min: 0, max: 2220 },
-];
-
 // Temporary: adding county groups at once
 const selectCountiesBtn = start.querySelectorAll(".select-counties");
 selectCountiesBtn.forEach((btn) => {
@@ -248,33 +241,6 @@ startDatasetContainers.forEach((container) => {
         )
       ) {
         start.querySelector(".footerbar__button").disabled = false;
-      }
-
-      if (
-        event.target.parentElement.parentElement.classList.contains(
-          "unserved_population_density"
-        )
-      ) {
-        startLayerBounds.forEach((bound) => {
-          if (bound.name === event.target.innerText.toLowerCase()) {
-            updateLayerStyle(
-              "32counties",
-              bound.name,
-              bound.min,
-              bound.max,
-              color.blue.min,
-              color.blue.max,
-              ["exponential", 0.995]
-            );
-
-            updateLegend(
-              start.querySelector(".legend__title"),
-              start.querySelector(".scale-min"),
-              start.querySelector(".scale-max"),
-              bound
-            );
-          }
-        });
       }
 
       // // Highlight associated Mapbox layer

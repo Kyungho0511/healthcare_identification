@@ -33,6 +33,7 @@
     <script src="app.js" defer></script>
     <script src="start.js" defer></script>
     <script src="explore.js" defer></script>
+    <script src="cluster.js" defer></script>
     <script src="legend.js" defer></script>
   </head>
 
@@ -46,7 +47,7 @@
     <section id="start" class="content selected">
       <div class="legend legend-map">
         <h4 class="legend__title">unserved population / km2</h4>
-        <div class="gradient-bar-blue"></div>
+        <div class="gradient-bar-yellow"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">1220</span>
@@ -55,7 +56,7 @@
 
       <div class="legend legend-map2">
         <h4 class="legend__title">unserved population / km2</h4>
-        <div class="gradient-bar-blue"></div>
+        <div class="gradient-bar-yellow"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">5220</span>
@@ -68,7 +69,7 @@
             class="logo"
             src="./images/logo2.PNG"
             alt="logo_image"
-            onclick="navigateToSection('start'); resetProgress(); onLayers('start'); onLayersMap2('start');"
+            onclick="navigateToSection('start'); resetProgress(); onLayers('start'); onLayersMap2('start') ;"
           />
         </div>
         <div class="sidebar__prompt">
@@ -85,15 +86,11 @@
             <span class="triangle"></span>NYC Counties
           </button>
           <ul class="dataset__list dropdown-content nyc_counties selectable">
-            <li class="dataset__item"><p style="color: #036bfc">Bronx</p></li>
-            <li class="dataset__item"><p style="color: #036bfc">Kings</p></li>
-            <li class="dataset__item">
-              <p style="color: #036bfc">New York</p>
-            </li>
-            <li class="dataset__item"><p style="color: #036bfc">Queens</p></li>
-            <li class="dataset__item">
-              <p style="color: #036bfc">Richmond</p>
-            </li>
+            <li class="dataset__item"><p>Bronx</p></li>
+            <li class="dataset__item"><p>Kings</p></li>
+            <li class="dataset__item"><p>New York</p></li>
+            <li class="dataset__item"><p>Queens</p></li>
+            <li class="dataset__item"><p>Richmond</p></li>
           </ul>
           <br />
           <button class="dropbtn select-counties">
@@ -102,57 +99,33 @@
           <ul
             class="dataset__list dropdown-content upstate_counties selectable"
           >
-            <li class="dataset__item"><p style="color: #036bfc">Albany</p></li>
-            <li class="dataset__item"><p style="color: #036bfc">Cayuga</p></li>
-            <li class="dataset__item">
-              <p style="color: #036bfc">Chautauqua</p>
-            </li>
-            <li class="dataset__item">
-              <p style="color: #036bfc">Cortland</p>
-            </li>
-            <li class="dataset__item"><p style="color: #036bfc">Erie</p></li>
-            <li class="dataset__item"><p style="color: #036bfc">Genesee</p></li>
-            <li class="dataset__item"><p style="color: #036bfc">Greene</p></li>
-            <li class="dataset__item">
-              <p style="color: #036bfc">Hamilton</p>
-            </li>
-            <li class="dataset__item"><p style="color: #036bfc">Lewis</p></li>
-            <li class="dataset__item">
-              <p style="color: #036bfc">Montgomery</p>
-            </li>
-            <li class="dataset__item"><p style="color: #036bfc">Oneida</p></li>
-            <li class="dataset__item">
-              <p style="color: #036bfc">Onondaga</p>
-            </li>
-            <li class="dataset__item"><p style="color: #036bfc">Ontario</p></li>
-            <li class="dataset__item"><p style="color: #036bfc">Orange</p></li>
-            <li class="dataset__item"><p style="color: #036bfc">Oswego</p></li>
-            <li class="dataset__item"><p style="color: #036bfc">Putnam</p></li>
-            <li class="dataset__item">
-              <p style="color: #036bfc">Rensselaer</p>
-            </li>
-            <li class="dataset__item">
-              <p style="color: #036bfc">Rockland</p>
-            </li>
-            <li class="dataset__item">
-              <p style="color: #036bfc">Schuyler</p>
-            </li>
-            <li class="dataset__item">
-              <p style="color: #036bfc">St Lawrence</p>
-            </li>
-            <li class="dataset__item"><p style="color: #036bfc">Steuben</p></li>
-            <li class="dataset__item">
-              <p style="color: #036bfc">Sullivan</p>
-            </li>
-            <li class="dataset__item"><p style="color: #036bfc">Tioga</p></li>
-            <li class="dataset__item">
-              <p style="color: #036bfc">Tompkins</p>
-            </li>
-            <li class="dataset__item"><p style="color: #036bfc">Ulster</p></li>
-            <li class="dataset__item"><p style="color: #036bfc">Warren</p></li>
-            <li class="dataset__item">
-              <p style="color: #036bfc">Westchester</p>
-            </li>
+            <li class="dataset__item"><p>Albany</p></li>
+            <li class="dataset__item"><p>Cayuga</p></li>
+            <li class="dataset__item"><p>Chautauqua</p></li>
+            <li class="dataset__item"><p>Cortland</p></li>
+            <li class="dataset__item"><p>Erie</p></li>
+            <li class="dataset__item"><p>Genesee</p></li>
+            <li class="dataset__item"><p>Greene</p></li>
+            <li class="dataset__item"><p>Hamilton</p></li>
+            <li class="dataset__item"><p>Lewis</p></li>
+            <li class="dataset__item"><p>Montgomery</p></li>
+            <li class="dataset__item"><p>Oneida</p></li>
+            <li class="dataset__item"><p>Onondaga</p></li>
+            <li class="dataset__item"><p>Ontario</p></li>
+            <li class="dataset__item"><p>Orange</p></li>
+            <li class="dataset__item"><p>Oswego</p></li>
+            <li class="dataset__item"><p>Putnam</p></li>
+            <li class="dataset__item"><p>Rensselaer</p></li>
+            <li class="dataset__item"><p>Rockland</p></li>
+            <li class="dataset__item"><p>Schuyler</p></li>
+            <li class="dataset__item"><p>St Lawrence</p></li>
+            <li class="dataset__item"><p>Steuben</p></li>
+            <li class="dataset__item"><p>Sullivan</p></li>
+            <li class="dataset__item"><p>Tioga</p></li>
+            <li class="dataset__item"><p>Tompkins</p></li>
+            <li class="dataset__item"><p>Ulster</p></li>
+            <li class="dataset__item"><p>Warren</p></li>
+            <li class="dataset__item"><p>Westchester</p></li>
           </ul>
         </div>
       </aside>
@@ -168,7 +141,7 @@
           </ul>
         </div>
         <button
-          class="footerbar__button button_blue"
+          class="footerbar__button button_grey"
           onclick="navigateToSection('explore'); checkProgress('explore'); onLayers('explore'); onLayersMap2('explore'); flyTo(); enableSyncMap()"
           disabled
         >
@@ -181,7 +154,7 @@
     <section id="explore" class="content">
       <div class="legend legend-map">
         <h4 class="legend__title">Unserved Population / km2</h4>
-        <div class="gradient-bar-blue"></div>
+        <div class="gradient-bar-yellow"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">2000+</span>
@@ -190,7 +163,7 @@
 
       <div class="legend legend-map2">
         <h4 class="legend__title">Unserved Population / km2</h4>
-        <div class="gradient-bar-yellow"></div>
+        <div class="gradient-bar-blue"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">2000+</span>
@@ -237,7 +210,7 @@
           </ul>
         </div>
 
-        <div class="sidebar__dataset second_data dropdown selectable yellow">
+        <div class="sidebar__dataset second_data dropdown selectable blue">
           <h4>Select Second Data</h4>
           <button class="dropbtn">
             <span class="triangle expanded"></span>Insured Population Density
@@ -409,7 +382,8 @@
 
         <div class="sidebar__dataset dropdown">
           <button class="dropbtn">
-            <span class="triangle expanded"></span>Selected Dataset
+            <span class="triangle expanded"></span
+            ><b style="font-size: 1rem">Selected Dataset</b>
           </button>
           <ul
             class="dataset__list dropdown-content selected_dataset expanded"
@@ -428,7 +402,7 @@
           </ul>
         </div>
         <button
-          class="footerbar__button button_blue"
+          class="footerbar__button button_grey"
           onclick="navigateToSection('cluster'); checkProgress('cluster')"
         >
           continue
@@ -438,7 +412,16 @@
 
     <!-- Cluster section -->
     <section id="cluster" class="content">
-      <div class="legend">
+      <div class="legend legend-map">
+        <h4 class="legend__title">Unserved Population / km2</h4>
+        <div class="gradient-bar-yellow"></div>
+        <div class="scale">
+          <span class="scale-min">0</span>
+          <span class="scale-max">2000+</span>
+        </div>
+      </div>
+
+      <div class="legend legend-map2">
         <h4 class="legend__title">Unserved Population / km2</h4>
         <div class="gradient-bar-blue"></div>
         <div class="scale">
@@ -462,19 +445,112 @@
           primary care shortage areas. Add or remove datasets to customize your
           clusters. Click the 'Cluster' button when you are ready.
         </div>
-        <div class="sidebar__dataset dropdown">
+
+        <div class="sidebar__dataset dropdown vulnerability_cluster selectable">
           <button class="dropbtn">
-            <span class="triangle"></span>Selected Dataset
+            <span class="triangle"></span
+            ><b style="font-size: 1rem">VULNERABILITY CLUSTER</b>
           </button>
-          <ul class="dataset__list dropdown-content selected_dataset"></ul>
+          <ul class="dataset__list dropdown-content">
+            <li class="dataset__item">
+              <p>Unserved Medicaid enrollees / km2</p>
+              <i class="fa-regular fa-square-minus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>Current lack of health insurance</p>
+              <i class="fa-regular fa-square-minus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>No leisure-time physical activity</p>
+              <i class="fa-regular fa-square-minus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>Binge drinking</p>
+              <i class="fa-regular fa-square-minus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>Sleeping less than 7 hours</p>
+              <i class="fa-regular fa-square-minus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>Current smoking</p>
+              <i class="fa-regular fa-square-minus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>Cholesterol screening</p>
+              <i class="fa-regular fa-square-minus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>Taking medicine for high blood pressure</p>
+              <i class="fa-regular fa-square-minus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>Visits to dentist or dental clinic</p>
+              <i class="fa-regular fa-square-minus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>Visits to doctor for routine checkup</p>
+              <i class="fa-regular fa-square-minus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>Physical health not good for >=14 days</p>
+              <i class="fa-regular fa-square-minus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>Mental health not good for >=14 days</p>
+              <i class="fa-regular fa-square-minus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>Fair or poor self-rated health status</p>
+              <i class="fa-regular fa-square-minus"></i>
+            </li>
+          </ul>
+          <button class="sidebar__button button_grey">CLUSTER</button>
+        </div>
+
+        <div
+          class="sidebar__dataset dropdown profitability_cluster selectable blue"
+        >
+          <button class="dropbtn">
+            <span class="triangle"></span
+            ><b style="font-size: 1rem">PROFITABILITY CLUSTER</b>
+          </button>
+          <ul class="dataset__list dropdown-content">
+            <li class="dataset__item">
+              <p>Unserved Medicaid enrollees / km2</p>
+              <i class="fa-regular fa-square-minus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>Unserved Commercial enrollees / km2</p>
+              <i class="fa-regular fa-square-minus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>Insured population / km2</p>
+              <i class="fa-regular fa-square-minus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>Median household income</p>
+              <i class="fa-regular fa-square-minus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>Median household disposable income</p>
+              <i class="fa-regular fa-square-minus"></i>
+            </li>
+            <li class="dataset__item">
+              <p>Average land price / ft2</p>
+              <i class="fa-regular fa-square-minus"></i>
+            </li>
+          </ul>
+          <button class="sidebar__button button_grey">CLUSTER</button>
         </div>
 
         <div class="sidebar__dataset dropdown">
           <button class="dropbtn">
-            <span class="triangle"></span>Health Vulnerability Cluster
+            <span class="triangle expanded"></span
+            ><b style="font-size: 1rem">Selected Dataset</b>
           </button>
           <ul
-            class="dataset__list dropdown-content health_vulnerability_cluster"
+            class="dataset__list dropdown-content selected_dataset expanded"
           ></ul>
         </div>
       </aside>
@@ -490,7 +566,7 @@
           </ul>
         </div>
         <button
-          class="footerbar__button button_blue"
+          class="footerbar__button button_grey"
           onclick="navigateToSection('select'); checkProgress('select')"
         >
           continue
@@ -502,7 +578,7 @@
     <section id="select" class="content">
       <div class="legend">
         <h4 class="legend__title">Unserved Population / km2</h4>
-        <div class="gradient-bar-blue"></div>
+        <div class="gradient-bar-yellow"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">2000+</span>
@@ -545,7 +621,7 @@
           </ul>
         </div>
         <button
-          class="footerbar__button button_blue"
+          class="footerbar__button button_grey"
           onclick="navigateToSection('share'); checkProgress('share')"
         >
           continue
@@ -557,7 +633,7 @@
     <section id="share" class="content">
       <div class="legend">
         <h4 class="legend__title">Unserved Population / km2</h4>
-        <div class="gradient-bar-blue"></div>
+        <div class="gradient-bar-yellow"></div>
         <div class="scale">
           <span class="scale-min">0</span>
           <span class="scale-max">2000+</span>
@@ -607,7 +683,7 @@
           </ul>
         </div>
         <button
-          class="footerbar__button button_blue"
+          class="footerbar__button button_grey"
           onclick="checkProgress('share')"
         >
           share

@@ -5,7 +5,7 @@ const explore = document.querySelector("#explore");
 const exploreDatasetContainers = explore.querySelectorAll(".sidebar__dataset");
 
 // Min, max for layers in start section
-const exploreLayerBounds = [
+const layerBounds = [
   { name: "medicaid enrollees / km2", min: 1, max: 55470 },
   { name: "commercial enrollees / km2", min: 5, max: 42290 },
   { name: "insured population / km2", min: 10, max: 76410 },
@@ -110,23 +110,15 @@ exploreDatasetContainers.forEach((container) => {
   if (container.classList.contains("target_data")) {
     container.addEventListener("click", (event) => {
       if (event.target.tagName === "P") {
-        // Deselect all data
-        container.querySelectorAll("p").forEach((item) => {
-          item.classList.remove("selectedData");
-        });
-
-        // Highlight selected data
-        event.target.classList.add("selectedData");
-
-        exploreLayerBounds.forEach((bound) => {
+        layerBounds.forEach((bound) => {
           if (bound.name === event.target.innerText.toLowerCase()) {
             updateLayerStyle(
               "shortage-tracts-with-features",
               bound.name,
               bound.min,
               bound.max,
-              color.blue.min,
-              color.blue.max,
+              color.yellow.min,
+              color.yellow.max,
               ["exponential", 0.995]
             );
 
@@ -146,23 +138,15 @@ exploreDatasetContainers.forEach((container) => {
   } else if (container.classList.contains("second_data")) {
     container.addEventListener("click", (event) => {
       if (event.target.tagName === "P") {
-        // Deselect all data
-        container.querySelectorAll("p").forEach((item) => {
-          item.classList.remove("selectedData");
-        });
-
-        // Highlight selected data
-        event.target.classList.add("selectedData");
-
-        exploreLayerBounds.forEach((bound) => {
+        layerBounds.forEach((bound) => {
           if (bound.name === event.target.innerText.toLowerCase()) {
             updateLayerStyleMap2(
               "shortage-tracts-with-features",
               bound.name,
               bound.min,
               bound.max,
-              color.yellow.min,
-              color.yellow.max,
+              color.blue.min,
+              color.blue.max,
               ["exponential", 0.995]
             );
 
