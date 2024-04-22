@@ -60,6 +60,9 @@ const map2 = new mapboxgl.Map({
 map2.dragRotate.disable();
 map2.touchZoomRotate.disableRotation();
 
+/**
+ * Functions
+ */
 function getLayerPaintType(layer) {
   const layerType = map.getLayer(layer).type;
   return layerTypes[layerType];
@@ -116,9 +119,6 @@ function offLayersMap2() {
   });
 }
 
-/**
- * Map synchronization
- */
 function syncMap(sourceMap, targetMap) {
   return function () {
     const center = sourceMap.getCenter();
@@ -151,4 +151,84 @@ function enableSyncMap() {
 
   map.on("move", map.sync);
   map2.on("move", map2.sync);
+}
+
+function updateLayerStyle(
+  layer,
+  attribute,
+  min,
+  max,
+  colorMin,
+  colorMax,
+  rateOfChange
+) {
+  map.setPaintProperty(layer, "fill-color", [
+    "interpolate",
+    rateOfChange,
+    ["get", attribute],
+    min,
+    colorMin,
+    max,
+    colorMax,
+  ]);
+}
+
+function updateLayerStyleMap2(
+  layer,
+  attribute,
+  min,
+  max,
+  colorMin,
+  colorMax,
+  rateOfChange
+) {
+  map2.setPaintProperty(layer, "fill-color", [
+    "interpolate",
+    rateOfChange,
+    ["get", attribute],
+    min,
+    colorMin,
+    max,
+    colorMax,
+  ]);
+}
+
+let selectedCounties = null;
+function flyTo() {
+  if (selectedCounties === "NYC Counties") {
+    map.jumpTo(config.location);
+    map2.jumpTo(config.location);
+  } else if (selectedCounties === "Upstate NY Counties") {
+    map.jumpTo(config2.location);
+    map2.jumpTo(config2.location);
+  }
+}
+
+// Hover effect (mapbox studio duplicates feature ids by mistake, when uploading geojson)
+// solution: set id states with a unique feature property for every geometry within feature
+// then in setPaintProperty, do self-reference. so features with the same id are uniquely identifiable.
+map.on("load", () => {
+  setHoverPaintProperty("32counties-outline", "NAME");
+});
+
+function setHoverPaintProperty(layer, property) {
+  map.setPaintProperty(layer, "line-width", [
+    "case",
+    ["==", ["get", property], ["feature-state", "id"]],
+    4,
+    0,
+  ]);
+}
+
+function thickenOutline(name) {
+  for (let i = 0; i < 40; i++) {
+    map.setFeatureState(
+      {
+        source: "composite",
+        sourceLayer: "shortage_counties-4sc41a",
+        id: i,
+      },
+      { id: name }
+    );
+  }
 }

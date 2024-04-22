@@ -31,6 +31,7 @@
     <script src="config.js" defer></script>
     <script src="map.js" defer></script>
     <script src="app.js" defer></script>
+    <script src="menu.js" defer></script>
     <script src="start.js" defer></script>
     <script src="explore.js" defer></script>
     <script src="cluster.js" defer></script>
@@ -46,7 +47,7 @@
     <!-- Start section -->
     <section id="start" class="content selected">
       <div class="legend legend-map">
-        <h4 class="legend__title">unserved population / km2</h4>
+        <h4 class="legend__title">Unserved Population / km2 (NYC)</h4>
         <div class="gradient-bar yellow"></div>
         <div class="scale">
           <span class="scale-min">0</span>
@@ -55,7 +56,7 @@
       </div>
 
       <div class="legend legend-map2">
-        <h4 class="legend__title">unserved population / km2</h4>
+        <h4 class="legend__title">Unserved Population / km2 (Upstate)</h4>
         <div class="gradient-bar yellow"></div>
         <div class="scale">
           <span class="scale-min">0</span>
@@ -229,7 +230,7 @@
               <i class="fa-regular fa-square-plus"></i>
             </li>
           </ul>
-          <br />
+          <hr />
 
           <button class="dropbtn">
             <span class="triangle"></span>Health Behaviors
@@ -272,7 +273,7 @@
               <i class="fa-regular fa-square-plus"></i>
             </li>
           </ul>
-          <br />
+          <hr />
 
           <button class="dropbtn">
             <span class="triangle"></span>Health Status
@@ -291,7 +292,7 @@
               <i class="fa-regular fa-square-plus"></i>
             </li>
           </ul>
-          <br />
+          <hr />
 
           <button class="dropbtn">
             <span class="triangle"></span>Income & Expenses
@@ -310,7 +311,7 @@
               <i class="fa-regular fa-square-plus"></i>
             </li>
           </ul>
-          <br />
+          <hr />
 
           <button class="dropbtn">
             <span class="triangle"></span>Land Use & Parcels
@@ -349,7 +350,7 @@
               <i class="fa-regular fa-square-plus"></i>
             </li>
           </ul>
-          <br />
+          <hr />
 
           <button class="dropbtn">
             <span class="triangle"></span>Mode of Transportation
@@ -469,10 +470,10 @@
 
         <div class="sidebar__dataset dropdown vulnerability_cluster selectable">
           <button class="dropbtn">
-            <span class="triangle expanded"></span
+            <span class="triangle"></span
             ><b style="font-size: 1rem">VULNERABILITY CLUSTER</b>
           </button>
-          <ul class="dataset__list dropdown-content expanded">
+          <ul class="dataset__list dropdown-content">
             <li class="dataset__item">
               <p>Unserved Medicaid enrollees / km2</p>
               <i class="fa-regular fa-square-minus"></i>
@@ -535,10 +536,10 @@
           class="sidebar__dataset dropdown profitability_cluster selectable blue"
         >
           <button class="dropbtn">
-            <span class="triangle expanded"></span
+            <span class="triangle"></span
             ><b style="font-size: 1rem">PROFITABILITY CLUSTER</b>
           </button>
-          <ul class="dataset__list dropdown-content expanded">
+          <ul class="dataset__list dropdown-content">
             <li class="dataset__item">
               <p>Unserved Medicaid enrollees / km2</p>
               <i class="fa-regular fa-square-minus"></i>

@@ -7,7 +7,7 @@ const color = {
   yellow: {
     categorized: ["#f9ffd7", "#fff767", "#ffdb39", "#ffa621", "#e27100"],
     min: "#fffaec",
-    max: "#ffc000",
+    max: "#f5ab00",
   },
 };
 
@@ -16,8 +16,8 @@ const config = {
     "pk.eyJ1Ijoia2xlZTA1MTEiLCJhIjoiY2xrYnFibnNjMGV4cjNrbzRqdGg1d21sYiJ9.nN0pE1qocGhTLnD_xPuYdg",
   style: "mapbox://styles/klee0511/clv0xyqe0016v01pe0ogo6xre",
   location: {
-    center: [-73.894766, 40.734326],
-    zoom: 10.3,
+    center: [-73.884766, 40.713326],
+    zoom: 10.5,
     pitch: 0,
     bearing: 0,
   },
@@ -55,7 +55,7 @@ const config2 = {
   style: "mapbox://styles/klee0511/clv0xyqe0016v01pe0ogo6xre",
   location: {
     center: [-76.490336, 42.952651],
-    zoom: 6.3,
+    zoom: 6.7,
     pitch: 0,
     bearing: 0,
   },
