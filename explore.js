@@ -63,40 +63,49 @@ exploreDatasetContainers.forEach((container) => {
 explore.querySelectorAll(".fa-square-plus").forEach((icon) => {
   icon.addEventListener("click", function () {
     const originalListItem = icon.closest(".dataset__item");
-
-    // Clone the 'li' element
-    const clonedListItem = originalListItem.cloneNode(true); // 'true' means deep clone including children
-
-    // Change the icon class in the cloned item from 'fa-square-plus' to 'fa-square-minus'
-    const clonedIcon = clonedListItem.querySelector(".fa-square-plus");
-    if (clonedIcon) {
-      clonedIcon.classList.remove("fa-square-plus");
-      clonedIcon.classList.add("fa-square-minus");
-
-      // Remove data from the selected dataset container when minus icon is clicked
-      clonedIcon.addEventListener("click", () => {
-        clonedListItem.remove();
-        icon.classList.remove("added");
-      });
-    }
-
-    // Find the target 'ul' element where the cloned 'li' should be appended
-    const targetList = document.querySelector(
+    const targetLists = document.querySelectorAll(
       ".dataset__list.selected_dataset"
     );
 
-    // Append the cloned 'li' to the target 'ul' if targetList doesn't have the same item
     if (!icon.classList.contains("added")) {
-      targetList.appendChild(clonedListItem);
+      // Append a clone of the 'li' to each target 'ul'
+      targetLists.forEach((list, idx) => {
+        const clonedListItem = originalListItem.cloneNode(true);
+        const clonedIcon = clonedListItem.querySelector(".fa-square-plus");
+
+        // Explore selected dataset
+        if (clonedIcon && idx === 0) {
+          clonedIcon.classList.remove("fa-square-plus");
+          clonedIcon.classList.add("fa-square-minus");
+
+          // Remove data from the selected dataset container when minus icon is clicked
+          clonedIcon.addEventListener("click", () => {
+            clonedListItem.remove();
+            icon.classList.remove("added");
+          });
+        }
+
+        // Cluster selected dataset
+        else {
+          // update clonedIcon interaction here!
+        }
+
+        list.appendChild(clonedListItem);
+      });
+
       icon.classList.add("added");
     } else {
+      // Remove the item from all lists if it has already been added
       icon.classList.remove("added");
-      targetList.querySelectorAll("li").forEach((item) => {
-        if (
-          item.querySelector("p").innerText ===
-          clonedListItem.querySelector("p").innerText
-        )
-          item.remove();
+      targetLists.forEach((list) => {
+        list.querySelectorAll("li").forEach((item) => {
+          if (
+            item.querySelector("p").innerText ===
+            originalListItem.querySelector("p").innerText
+          ) {
+            item.remove();
+          }
+        });
       });
     }
   });
