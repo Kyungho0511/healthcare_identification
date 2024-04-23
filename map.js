@@ -81,6 +81,19 @@ function onLayers(sectionId) {
   section?.layers?.forEach((layer) => {
     setLayerOpacity(layer);
   });
+
+  // Temporary
+  if (sectionId === "explore") {
+    updateLayerStyle(
+      "shortage-tracts-with-features",
+      "unserved population / km2",
+      0,
+      25000,
+      color.yellow.min,
+      color.yellow.max,
+      ["exponential", 0.995]
+    );
+  }
 }
 
 function offLayers() {
@@ -109,6 +122,19 @@ function onLayersMap2(sectionId) {
   section?.layers?.forEach((layer) => {
     setLayerOpacityMap2(layer);
   });
+
+  // Temporary
+  if (sectionId === "explore") {
+    updateLayerStyleMap2(
+      "shortage-tracts-with-features",
+      "current lack of health insurance",
+      2.7,
+      10.4,
+      color.blue.min,
+      color.blue.max,
+      ["exponential", 0.995]
+    );
+  }
 }
 
 function offLayersMap2() {
@@ -204,31 +230,67 @@ function flyTo() {
   }
 }
 
-// Hover effect (mapbox studio duplicates feature ids by mistake, when uploading geojson)
-// solution: set id states with a unique feature property for every geometry within feature
-// then in setPaintProperty, do self-reference. so features with the same id are uniquely identifiable.
-map.on("load", () => {
-  setHoverPaintProperty("32counties-outline", "NAME");
-});
+function selectFeatureByName(layerId, propertyName, value) {
+  const features = map.queryRenderedFeatures({
+    layers: [layerId],
+  });
+  const selectedFeature = features.find(
+    (feature) => feature.properties[propertyName] === value
+  );
 
-function setHoverPaintProperty(layer, property) {
-  map.setPaintProperty(layer, "line-width", [
-    "case",
-    ["==", ["get", property], ["feature-state", "id"]],
-    4,
-    0,
-  ]);
+  return selectedFeature;
 }
 
-function thickenOutline(name) {
-  for (let i = 0; i < 40; i++) {
-    map.setFeatureState(
-      {
-        source: "composite",
-        sourceLayer: "shortage_counties-4sc41a",
-        id: i,
-      },
-      { id: name }
-    );
-  }
-}
+// // Hover effect (mapbox studio duplicates feature ids by mistake, when uploading geojson)
+// // solution: set id states with a unique feature property for every geometry within feature
+// // then in setPaintProperty, do self-reference. so features with the same id are uniquely identifiable.
+// map.on("load", () => {
+//   setHoverPaintProperty("32counties-outline", "NAME");
+// });
+// map2.on("load", () => {
+//   setHoverPaintPropertyMap2("32counties-outline", "NAME");
+// });
+
+// function setHoverPaintProperty(layer, property) {
+//   map.setPaintProperty(layer, "line-width", [
+//     "case",
+//     ["==", ["get", property], ["feature-state", "id"]],
+//     4,
+//     0,
+//   ]);
+// }
+
+// function setHoverPaintPropertyMap2(layer, property) {
+//   map2.setPaintProperty(layer, "line-width", [
+//     "case",
+//     ["==", ["get", property], ["feature-state", "id"]],
+//     4,
+//     0,
+//   ]);
+// }
+
+// function thickenOutline(name) {
+//   for (let i = 0; i < 40; i++) {
+//     map.setFeatureState(
+//       {
+//         source: "composite",
+//         sourceLayer: "shortage_counties-4sc41a",
+//         id: i,
+//       },
+//       { id: name }
+//     );
+//   }
+// }
+
+// function thickenOutlineMap2(name) {
+//   for (let i = 0; i < 40; i++) {
+//     map2.setFeatureState(
+//       {
+//         source: "composite",
+//         sourceLayer: "shortage_counties-4sc41a",
+//         id: i,
+//       },
+//       { id: name }
+//     );
+//   }
+// }

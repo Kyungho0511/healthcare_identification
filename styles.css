@@ -57,7 +57,7 @@ ul {
 
 hr {
   margin: 1rem 0;
-  border: solid var(--color-light-grey) 0.5px;
+  border: solid var(--color-white) 1px;
 }
 
 /* Navbar */

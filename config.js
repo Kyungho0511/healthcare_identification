@@ -16,8 +16,8 @@ const config = {
     "pk.eyJ1Ijoia2xlZTA1MTEiLCJhIjoiY2xrYnFibnNjMGV4cjNrbzRqdGg1d21sYiJ9.nN0pE1qocGhTLnD_xPuYdg",
   style: "mapbox://styles/klee0511/clv0xyqe0016v01pe0ogo6xre",
   location: {
-    center: [-73.884766, 40.713326],
-    zoom: 10.5,
+    center: [-73.970766, 40.713326],
+    zoom: 9.7,
     pitch: 0,
     bearing: 0,
   },
@@ -26,8 +26,8 @@ const config = {
       id: "start",
       layers: [
         { layer: "counties-others", opacity: 0.6 },
-        { layer: "tracts", opacity: 0.7 },
-        { layer: "shortage-tracts-with-features", opacity: 0.9 },
+        { layer: "32counties-outline", opacity: 1 },
+        { layer: "32counties", opacity: 1 },
       ],
     },
     {
@@ -54,8 +54,8 @@ const config2 = {
     "pk.eyJ1Ijoia2xlZTA1MTEiLCJhIjoiY2xrYnFibnNjMGV4cjNrbzRqdGg1d21sYiJ9.nN0pE1qocGhTLnD_xPuYdg",
   style: "mapbox://styles/klee0511/clv0xyqe0016v01pe0ogo6xre",
   location: {
-    center: [-76.490336, 42.952651],
-    zoom: 6.7,
+    center: [-76.490336, 42.752651],
+    zoom: 6.2,
     pitch: 0,
     bearing: 0,
   },
@@ -64,9 +64,8 @@ const config2 = {
       id: "start",
       layers: [
         { layer: "counties-others", opacity: 0.6 },
-        { layer: "tracts", opacity: 0.7 },
-        { layer: "32counties", opacity: 0.1 },
-        { layer: "shortage-tracts-with-features", opacity: 0.9 },
+        { layer: "32counties-outline", opacity: 1 },
+        { layer: "32counties", opacity: 1 },
       ],
     },
     {
