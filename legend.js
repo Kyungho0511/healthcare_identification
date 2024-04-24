@@ -5,7 +5,6 @@ function updateLegend(title, scaleMin, scaleMax, bound) {
 }
 
 function updateClusterLegend(legend) {
-  legend.classList.remove("invisible");
   const list = legend.querySelector(".cluster-legend-list");
 
   // Vulnerability cluster

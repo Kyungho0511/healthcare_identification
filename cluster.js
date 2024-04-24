@@ -21,71 +21,9 @@ clusterDatasetContainers.forEach((container) => {
   });
 });
 
-//  Mouse interaction with dataset item
-clusterDatasetContainers.forEach((container) => {
-  if (!container.classList.contains("selectable")) return;
-
-  // Vulnerability Cluster:
-  if (container.classList.contains("vulnerability_cluster")) {
-    container.addEventListener("click", (event) => {
-      if (event.target.tagName === "P") {
-        layerBounds.forEach((bound) => {
-          if (bound.name === event.target.innerText.toLowerCase()) {
-            updateLayerStyle(
-              "shortage-tracts-with-features",
-              bound.name,
-              bound.min,
-              bound.max,
-              color.yellow.min,
-              color.yellow.max,
-              ["exponential", 0.995]
-            );
-
-            const legend1 = cluster.querySelector(".legend-map");
-            updateLegend(
-              legend1.querySelector(".legend__title"),
-              legend1.querySelector(".scale-min"),
-              legend1.querySelector(".scale-max"),
-              bound
-            );
-          }
-        });
-      }
-    });
-
-    // Profitability Cluster:
-  } else if (container.classList.contains("profitability_cluster")) {
-    container.addEventListener("click", (event) => {
-      if (event.target.tagName === "P") {
-        layerBounds.forEach((bound) => {
-          if (bound.name === event.target.innerText.toLowerCase()) {
-            updateLayerStyleMap2(
-              "shortage-tracts-with-features",
-              bound.name,
-              bound.min,
-              bound.max,
-              color.blue.min,
-              color.blue.max,
-              ["exponential", 0.995]
-            );
-
-            const legend2 = cluster.querySelector(".legend-map2");
-            updateLegend(
-              legend2.querySelector(".legend__title"),
-              legend2.querySelector(".scale-min"),
-              legend2.querySelector(".scale-max"),
-              bound
-            );
-          }
-        });
-      }
-    });
-  }
-});
-
 // Handle cluster button to update cluster legend
-const clusterLegendMap = cluster.querySelector(".cluster-legend-map");
-const clusterLegendMap2 = cluster.querySelector(".cluster-legend-map2");
+const clusterLegendMap = cluster.querySelector(".legend-map");
+const clusterLegendMap2 = cluster.querySelector(".legend-map2");
 
 cluster
   .querySelector(".cluster-map")
@@ -94,3 +32,13 @@ cluster
 cluster
   .querySelector(".cluster-map2")
   .addEventListener("click", () => updateClusterLegend(clusterLegendMap2));
+
+// cluster legend is moved to Select section when continue button is clicked
+cluster.querySelector(".footerbar__button").addEventListener("click", () => {
+  const clonedlegendMap = clusterLegendMap.cloneNode(true);
+  const clonedlegendMap2 = clusterLegendMap2.cloneNode(true);
+
+  const select = document.querySelector("#select");
+  select.appendChild(clonedlegendMap);
+  select.appendChild(clonedlegendMap2);
+});

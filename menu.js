@@ -33,7 +33,7 @@ dropdowns.forEach((dropdown) => {
 const expandedLists = document.querySelectorAll(".expanded.dataset__list");
 const expandedTriangles = document.querySelectorAll(".expanded.triangle");
 
-// expand selected_dataset menu on load
+// expand dataset menu with expanded class on load
 expandedLists.forEach((list) => (list.style.display = "block"));
 expandedTriangles.forEach(
   (triangle) => (triangle.style.transform = "rotate(90deg) translateY(-10%)")

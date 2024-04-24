@@ -41,7 +41,7 @@ const map = new mapboxgl.Map({
 });
 
 // Disable rotation using touch and mouse
-map.dragRotate.disable();
+// map.dragRotate.disable();
 map.touchZoomRotate.disableRotation();
 
 const map2 = new mapboxgl.Map({

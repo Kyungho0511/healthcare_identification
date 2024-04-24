@@ -46,6 +46,14 @@ const config = {
         { layer: "shortage-tracts-with-features", opacity: 0.9 },
       ],
     },
+    {
+      id: "select",
+      layers: [
+        { layer: "counties-others", opacity: 0.6 },
+        { layer: "tracts", opacity: 1 },
+        { layer: "shortage-tracts-with-features", opacity: 0.9 },
+      ],
+    },
   ],
 };
 
@@ -79,6 +87,14 @@ const config2 = {
     },
     {
       id: "cluster",
+      layers: [
+        { layer: "counties-others", opacity: 0.6 },
+        { layer: "tracts", opacity: 1 },
+        { layer: "shortage-tracts-with-features", opacity: 0.9 },
+      ],
+    },
+    {
+      id: "select",
       layers: [
         { layer: "counties-others", opacity: 0.6 },
         { layer: "tracts", opacity: 1 },

@@ -521,15 +521,6 @@ hr {
   justify-content: space-between;
 }
 
-.cluster-legend-map {
-  top: 114px;
-  right: calc(50% - 175px);
-}
-
-.cluster-legend-map2 {
-  top: 114px;
-}
-
 .cluster-legend-list {
   list-style: none;
   padding: 0;
