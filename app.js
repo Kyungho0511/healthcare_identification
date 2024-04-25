@@ -22,6 +22,31 @@ window.addEventListener("popstate", function (event) {
 
 // Handle direct navigation (when a user enters a URL directly into the browser or refreshes the page)
 document.addEventListener("DOMContentLoaded", function () {
+  // On page load, retrieve the selected counties from sessionStorage
+  if (sessionStorage.getItem("selectedCounties")) {
+    selectedCounties = JSON.parse(sessionStorage.getItem("selectedCounties"));
+    // Turn off visibility for non-selected counties
+    map.on("load", () =>
+      map.setLayoutProperty(
+        selectedCounties === "NYC Counties"
+          ? "tracts-features-upstate"
+          : "tracts-features-nyc",
+        "visibility",
+        "none"
+      )
+    );
+
+    map2.on("load", () =>
+      map2.setLayoutProperty(
+        selectedCounties === "NYC Counties"
+          ? "tracts-features-upstate"
+          : "tracts-features-nyc",
+        "visibility",
+        "none"
+      )
+    );
+  }
+
   const sectionId = window.location.hash.replace("#", "");
   if (!sectionId) {
     map.on("load", () => {
@@ -69,6 +94,7 @@ function showSection(sectionId) {
   }
 }
 
+// Control progressbars
 const progressSteps = [];
 Array.from(document.querySelector(".progressbar").children).forEach((step) => {
   progressSteps.push(step.innerText.toLowerCase());

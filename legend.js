@@ -1,4 +1,9 @@
 function onLegend(sectionId, mapId) {
+  const section =
+    mapId === "map"
+      ? config.sections.find((sec) => sec.id === sectionId)
+      : config2.sections.find((sec) => sec.id === sectionId);
+
   const legend = document
     .querySelector(`#${sectionId}`)
     .querySelector(`.legend-${mapId}`);
@@ -16,12 +21,7 @@ function onLegend(sectionId, mapId) {
   }
 
   // Normal case:
-  else {
-    const section =
-      mapId === "map"
-        ? config.sections.find((sec) => sec.id === sectionId)
-        : config2.sections.find((sec) => sec.id === sectionId);
-
+  else if (sectionId === "cluster") {
     updateLegend(
       legend.querySelector(".legend__title"),
       legend.querySelector(".scale-min"),

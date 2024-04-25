@@ -82,6 +82,8 @@ function onLayers(sectionId) {
     setLayerOpacity(layer);
   });
 
+  console.log(selectedCounties);
+
   // Edge case:
   if (sectionId === "start") {
     const defaultLayer = "counties-nyc";

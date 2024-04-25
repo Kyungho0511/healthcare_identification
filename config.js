@@ -34,7 +34,7 @@ const config = {
       id: "explore",
       layers: [
         { layer: "counties-others", opacity: 0.6 },
-        { layer: "tracts", opacity: 1 },
+        { layer: "tracts", opacity: 0 },
         { layer: "tracts-features-nyc", opacity: 0.9 },
         { layer: "tracts-features-upstate", opacity: 0.9 },
       ],
@@ -48,7 +48,7 @@ const config = {
         { layer: "tracts-features-nyc", opacity: 0.9 },
         { layer: "tracts-features-upstate", opacity: 0.9 },
       ],
-      default: {},
+      default: { attribute: "unserved population / km2", color: color.yellow },
     },
     {
       id: "select",
@@ -103,7 +103,10 @@ const config2 = {
         { layer: "tracts-features-nyc", opacity: 0.9 },
         { layer: "tracts-features-upstate", opacity: 0.9 },
       ],
-      default: {},
+      default: {
+        attribute: "current lack of health insurance",
+        color: color.yellow,
+      },
     },
     {
       id: "select",

@@ -11,8 +11,12 @@ const nycCountiesContainer = start.querySelector(".nyc_counties");
 const selectCountiesBtn = start.querySelectorAll(".select-counties");
 selectCountiesBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
-    // Store selected counties for flyTo function
+    // Store selected counties to session storage
     selectedCounties = btn.innerText;
+    sessionStorage.setItem(
+      "selectedCounties",
+      JSON.stringify(selectedCounties)
+    );
 
     // Activate continue button when user selected counties
     start.querySelector(".footerbar__button").disabled = true;
