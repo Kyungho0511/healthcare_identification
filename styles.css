@@ -5,7 +5,7 @@
   --color-dark-grey: rgb(87, 87, 87);
   --color-grey: rgb(150, 150, 150);
   --color-light-grey: rgb(220, 220, 220);
-  --color-light-white: rgb(248, 248, 248);
+  --color-light-white: rgb(245, 245, 245);
   --color-white: white;
   --color-blue: #036bfc;
   --color-blue-transparent: #036bfccc;
@@ -169,7 +169,7 @@ hr {
   flex-basis: 0;
   flex-grow: 1;
   text-align: center;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   font-weight: var(--font-bold);
   text-transform: capitalize;
 }
@@ -177,9 +177,9 @@ hr {
 .progressbar li:before {
   content: counter(step);
   counter-increment: step;
-  width: 25px;
-  height: 25px;
-  line-height: 25px;
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
   border: 2px solid var(--color-light-grey);
   display: block;
   text-align: center;
@@ -395,11 +395,11 @@ hr {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgb(235, 235, 235);
+  background: var(--color-light-grey);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-light-grey);
+  background: rgb(200, 200, 200);
 }
 
 /* dropdown menu on sidebar */

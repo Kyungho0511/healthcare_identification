@@ -4,42 +4,6 @@
 const explore = document.querySelector("#explore");
 const exploreDatasetContainers = explore.querySelectorAll(".sidebar__dataset");
 
-// Min, max for layers in start section
-const layerBounds = [
-  { name: "medicaid enrollees / km2", min: 1, max: 55470 },
-  { name: "commercial enrollees / km2", min: 5, max: 42290 },
-  { name: "insured population / km2", min: 10, max: 76410 },
-  { name: "unserved medicaid enrollees / km2", min: 0, max: 25000 },
-  { name: "unserved commercial enrollees / km2", min: 0, max: 25000 },
-  { name: "unserved population / km2", min: 0, max: 25000 },
-  { name: "average land price / ft2", min: 0.0, max: 34.29 },
-  { name: "agricultural land percent", min: 0.0, max: 0.25 },
-  { name: "residential district percent", min: 0.0, max: 1.0 },
-  { name: "vacant land percent", min: 0.0, max: 0.53 },
-  { name: "commercial district percent", min: 0.0, max: 0.57 },
-  { name: "industrial district percent", min: 0.0, max: 0.18 },
-  { name: "drove alone percent", min: 0.01, max: 0.98 },
-  { name: "carpooled percent", min: 0.0, max: 0.3 },
-  { name: "public transit percent", min: 0.0, max: 0.94 },
-  { name: "walked percent", min: 0.0, max: 0.58 },
-  { name: "worked from home percent", min: 0.0, max: 0.34 },
-  { name: "no leisure-time physical activity", min: 13.0, max: 53.0 },
-  { name: "binge drinking", min: 8.8, max: 28.7 },
-  { name: "sleeping less than 7 hours", min: 25.7, max: 47.3 },
-  { name: "current smoking", min: 7.4, max: 40.4 },
-  { name: "cholesterol screening", min: 59.2, max: 92.9 },
-  { name: "current lack of health insurance", min: 2.7, max: 10.4 },
-  { name: "taking medicine for high blood pressure", min: 22.2, max: 86.8 },
-  { name: "visits to dentist or dental clinic", min: 29.4, max: 81.5 },
-  { name: "visits to doctor for routine checkup", min: 63.5, max: 87.2 },
-  { name: "physical health not good for >=14 days", min: 4.6, max: 22.0 },
-  { name: "mental health not good for >=14 days", min: 9.9, max: 29.3 },
-  { name: "fair or poor self-rated health status", min: 5.6, max: 42.1 },
-  { name: "median household income", min: 16628.0, max: 239028.0 },
-  { name: "median household disposable income", min: 3107.0, max: 205404.0 },
-  { name: "median monthly housing cost", min: 388.0, max: 3923.0 },
-];
-
 // Mouse interaction with dataset item
 exploreDatasetContainers.forEach((container) => {
   if (!container.classList.contains("selectable")) return;
@@ -116,17 +80,23 @@ exploreDatasetContainers.forEach((container) => {
   // Target Data:
   if (container.classList.contains("target_data")) {
     container.addEventListener("click", (event) => {
+      const layerBounds =
+        selectedCounties === "NYC Counties"
+          ? layerBoundsTractsNYC
+          : layerBoundsTractsUpstate;
       if (event.target.tagName === "P") {
         layerBounds.forEach((bound) => {
           if (bound.name === event.target.innerText.toLowerCase()) {
             updateLayerStyle(
-              "shortage-tracts-with-features",
+              selectedCounties === "NYC Counties"
+                ? "tracts-features-nyc"
+                : "tracts-features-upstate",
               bound.name,
               bound.min,
               bound.max,
               color.yellow.min,
               color.yellow.max,
-              ["exponential", 0.995]
+              bound.rateOfChange
             );
 
             const legend1 = explore.querySelector(".legend-map");
@@ -144,17 +114,23 @@ exploreDatasetContainers.forEach((container) => {
     // Second Data:
   } else if (container.classList.contains("second_data")) {
     container.addEventListener("click", (event) => {
+      const layerBounds =
+        selectedCounties === "NYC Counties"
+          ? layerBoundsTractsNYC
+          : layerBoundsTractsUpstate;
       if (event.target.tagName === "P") {
         layerBounds.forEach((bound) => {
           if (bound.name === event.target.innerText.toLowerCase()) {
             updateLayerStyleMap2(
-              "shortage-tracts-with-features",
+              selectedCounties === "NYC Counties"
+                ? "tracts-features-nyc"
+                : "tracts-features-upstate",
               bound.name,
               bound.min,
               bound.max,
               color.blue.min,
               color.blue.max,
-              ["exponential", 0.995]
+              bound.rateOfChange
             );
 
             const legend2 = explore.querySelector(".legend-map2");

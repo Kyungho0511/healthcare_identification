@@ -82,16 +82,45 @@ function onLayers(sectionId) {
     setLayerOpacity(layer);
   });
 
-  // Temporary
-  if (sectionId === "explore") {
+  // Edge case:
+  if (sectionId === "start") {
+    const defaultLayer = "counties-nyc";
+    const defaultAttribute = section.default.attribute;
+    const defaultBound = layerBoundsCountiesNYC[0];
+    const defaultColor = section.default.color;
     updateLayerStyle(
-      "shortage-tracts-with-features",
-      "unserved population / km2",
-      0,
-      25000,
-      color.yellow.min,
-      color.yellow.max,
-      ["exponential", 0.995]
+      defaultLayer,
+      defaultAttribute,
+      defaultBound.min,
+      defaultBound.max,
+      defaultColor.min,
+      defaultColor.max,
+      defaultBound.rateOfChange
+    );
+  }
+
+  // Normal case:
+  else {
+    const defaultLayer =
+      selectedCounties === "NYC Counties"
+        ? "tracts-features-nyc"
+        : "tracts-features-upstate";
+    const defaultAttribute = section.default.attribute;
+    const defaultBound =
+      selectedCounties === "NYC Counties"
+        ? layerBoundsTractsNYC.find((bound) => bound.name === defaultAttribute)
+        : layerBoundsTractsUpstate.find(
+            (bound) => bound.name === defaultAttribute
+          );
+    const defaultColor = section.default.color;
+    updateLayerStyle(
+      defaultLayer,
+      defaultAttribute,
+      defaultBound.min,
+      defaultBound.max,
+      defaultColor.min,
+      defaultColor.max,
+      defaultBound.rateOfChange
     );
   }
 }
@@ -123,16 +152,45 @@ function onLayersMap2(sectionId) {
     setLayerOpacityMap2(layer);
   });
 
-  // Temporary
-  if (sectionId === "explore") {
+  // Edge case:
+  if (sectionId === "start") {
+    const defaultLayer = "counties-nyc";
+    const defaultAttribute = section.default.attribute;
+    const defaultBound = layerBoundsCountiesNYC[0];
+    const defaultColor = section.default.color;
     updateLayerStyleMap2(
-      "shortage-tracts-with-features",
-      "current lack of health insurance",
-      2.7,
-      10.4,
-      color.blue.min,
-      color.blue.max,
-      ["exponential", 0.995]
+      defaultLayer,
+      defaultAttribute,
+      defaultBound.min,
+      defaultBound.max,
+      defaultColor.min,
+      defaultColor.max,
+      defaultBound.rateOfChange
+    );
+  }
+
+  // Normal case:
+  else {
+    const defaultLayer =
+      selectedCounties === "NYC Counties"
+        ? "tracts-features-nyc"
+        : "tracts-features-upstate";
+    const defaultAttribute = section.default.attribute;
+    const defaultBound =
+      selectedCounties === "NYC Counties"
+        ? layerBoundsTractsNYC.find((bound) => bound.name === defaultAttribute)
+        : layerBoundsTractsUpstate.find(
+            (bound) => bound.name === defaultAttribute
+          );
+    const defaultColor = section.default.color;
+    updateLayerStyleMap2(
+      defaultLayer,
+      defaultAttribute,
+      defaultBound.min,
+      defaultBound.max,
+      defaultColor.min,
+      defaultColor.max,
+      defaultBound.rateOfChange
     );
   }
 }

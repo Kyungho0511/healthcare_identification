@@ -24,6 +24,33 @@ selectCountiesBtn.forEach((btn) => {
   });
 });
 
+const startFooterbarBtn = start.querySelector(".footerbar__button");
+startFooterbarBtn.addEventListener("click", () => {
+  // Turn off visibility for non-selected counties
+  map.setLayoutProperty(
+    selectedCounties === "NYC Counties"
+      ? "tracts-features-upstate"
+      : "tracts-features-nyc",
+    "visibility",
+    "none"
+  );
+  map2.setLayoutProperty(
+    selectedCounties === "NYC Counties"
+      ? "tracts-features-upstate"
+      : "tracts-features-nyc",
+    "visibility",
+    "none"
+  );
+});
+
+// Color dataset items with theme color
+upstateCountiesContainer.querySelectorAll("p").forEach((p) => {
+  p.style.color = color.yellow.max;
+});
+nycCountiesContainer.querySelectorAll("p").forEach((p) => {
+  p.style.color = color.yellow.max;
+});
+
 // // Mouse interaction with dataset item
 // startDatasetContainers.forEach((container) => {
 //   if (!container.classList.contains("selectable")) return;
@@ -92,11 +119,3 @@ selectCountiesBtn.forEach((btn) => {
 //     feature[0].properties.NAME
 //   );
 // });
-
-// Color dataset items with theme color
-upstateCountiesContainer.querySelectorAll("p").forEach((p) => {
-  p.style.color = color.yellow.max;
-});
-nycCountiesContainer.querySelectorAll("p").forEach((p) => {
-  p.style.color = color.yellow.max;
-});

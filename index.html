@@ -15,7 +15,7 @@
 
     <!-- fontawesome icons -->
     <script
-      src="https://kit.fontawesome.com/dffe10735f.js"
+      src="https://kit.fontawesome.com/2874aea7e7.js"
       crossorigin="anonymous"
     ></script>
 
@@ -47,20 +47,20 @@
     <!-- Start section -->
     <section id="start" class="content selected">
       <div class="legend legend-map">
-        <h4 class="legend__title">Unserved Population / km2 (NYC)</h4>
+        <h4 class="legend__title"></h4>
         <div class="gradient-bar yellow"></div>
         <div class="scale">
-          <span class="scale-min">0</span>
-          <span class="scale-max">1220</span>
+          <span class="scale-min"></span>
+          <span class="scale-max"></span>
         </div>
       </div>
 
       <div class="legend legend-map2">
-        <h4 class="legend__title">Unserved Population / km2 (Upstate)</h4>
+        <h4 class="legend__title"></h4>
         <div class="gradient-bar yellow"></div>
         <div class="scale">
-          <span class="scale-min">0</span>
-          <span class="scale-max">5220</span>
+          <span class="scale-min"></span>
+          <span class="scale-max"></span>
         </div>
       </div>
 
@@ -143,7 +143,7 @@
         </div>
         <button
           class="footerbar__button button_grey"
-          onclick="navigateToSection('explore'); checkProgress('explore'); onLayers('explore'); onLayersMap2('explore'); flyTo(); enableSyncMap()"
+          onclick="navigateToSection('explore'); checkProgress('explore'); onLayers('explore'); onLayersMap2('explore'); onLegend('explore', 'map'); onLegend('explore', 'map2'); flyTo(); enableSyncMap();"
           disabled
         >
           continue
@@ -154,20 +154,20 @@
     <!-- Explore section -->
     <section id="explore" class="content">
       <div class="legend legend-map">
-        <h4 class="legend__title">unserved population / km2</h4>
+        <h4 class="legend__title"></h4>
         <div class="gradient-bar yellow"></div>
         <div class="scale">
-          <span class="scale-min">0</span>
-          <span class="scale-max">25000</span>
+          <span class="scale-min"></span>
+          <span class="scale-max"></span>
         </div>
       </div>
 
       <div class="legend legend-map2">
-        <h4 class="legend__title">current lack of health insurance</h4>
+        <h4 class="legend__title"></h4>
         <div class="gradient-bar blue"></div>
         <div class="scale">
-          <span class="scale-min">2.7</span>
-          <span class="scale-max">10.4</span>
+          <span class="scale-min"></span>
+          <span class="scale-max"></span>
         </div>
       </div>
 
@@ -220,7 +220,7 @@
               <i class="fa-regular fa-square-plus"></i>
             </li>
             <li class="dataset__item">
-              <p class="selectedData">Medicaid enrollees / km2</p>
+              <p>Medicaid enrollees / km2</p>
               <i class="fa-regular fa-square-plus"></i>
             </li>
             <li class="dataset__item">
@@ -237,7 +237,7 @@
           </button>
           <ul class="dataset__list dropdown-content health_behaviors">
             <li class="dataset__item">
-              <p>Current lack of health insurance</p>
+              <p class="selectedData">Current lack of health insurance</p>
               <i class="fa-regular fa-square-plus"></i>
             </li>
             <li class="dataset__item">
@@ -394,7 +394,7 @@
         </div>
         <button
           class="footerbar__button button_grey"
-          onclick="navigateToSection('cluster'); checkProgress('cluster')"
+          onclick="navigateToSection('cluster'); checkProgress('cluster'); onLayers('cluster'); onLayersMap2('cluster'); onLegend('cluster', 'map'); onLegend('cluster', 'map2');"
         >
           continue
         </button>

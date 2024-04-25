@@ -2,38 +2,45 @@
 window.addEventListener("popstate", function (event) {
   if (event.state == null) {
     showSection("start");
+    checkProgress("start");
     onLayers("start");
     onLayersMap2("start");
+    onLegend("start", "map");
+    onLegend("start", "map2");
   }
 
   if (event.state && event.state.section) {
-    showSection(event.state.section);
-
-    // Run necessary functions to display contents based on sectionId
     const sectionId = event.state.section;
+    showSection(event.state.section);
     checkProgress(sectionId);
     onLayers(sectionId);
     onLayersMap2(sectionId);
+    onLegend(sectionId, "map");
+    onLegend(sectionId, "map2");
   }
 });
 
+// Handle direct navigation (when a user enters a URL directly into the browser or refreshes the page)
 document.addEventListener("DOMContentLoaded", function () {
-  // Handle direct navigation (when a user enters a URL directly into the browser or refreshes the page)
   const sectionId = window.location.hash.replace("#", "");
   if (!sectionId) {
     map.on("load", () => {
+      checkProgress("start");
       onLayers("start");
       onLayersMap2("start");
+      onLegend("start", "map");
+      onLegend("start", "map2");
     });
     return;
   }
   showSection(sectionId);
 
-  // Run necessary functions to display contents based on sectionId
   map.on("load", () => {
     checkProgress(sectionId);
     onLayers(sectionId);
     onLayersMap2(sectionId);
+    onLegend(sectionId, "map");
+    onLegend(sectionId, "map2");
     if (sectionId !== "start") {
       enableSyncMap();
     }
