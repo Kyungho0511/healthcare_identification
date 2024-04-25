@@ -17,7 +17,7 @@ const config = {
   style: "mapbox://styles/klee0511/clv0xyqe0016v01pe0ogo6xre",
   location: {
     center: [-73.970766, 40.713326],
-    zoom: 9.7,
+    zoom: 9.8,
     pitch: 0,
     bearing: 0,
   },
@@ -25,7 +25,7 @@ const config = {
     {
       id: "start",
       layers: [
-        { layer: "counties-others", opacity: 0.6 },
+        { layer: "counties-others", opacity: 1 },
         { layer: "counties-nyc", opacity: 1 },
       ],
       default: { attribute: "unserved population / km2", color: color.yellow },
@@ -34,7 +34,7 @@ const config = {
       id: "explore",
       layers: [
         { layer: "counties-others", opacity: 0.6 },
-        { layer: "tracts", opacity: 0 },
+        // { layer: "tracts", opacity: 0.9 },
         { layer: "tracts-features-nyc", opacity: 0.9 },
         { layer: "tracts-features-upstate", opacity: 0.9 },
       ],
@@ -69,7 +69,7 @@ const config2 = {
   style: "mapbox://styles/klee0511/clv0xyqe0016v01pe0ogo6xre",
   location: {
     center: [-76.490336, 42.752651],
-    zoom: 6.2,
+    zoom: 6.3,
     pitch: 0,
     bearing: 0,
   },
@@ -77,7 +77,7 @@ const config2 = {
     {
       id: "start",
       layers: [
-        { layer: "counties-others", opacity: 0.6 },
+        { layer: "counties-others", opacity: 1 },
         { layer: "counties-upstate", opacity: 1 },
       ],
       default: { attribute: "unserved population / km2", color: color.yellow },
@@ -86,7 +86,7 @@ const config2 = {
       id: "explore",
       layers: [
         { layer: "counties-others", opacity: 0.6 },
-        { layer: "tracts", opacity: 1 },
+        // { layer: "tracts", opacity: 0.9 },
         { layer: "tracts-features-nyc", opacity: 0.9 },
         { layer: "tracts-features-upstate", opacity: 0.9 },
       ],

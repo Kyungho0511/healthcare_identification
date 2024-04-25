@@ -41,7 +41,7 @@ const map = new mapboxgl.Map({
 });
 
 // Disable rotation using touch and mouse
-// map.dragRotate.disable();
+map.dragRotate.disable();
 map.touchZoomRotate.disableRotation();
 
 const map2 = new mapboxgl.Map({
@@ -81,8 +81,6 @@ function onLayers(sectionId) {
   section?.layers?.forEach((layer) => {
     setLayerOpacity(layer);
   });
-
-  console.log(selectedCounties);
 
   // Edge case:
   if (sectionId === "start") {
