@@ -11,14 +11,13 @@ const layerBounds = [
   { name: "insured population / km2", min: 10, max: 76410 },
   { name: "unserved medicaid enrollees / km2", min: 0, max: 25000 },
   { name: "unserved commercial enrollees / km2", min: 0, max: 25000 },
+  { name: "unserved population / km2", min: 0, max: 25000 },
   { name: "average land price / ft2", min: 0.0, max: 34.29 },
   { name: "agricultural land percent", min: 0.0, max: 0.25 },
   { name: "residential district percent", min: 0.0, max: 1.0 },
   { name: "vacant land percent", min: 0.0, max: 0.53 },
   { name: "commercial district percent", min: 0.0, max: 0.57 },
   { name: "industrial district percent", min: 0.0, max: 0.18 },
-  { name: "residential area / ft2", min: 0.0, max: 2.64 },
-  { name: "commercial area / ft2", min: 0.0, max: 1.12 },
   { name: "drove alone percent", min: 0.01, max: 0.98 },
   { name: "carpooled percent", min: 0.0, max: 0.3 },
   { name: "public transit percent", min: 0.0, max: 0.94 },
@@ -39,7 +38,6 @@ const layerBounds = [
   { name: "median household income", min: 16628.0, max: 239028.0 },
   { name: "median household disposable income", min: 3107.0, max: 205404.0 },
   { name: "median monthly housing cost", min: 388.0, max: 3923.0 },
-  { name: "unserved population / km2", min: 0, max: 25000 },
 ];
 
 // Mouse interaction with dataset item
