@@ -63,26 +63,37 @@ map2.touchZoomRotate.disableRotation();
 /**
  * Functions
  */
-function getLayerPaintType(layer) {
-  const layerType = map.getLayer(layer).type;
+function getLayerPaintType(layer, mapId) {
+  const layerType =
+    mapId === "map" ? map.getLayer(layer).type : map2.getLayer(layer).type;
   return layerTypes[layerType];
 }
 
-function setLayerOpacity(layer) {
-  const paintProps = getLayerPaintType(layer.layer);
+function setLayerOpacity(layer, mapId) {
+  const paintProps = getLayerPaintType(layer.layer, mapId);
   paintProps.forEach(function (prop) {
-    map.setPaintProperty(layer.layer, prop, layer.opacity);
+    mapId === "map"
+      ? map.setPaintProperty(layer.layer, prop, layer.opacity)
+      : map2.setPaintProperty(layer.layer, prop, layer.opacity);
   });
 }
 
-function onLayers(sectionId) {
-  offLayers();
-  let section = config.sections.find((sec) => sec.id === sectionId);
-  section?.layers?.forEach((layer) => {
-    setLayerOpacity(layer);
+function onLayers(sectionId, mapId) {
+  // Update layer opacity
+  offLayerOpacity(mapId);
+
+  let section = null;
+  if (mapId === "map") {
+    section = config.sections.find((sec) => sec.id === sectionId);
+  } else {
+    section = config2.sections.find((sec) => sec.id === sectionId);
+  }
+
+  section?.layers.forEach((layer) => {
+    setLayerOpacity(layer, mapId);
   });
 
-  // Edge case:
+  // Update layer style (Edge case)
   if (sectionId === "start") {
     const defaultLayer = "counties-nyc";
     const defaultAttribute = section.default.attribute;
@@ -95,11 +106,12 @@ function onLayers(sectionId) {
       defaultBound.max,
       defaultColor.min,
       defaultColor.max,
-      defaultBound.rateOfChange
+      defaultBound.rateOfChange,
+      mapId
     );
   }
 
-  // Normal case:
+  // Update layer style (Normal case)
   else {
     const defaultLayer =
       selectedCounties === "NYC Counties"
@@ -120,87 +132,43 @@ function onLayers(sectionId) {
       defaultBound.max,
       defaultColor.min,
       defaultColor.max,
-      defaultBound.rateOfChange
+      defaultBound.rateOfChange,
+      mapId
     );
   }
+
+  // Update layer visibility
+  ToggleLayerVisiblity();
 }
 
-function offLayers() {
-  config.sections.forEach((sec) => {
-    sec.layers?.forEach((layer) => {
-      setLayerOpacity({ layer: layer.layer, opacity: 0 });
+function offLayerOpacity(mapId) {
+  if (mapId === "map") {
+    config.sections.forEach((sec) => {
+      sec.layers.forEach((layer) => {
+        setLayerOpacity({ layer: layer.layer, opacity: 0 }, mapId);
+      });
     });
-  });
-}
-
-function getLayerPaintTypeMap2(layer) {
-  const layerType = map2.getLayer(layer).type;
-  return layerTypes[layerType];
-}
-
-function setLayerOpacityMap2(layer) {
-  const paintProps = getLayerPaintType(layer.layer);
-  paintProps.forEach(function (prop) {
-    map2.setPaintProperty(layer.layer, prop, layer.opacity);
-  });
-}
-
-function onLayersMap2(sectionId) {
-  offLayersMap2();
-  let section = config2.sections.find((sec) => sec.id === sectionId);
-  section?.layers?.forEach((layer) => {
-    setLayerOpacityMap2(layer);
-  });
-
-  // Edge case:
-  if (sectionId === "start") {
-    const defaultLayer = "counties-nyc";
-    const defaultAttribute = section.default.attribute;
-    const defaultBound = layerBoundsCountiesNYC[0];
-    const defaultColor = section.default.color;
-    updateLayerStyleMap2(
-      defaultLayer,
-      defaultAttribute,
-      defaultBound.min,
-      defaultBound.max,
-      defaultColor.min,
-      defaultColor.max,
-      defaultBound.rateOfChange
-    );
-  }
-
-  // Normal case:
-  else {
-    const defaultLayer =
-      selectedCounties === "NYC Counties"
-        ? "tracts-features-nyc"
-        : "tracts-features-upstate";
-    const defaultAttribute = section.default.attribute;
-    const defaultBound =
-      selectedCounties === "NYC Counties"
-        ? layerBoundsTractsNYC.find((bound) => bound.name === defaultAttribute)
-        : layerBoundsTractsUpstate.find(
-            (bound) => bound.name === defaultAttribute
-          );
-    const defaultColor = section.default.color;
-    updateLayerStyleMap2(
-      defaultLayer,
-      defaultAttribute,
-      defaultBound.min,
-      defaultBound.max,
-      defaultColor.min,
-      defaultColor.max,
-      defaultBound.rateOfChange
-    );
-  }
-}
-
-function offLayersMap2() {
-  config2.sections.forEach((sec) => {
-    sec.layers?.forEach((layer) => {
-      setLayerOpacityMap2({ layer: layer.layer, opacity: 0 });
+  } else {
+    config2.sections.forEach((sec) => {
+      sec.layers.forEach((layer) => {
+        setLayerOpacity({ layer: layer.layer, opacity: 0 }, mapId);
+      });
     });
-  });
+  }
+}
+
+function ToggleLayerVisiblity() {
+  if (selectedCounties === "NYC Counties") {
+    map.setLayoutProperty("tracts-features-nyc", "visibility", "visible");
+    map2.setLayoutProperty("tracts-features-nyc", "visibility", "visible");
+    map.setLayoutProperty("tracts-features-upstate", "visibility", "none");
+    map2.setLayoutProperty("tracts-features-upstate", "visibility", "none");
+  } else {
+    map.setLayoutProperty("tracts-features-nyc", "visibility", "none");
+    map2.setLayoutProperty("tracts-features-nyc", "visibility", "none");
+    map.setLayoutProperty("tracts-features-upstate", "visibility", "visible");
+    map2.setLayoutProperty("tracts-features-upstate", "visibility", "visible");
+  }
 }
 
 function syncMap(sourceMap, targetMap) {
@@ -244,37 +212,30 @@ function updateLayerStyle(
   max,
   colorMin,
   colorMax,
-  rateOfChange
+  rateOfChange,
+  mapId
 ) {
-  map.setPaintProperty(layer, "fill-color", [
-    "interpolate",
-    rateOfChange,
-    ["get", attribute],
-    min,
-    colorMin,
-    max,
-    colorMax,
-  ]);
-}
-
-function updateLayerStyleMap2(
-  layer,
-  attribute,
-  min,
-  max,
-  colorMin,
-  colorMax,
-  rateOfChange
-) {
-  map2.setPaintProperty(layer, "fill-color", [
-    "interpolate",
-    rateOfChange,
-    ["get", attribute],
-    min,
-    colorMin,
-    max,
-    colorMax,
-  ]);
+  if (mapId === "map") {
+    map.setPaintProperty(layer, "fill-color", [
+      "interpolate",
+      rateOfChange,
+      ["get", attribute],
+      min,
+      colorMin,
+      max,
+      colorMax,
+    ]);
+  } else {
+    map2.setPaintProperty(layer, "fill-color", [
+      "interpolate",
+      rateOfChange,
+      ["get", attribute],
+      min,
+      colorMin,
+      max,
+      colorMax,
+    ]);
+  }
 }
 
 let selectedCounties = null;
@@ -298,57 +259,3 @@ function selectFeatureByName(layerId, propertyName, value) {
 
   return selectedFeature;
 }
-
-// // Hover effect (mapbox studio duplicates feature ids by mistake, when uploading geojson)
-// // solution: set id states with a unique feature property for every geometry within feature
-// // then in setPaintProperty, do self-reference. so features with the same id are uniquely identifiable.
-// map.on("load", () => {
-//   setHoverPaintProperty("32counties-outline", "NAME");
-// });
-// map2.on("load", () => {
-//   setHoverPaintPropertyMap2("32counties-outline", "NAME");
-// });
-
-// function setHoverPaintProperty(layer, property) {
-//   map.setPaintProperty(layer, "line-width", [
-//     "case",
-//     ["==", ["get", property], ["feature-state", "id"]],
-//     4,
-//     0,
-//   ]);
-// }
-
-// function setHoverPaintPropertyMap2(layer, property) {
-//   map2.setPaintProperty(layer, "line-width", [
-//     "case",
-//     ["==", ["get", property], ["feature-state", "id"]],
-//     4,
-//     0,
-//   ]);
-// }
-
-// function thickenOutline(name) {
-//   for (let i = 0; i < 40; i++) {
-//     map.setFeatureState(
-//       {
-//         source: "composite",
-//         sourceLayer: "shortage_counties-4sc41a",
-//         id: i,
-//       },
-//       { id: name }
-//     );
-//   }
-// }
-
-// function thickenOutlineMap2(name) {
-//   for (let i = 0; i < 40; i++) {
-//     map2.setFeatureState(
-//       {
-//         source: "composite",
-//         sourceLayer: "shortage_counties-4sc41a",
-//         id: i,
-//       },
-//       { id: name }
-//     );
-//   }
-// }

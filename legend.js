@@ -21,7 +21,7 @@ function onLegend(sectionId, mapId) {
   }
 
   // Normal case:
-  else if (sectionId === "cluster") {
+  else {
     updateLegend(
       legend.querySelector(".legend__title"),
       legend.querySelector(".scale-min"),

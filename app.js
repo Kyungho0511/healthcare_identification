@@ -1,10 +1,56 @@
+// Handle logo button interaction
+const logos = document.querySelectorAll(".logo");
+logos.forEach((logo) => {
+  logo.addEventListener("click", () => {
+    navigateToSection("start");
+    resetProgress();
+    onLayers("start", "map");
+    onLayers("start", "map2");
+    window.location.reload();
+  });
+});
+
+// Handle continue(footerbar) button interaction
+const sections = document.querySelectorAll(".content");
+const sectionIds = [];
+sections.forEach((sec) => sectionIds.push(sec.id));
+
+sections.forEach((sec, idx) => {
+  const btn = sec.querySelector(".footerbar__button");
+  btn.addEventListener("click", () => {
+    // Edge case:
+    if (idx == 0) {
+      navigateToSection(`${sectionIds[idx + 1]}`);
+      checkProgress(`${sectionIds[idx + 1]}`);
+      onLayers(`${sectionIds[idx + 1]}`, "map");
+      onLayers(`${sectionIds[idx + 1]}`, "map2");
+      onLegend(`${sectionIds[idx + 1]}`, "map");
+      onLegend(`${sectionIds[idx + 1]}`, "map2");
+      flyTo();
+      enableSyncMap();
+    } else if (idx == sectionIds.length - 1) {
+      console.log("share!");
+    }
+
+    // Normal case:
+    else {
+      navigateToSection(`${sectionIds[idx + 1]}`);
+      checkProgress(`${sectionIds[idx + 1]}`);
+      onLayers(`${sectionIds[idx + 1]}`, "map");
+      onLayers(`${sectionIds[idx + 1]}`, "map2");
+      onLegend(`${sectionIds[idx + 1]}`, "map");
+      onLegend(`${sectionIds[idx + 1]}`, "map2");
+    }
+  });
+});
+
 // Listen to window popstate for browser history
 window.addEventListener("popstate", function (event) {
   if (event.state == null) {
     showSection("start");
     checkProgress("start");
-    onLayers("start");
-    onLayersMap2("start");
+    onLayers("start", "map");
+    onLayers("start", "map2");
     onLegend("start", "map");
     onLegend("start", "map2");
   }
@@ -13,8 +59,8 @@ window.addEventListener("popstate", function (event) {
     const sectionId = event.state.section;
     showSection(event.state.section);
     checkProgress(sectionId);
-    onLayers(sectionId);
-    onLayersMap2(sectionId);
+    onLayers(sectionId, "map");
+    onLayers(sectionId, "map2");
     onLegend(sectionId, "map");
     onLegend(sectionId, "map2");
   }
@@ -25,34 +71,14 @@ document.addEventListener("DOMContentLoaded", function () {
   // On page load, retrieve the selected counties from sessionStorage
   if (sessionStorage.getItem("selectedCounties")) {
     selectedCounties = JSON.parse(sessionStorage.getItem("selectedCounties"));
-    // Turn off visibility for non-selected counties
-    map.on("load", () =>
-      map.setLayoutProperty(
-        selectedCounties === "NYC Counties"
-          ? "tracts-features-upstate"
-          : "tracts-features-nyc",
-        "visibility",
-        "none"
-      )
-    );
-
-    map2.on("load", () =>
-      map2.setLayoutProperty(
-        selectedCounties === "NYC Counties"
-          ? "tracts-features-upstate"
-          : "tracts-features-nyc",
-        "visibility",
-        "none"
-      )
-    );
   }
 
   const sectionId = window.location.hash.replace("#", "");
   if (!sectionId) {
     map.on("load", () => {
       checkProgress("start");
-      onLayers("start");
-      onLayersMap2("start");
+      onLayers("start", "map");
+      onLayers("start", "map2");
       onLegend("start", "map");
       onLegend("start", "map2");
     });
@@ -62,8 +88,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   map.on("load", () => {
     checkProgress(sectionId);
-    onLayers(sectionId);
-    onLayersMap2(sectionId);
+    onLayers(sectionId, "map");
+    onLayers(sectionId, "map2");
     onLegend(sectionId, "map");
     onLegend(sectionId, "map2");
     if (sectionId !== "start") {
@@ -82,7 +108,6 @@ function navigateToSection(sectionId) {
 
 function showSection(sectionId) {
   // Hide all sections
-  const sections = document.querySelectorAll(".content");
   sections.forEach((section) => {
     section.classList.remove("selected");
   });

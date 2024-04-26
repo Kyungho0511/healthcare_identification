@@ -1,6 +1,3 @@
-/**
- * Cluster section
- */
 const cluster = document.querySelector("#cluster");
 const clusterDatasetContainers = cluster.querySelectorAll(".sidebar__dataset");
 

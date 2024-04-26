@@ -5,7 +5,7 @@
   --color-dark-grey: rgb(87, 87, 87);
   --color-grey: rgb(150, 150, 150);
   --color-light-grey: rgb(220, 220, 220);
-  --color-light-white: rgb(245, 245, 245);
+  --color-light-white: rgb(250, 250, 250);
   --color-white: white;
   --color-blue: #036bfc;
   --color-blue-transparent: #036bfccc;
@@ -539,6 +539,21 @@ hr {
   display: inline-block;
   margin-right: 10px;
   border: solid var(--color-light-grey) 1px;
+}
+
+.color-box-container {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.color-box-non-shortage {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin-right: 10px;
+  border: solid rgba(173, 173, 173, 0.34) 1px;
+  background-color: rgba(214, 214, 214, 0.28);
 }
 
 .invisible {

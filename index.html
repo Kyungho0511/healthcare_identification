@@ -66,12 +66,7 @@
 
       <aside class="sidebar">
         <div class="sidebar__title">
-          <img
-            class="logo"
-            src="./images/logo2.PNG"
-            alt="logo_image"
-            onclick="navigateToSection('start'); resetProgress(); onLayers('start'); onLayersMap2('start') ;"
-          />
+          <img class="logo" src="./images/logo2.PNG" alt="logo_image" />
         </div>
         <div class="sidebar__prompt">
           <h4>Start Your Analysis</h4>
@@ -141,13 +136,7 @@
             <li>share</li>
           </ul>
         </div>
-        <button
-          class="footerbar__button button_grey"
-          onclick="navigateToSection('explore'); checkProgress('explore'); onLayers('explore'); onLayersMap2('explore'); onLegend('explore', 'map'); onLegend('explore', 'map2'); flyTo(); enableSyncMap();"
-          disabled
-        >
-          continue
-        </button>
+        <button class="footerbar__button button_grey" disabled>continue</button>
       </footer>
     </section>
 
@@ -160,6 +149,9 @@
           <span class="scale-min"></span>
           <span class="scale-max"></span>
         </div>
+        <div class="color-box-container">
+          <span class="color-box-non-shortage"></span>non-shortage areas
+        </div>
       </div>
 
       <div class="legend legend-map2">
@@ -169,20 +161,18 @@
           <span class="scale-min"></span>
           <span class="scale-max"></span>
         </div>
+        <div class="color-box-container">
+          <span class="color-box-non-shortage"></span>non-shortage areas
+        </div>
       </div>
 
       <aside class="sidebar">
         <div class="sidebar__title">
-          <img
-            class="logo"
-            src="./images/logo2.PNG"
-            alt="logo_image"
-            onclick="navigateToSection('start'); resetProgress(); onLayers('start'); onLayersMap2('start');"
-          />
+          <img class="logo" src="./images/logo2.PNG" alt="logo_image" />
         </div>
         <div class="sidebar__prompt">
           <h4>Explore Datasets</h4>
-          Explore datasets related to shortage areas by comparing target data on
+          Explore datasets of shortage areas by comparing target data on
           shortages with other secondary data. Add or remove datasets as needed
           for the clustering analysis of healthcare shortages. Once you are
           finished, click the "Continue" button.
@@ -392,12 +382,7 @@
             <li>share</li>
           </ul>
         </div>
-        <button
-          class="footerbar__button button_grey"
-          onclick="navigateToSection('cluster'); checkProgress('cluster'); onLayers('cluster'); onLayersMap2('cluster'); onLegend('cluster', 'map'); onLegend('cluster', 'map2');"
-        >
-          continue
-        </button>
+        <button class="footerbar__button button_grey">continue</button>
       </footer>
     </section>
 
@@ -428,12 +413,7 @@
 
       <aside class="sidebar">
         <div class="sidebar__title">
-          <img
-            class="logo"
-            src="./images/logo2.PNG"
-            alt="logo_image"
-            onclick="navigateToSection('start'); resetProgress(); onLayers('start'); onLayersMap2('start');"
-          />
+          <img class="logo" src="./images/logo2.PNG" alt="logo_image" />
         </div>
         <div class="sidebar__prompt">
           <h4>Customize Clustering Analysis</h4>
@@ -566,12 +546,7 @@
             <li>share</li>
           </ul>
         </div>
-        <button
-          class="footerbar__button button_grey"
-          onclick="navigateToSection('select'); checkProgress('select')"
-        >
-          continue
-        </button>
+        <button class="footerbar__button button_grey">continue</button>
       </footer>
     </section>
 
@@ -579,12 +554,7 @@
     <section id="select" class="content">
       <aside class="sidebar">
         <div class="sidebar__title">
-          <img
-            class="logo"
-            src="./images/logo2.PNG"
-            alt="logo_image"
-            onclick="navigateToSection('start'); resetProgress(); onLayers('start'); onLayersMap2('start');"
-          />
+          <img class="logo" src="./images/logo2.PNG" alt="logo_image" />
         </div>
         <div class="sidebar__prompt">
           <h4>Target Shortage Areas</h4>
@@ -613,12 +583,7 @@
             <li>share</li>
           </ul>
         </div>
-        <button
-          class="footerbar__button button_grey"
-          onclick="navigateToSection('share'); checkProgress('share')"
-        >
-          continue
-        </button>
+        <button class="footerbar__button button_grey">continue</button>
       </footer>
     </section>
 
@@ -635,12 +600,7 @@
 
       <aside class="sidebar">
         <div class="sidebar__title">
-          <img
-            class="logo"
-            src="./images/logo2.PNG"
-            alt="logo_image"
-            onclick="navigateToSection('start'); resetProgress(); onLayers('start'); onLayersMap2('start');"
-          />
+          <img class="logo" src="./images/logo2.PNG" alt="logo_image" />
         </div>
         <div class="sidebar__prompt">
           Select the county for your healthcare provision plan. Once you have
@@ -675,12 +635,7 @@
             <li>share</li>
           </ul>
         </div>
-        <button
-          class="footerbar__button button_grey"
-          onclick="checkProgress('share')"
-        >
-          share
-        </button>
+        <button class="footerbar__button button_grey">share</button>
       </footer>
     </section>
   </body>

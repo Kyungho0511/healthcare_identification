@@ -1,6 +1,3 @@
-/**
- * Explore section
- */
 const explore = document.querySelector("#explore");
 const exploreDatasetContainers = explore.querySelectorAll(".sidebar__dataset");
 
@@ -96,7 +93,8 @@ exploreDatasetContainers.forEach((container) => {
               bound.max,
               color.yellow.min,
               color.yellow.max,
-              bound.rateOfChange
+              bound.rateOfChange,
+              "map"
             );
 
             const legend1 = explore.querySelector(".legend-map");
@@ -121,7 +119,7 @@ exploreDatasetContainers.forEach((container) => {
       if (event.target.tagName === "P") {
         layerBounds.forEach((bound) => {
           if (bound.name === event.target.innerText.toLowerCase()) {
-            updateLayerStyleMap2(
+            updateLayerStyle(
               selectedCounties === "NYC Counties"
                 ? "tracts-features-nyc"
                 : "tracts-features-upstate",
@@ -130,7 +128,8 @@ exploreDatasetContainers.forEach((container) => {
               bound.max,
               color.blue.min,
               color.blue.max,
-              bound.rateOfChange
+              bound.rateOfChange,
+              "map2"
             );
 
             const legend2 = explore.querySelector(".legend-map2");

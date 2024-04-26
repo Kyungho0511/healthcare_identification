@@ -1,7 +1,7 @@
 const color = {
   blue: {
     categorized: ["#ebfffe", "#97d9ff", "#3399ff", "#0145ff", "#2500cc"],
-    min: "#f5f9ff",
+    min: "#f7faff",
     max: "#006efe",
   },
   yellow: {
@@ -34,9 +34,9 @@ const config = {
       id: "explore",
       layers: [
         { layer: "counties-others", opacity: 0.6 },
-        // { layer: "tracts", opacity: 0.9 },
-        { layer: "tracts-features-nyc", opacity: 0.9 },
-        { layer: "tracts-features-upstate", opacity: 0.9 },
+        { layer: "tracts", opacity: 0.8 },
+        { layer: "tracts-features-nyc", opacity: 1 },
+        { layer: "tracts-features-upstate", opacity: 1 },
       ],
       default: { attribute: "unserved population / km2", color: color.yellow },
     },
@@ -45,8 +45,8 @@ const config = {
       layers: [
         { layer: "counties-others", opacity: 0.6 },
         { layer: "tracts", opacity: 1 },
-        { layer: "tracts-features-nyc", opacity: 0.9 },
-        { layer: "tracts-features-upstate", opacity: 0.9 },
+        { layer: "tracts-features-nyc", opacity: 1 },
+        { layer: "tracts-features-upstate", opacity: 1 },
       ],
       default: { attribute: "unserved population / km2", color: color.yellow },
     },
@@ -55,8 +55,8 @@ const config = {
       layers: [
         { layer: "counties-others", opacity: 0.6 },
         { layer: "tracts", opacity: 1 },
-        { layer: "tracts-features-nyc", opacity: 0.9 },
-        { layer: "tracts-features-upstate", opacity: 0.9 },
+        { layer: "tracts-features-nyc", opacity: 1 },
+        { layer: "tracts-features-upstate", opacity: 1 },
       ],
       default: {},
     },
@@ -86,13 +86,13 @@ const config2 = {
       id: "explore",
       layers: [
         { layer: "counties-others", opacity: 0.6 },
-        // { layer: "tracts", opacity: 0.9 },
-        { layer: "tracts-features-nyc", opacity: 0.9 },
-        { layer: "tracts-features-upstate", opacity: 0.9 },
+        { layer: "tracts", opacity: 0.8 },
+        { layer: "tracts-features-nyc", opacity: 1 },
+        { layer: "tracts-features-upstate", opacity: 1 },
       ],
       default: {
         attribute: "current lack of health insurance",
-        color: color.yellow,
+        color: color.blue,
       },
     },
     {
@@ -100,12 +100,12 @@ const config2 = {
       layers: [
         { layer: "counties-others", opacity: 0.6 },
         { layer: "tracts", opacity: 1 },
-        { layer: "tracts-features-nyc", opacity: 0.9 },
-        { layer: "tracts-features-upstate", opacity: 0.9 },
+        { layer: "tracts-features-nyc", opacity: 1 },
+        { layer: "tracts-features-upstate", opacity: 1 },
       ],
       default: {
         attribute: "current lack of health insurance",
-        color: color.yellow,
+        color: color.blue,
       },
     },
     {
@@ -113,8 +113,8 @@ const config2 = {
       layers: [
         { layer: "counties-others", opacity: 0.6 },
         { layer: "tracts", opacity: 1 },
-        { layer: "tracts-features-nyc", opacity: 0.9 },
-        { layer: "tracts-features-upstate", opacity: 0.9 },
+        { layer: "tracts-features-nyc", opacity: 1 },
+        { layer: "tracts-features-upstate", opacity: 1 },
       ],
       default: {},
     },
@@ -168,37 +168,37 @@ const layerBoundsTractsNYC = [
     name: "medicaid enrollees / km2",
     min: 48.19,
     max: 55472.48,
-    rateOfChange: ["linear"],
+    rateOfChange: ["exponential", 0.99995],
   },
   {
     name: "commercial enrollees / km2",
     min: 214.31,
     max: 42294.7,
-    rateOfChange: ["linear"],
+    rateOfChange: ["exponential", 0.99995],
   },
   {
     name: "insured population / km2",
     min: 316.5,
     max: 76410.9,
-    rateOfChange: ["linear"],
+    rateOfChange: ["exponential", 0.99995],
   },
   {
     name: "unserved population / km2",
     min: 12.7,
     max: 45610.7,
-    rateOfChange: ["exponential", 0.9999],
+    rateOfChange: ["exponential", 0.99995],
   },
   {
     name: "unserved medicaid enrollees / km2",
     min: 0.0,
     max: 45610.7,
-    rateOfChange: ["linear"],
+    rateOfChange: ["exponential", 0.99995],
   },
   {
     name: "unserved commercial enrollees / km2",
     min: 0.0,
     max: 12665.9,
-    rateOfChange: ["exponential", 0.9999],
+    rateOfChange: ["exponential", 0.99995],
   },
   {
     name: "average land price / ft2",
@@ -209,7 +209,7 @@ const layerBoundsTractsNYC = [
   {
     name: "agricultural land percent",
     min: 0.0,
-    max: 0.0,
+    max: 0.1,
     rateOfChange: ["linear"],
   },
   {
@@ -343,19 +343,19 @@ const layerBoundsTractsUpstate = [
     name: "medicaid enrollees / km2",
     min: 1.09,
     max: 6413.96,
-    rateOfChange: ["linear"],
+    rateOfChange: ["exponential", 0.995],
   },
   {
     name: "commercial enrollees / km2",
     min: 6.12,
     max: 6286.56,
-    rateOfChange: ["linear"],
+    rateOfChange: ["exponential", 0.995],
   },
   {
     name: "insured population / km2",
     min: 10.0,
     max: 7932.0,
-    rateOfChange: ["linear"],
+    rateOfChange: ["exponential", 0.995],
   },
   {
     name: "unserved population / km2",
@@ -367,13 +367,13 @@ const layerBoundsTractsUpstate = [
     name: "unserved medicaid enrollees / km2",
     min: 0.0,
     max: 5970.6,
-    rateOfChange: ["linear"],
+    rateOfChange: ["exponential", 0.995],
   },
   {
     name: "unserved commercial enrollees / km2",
     min: 0.0,
     max: 2495.3,
-    rateOfChange: ["linear"],
+    rateOfChange: ["exponential", 0.995],
   },
   {
     name: "average land price / ft2",
