@@ -8,7 +8,7 @@ function onLegend(sectionId, mapId) {
     .querySelector(`#${sectionId}`)
     .querySelector(`.legend-${mapId}`);
 
-  // Edge case:
+  // Edge case 1
   if (sectionId === "start") {
     updateLegend(
       legend.querySelector(".legend__title"),
@@ -18,6 +18,11 @@ function onLegend(sectionId, mapId) {
         ? layerBoundsCountiesNYC[0]
         : layerBoundsCountiesUpstate[0]
     );
+  }
+
+  // Edge Case 2
+  else if (sectionId === "cluster") {
+    updateClusterLegend(legend);
   }
 
   // Normal case:
@@ -47,8 +52,17 @@ function updateLegend(title, scaleMin, scaleMax, bound) {
     scaleMin.innerText = `${Math.round(bound.min)} %`;
     scaleMax.innerText = `${Math.round(bound.max)} %`;
   } else if (unitDollar.includes(bound.name)) {
-    scaleMin.innerText = `$ ${Math.round(bound.min).toLocaleString("en-US")}`;
-    scaleMax.innerText = `$ ${Math.round(bound.max).toLocaleString("en-US")}`;
+    if (bound.name === "average land price / ft2") {
+      scaleMin.innerText = `$ ${Math.round(bound.min * 50).toLocaleString(
+        "en-US"
+      )}`;
+      scaleMax.innerText = `$ ${Math.round(bound.max * 50).toLocaleString(
+        "en-US"
+      )}`;
+    } else {
+      scaleMin.innerText = `$ ${Math.round(bound.min).toLocaleString("en-US")}`;
+      scaleMax.innerText = `$ ${Math.round(bound.max).toLocaleString("en-US")}`;
+    }
   } else if (
     unitLandUse.includes(bound.name) ||
     unitTransportation.includes(bound.name)

@@ -4,18 +4,6 @@ const clusterDatasetContainers = cluster.querySelectorAll(".sidebar__dataset");
 // Mouse interaction with dataset item
 clusterDatasetContainers.forEach((container) => {
   if (!container.classList.contains("selectable")) return;
-
-  container.addEventListener("click", (event) => {
-    if (event.target.tagName === "P") {
-      // Deselect all data
-      container.querySelectorAll("p").forEach((item) => {
-        item.classList.remove("selectedData");
-      });
-
-      // Highlight selected data
-      event.target.classList.add("selectedData");
-    }
-  });
 });
 
 // Handle cluster button to update cluster legend
