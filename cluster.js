@@ -18,7 +18,7 @@ clusterBtn.addEventListener("click", () => {
       .then((response) => response.json())
       .then((data) => {
         const features = getFeatures();
-        clusterFeatures(data, features);
+        runKMeans(data, features);
       })
       .catch((error) =>
         console.error("Error fetching the GeoJSON file:", error)
@@ -28,7 +28,7 @@ clusterBtn.addEventListener("click", () => {
       .then((response) => response.json())
       .then((data) => {
         const features = getFeatures();
-        clusterFeatures(data, features);
+        runKMeans(data, features);
       })
       .catch((error) =>
         console.error("Error fetching the GeoJSON file:", error)
@@ -65,19 +65,39 @@ function getFeatures() {
   return features;
 }
 
-function clusterFeatures(dataset, features) {
-  fetch("http://127.0.0.1:5501/cluster_data", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      dataset: dataset,
-      n_clusters: 4,
-      features: features,
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => console.log(data))
-    .catch((error) => console.error("Error:", error));
+function runKMeans(geojson, propertyNames) {
+  // Filter geojson basedon features
+  const geojsonFiltered = geojson.features.map((feature) => {
+    let filteredProperties = {};
+    propertyNames.forEach((prop) => {
+      if (feature.properties.hasOwnProperty(prop)) {
+        filteredProperties[prop] = feature.properties[prop];
+      }
+    });
+    return {
+      ...feature,
+      properties: filteredProperties,
+    };
+  });
+
+  // Convert array of properties objects to 2d array
+  const data = [];
+  geojsonFiltered.forEach((item) => {
+    const featureVals = [];
+    Object.values(item.properties).forEach((val) => featureVals.push(val));
+    data.push(featureVals);
+  });
+
+  console.log(data);
+  console.log(propertyNames);
+
+  // Number of clusters
+  const numberOfClusters = 4;
+
+  // Using the ML.js library to perform K-Means clustering
+  const kmeans = ML.KMeans(data, numberOfClusters);
+
+  // // Output the results
+  console.log("Cluster Centers:", kmeans.centroids);
+  console.log("Cluster Assignments:", kmeans.clusters);
 }
