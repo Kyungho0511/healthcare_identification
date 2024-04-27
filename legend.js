@@ -8,7 +8,7 @@ function onLegend(sectionId, mapId) {
     .querySelector(`#${sectionId}`)
     .querySelector(`.legend-${mapId}`);
 
-  // Edge case 1
+  // Edge case 1:
   if (sectionId === "start") {
     updateLegend(
       legend.querySelector(".legend__title"),
@@ -20,7 +20,7 @@ function onLegend(sectionId, mapId) {
     );
   }
 
-  // Edge Case 2
+  // Edge Case 2:
   else if (sectionId === "cluster") {
     updateClusterLegend(legend);
   }

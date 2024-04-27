@@ -36,7 +36,6 @@
     <script src="explore.js" defer></script>
     <script src="cluster.js" defer></script>
     <script src="legend.js" defer></script>
-    <script src="kmeans.js" defer></script>
   </head>
 
   <!-- App.js: Contents are shown and hidden based on user interaction (SPA)-->
@@ -365,7 +364,7 @@
         <div class="sidebar__dataset dropdown">
           <button class="dropbtn">
             <span class="triangle expanded"></span
-            ><b style="font-size: 1rem">Selected Dataset</b>
+            ><b style="font-size: 1rem">Datasets to Cluster</b>
           </button>
           <ul
             class="dataset__list dropdown-content selected_dataset expanded"
@@ -424,7 +423,7 @@
           ready.
         </div>
 
-        <div class="sidebar__dataset dropdown">
+        <div class="sidebar__dataset cluster-container dropdown">
           <h4>VULNERABILITY CLUSTERS</h4>
           <button class="dropbtn">
             <span class="triangle"></span>default features
@@ -489,15 +488,13 @@
             <span class="triangle"></span>add features
           </button>
           <ul class="dataset__list dropdown-content selected_dataset"></ul>
-          <button class="sidebar__button button_grey cluster-map">
-            CLUSTER
-          </button>
+          <button class="sidebar__button button_grey">CLUSTER</button>
         </div>
 
-        <div class="sidebar__dataset dropdown profitability_cluster blue">
+        <div class="sidebar__dataset dropdown add-container blue">
           <h4>PROFITABILITY CLUSTERS</h4>
           <button class="dropbtn">
-            <span class="triangle"></span>default features
+            <span class="triangle"></span>features to cluster
           </button>
           <ul class="dataset__list dropdown-content">
             <li class="dataset__item">
@@ -531,9 +528,7 @@
             <span class="triangle"></span>add features
           </button>
           <ul class="dataset__list dropdown-content selected_dataset"></ul>
-          <button class="sidebar__button button_grey cluster-map2">
-            CLUSTER
-          </button>
+          <button class="sidebar__button button_grey">CLUSTER</button>
         </div>
       </aside>
 
