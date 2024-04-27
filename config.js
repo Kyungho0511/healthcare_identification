@@ -9,6 +9,9 @@ const color = {
     min: "#fffaec",
     max: "#f5ab00",
   },
+  green: {
+    categorized: [],
+  },
 };
 
 const config = {

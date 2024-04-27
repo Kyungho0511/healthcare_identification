@@ -10,15 +10,15 @@ clusterDatasetContainers.forEach((container) => {
   if (!container.classList.contains("selectable")) return;
 });
 
-// Handle cluster button to update cluster legend
+// Handle cluster button to update cluster legend (map1)
 clusterBtn.addEventListener("click", () => {
-  // Fetch tracts_features GeoJSON
   if (selectedCounties === "NYC Counties") {
     fetch("data/tracts_features_nyc.geojson")
       .then((response) => response.json())
       .then((data) => {
         const features = getFeatures();
-        runKMeans(data, features);
+        const kMeans = runKMeans(data, features);
+        addKMeansLayer(kMeans, data);
       })
       .catch((error) =>
         console.error("Error fetching the GeoJSON file:", error)
@@ -28,7 +28,8 @@ clusterBtn.addEventListener("click", () => {
       .then((response) => response.json())
       .then((data) => {
         const features = getFeatures();
-        runKMeans(data, features);
+        const kmeans = runKMeans(data, features);
+        addKMeansLayer(kmeans, data);
       })
       .catch((error) =>
         console.error("Error fetching the GeoJSON file:", error)
@@ -88,16 +89,48 @@ function runKMeans(geojson, propertyNames) {
     data.push(featureVals);
   });
 
-  console.log(data);
-  console.log(propertyNames);
-
   // Number of clusters
   const numberOfClusters = 4;
 
   // Using the ML.js library to perform K-Means clustering
   const kmeans = ML.KMeans(data, numberOfClusters);
 
-  // // Output the results
-  console.log("Cluster Centers:", kmeans.centroids);
-  console.log("Cluster Assignments:", kmeans.clusters);
+  return kmeans;
+}
+
+function addKMeansLayer(kmeans, data) {
+  dataClean = structuredClone(data);
+  dataClean.features.forEach((feature, idx) => {
+    feature.properties = {};
+    feature.properties.cluster = kmeans.clusters[idx];
+  });
+  map.addSource("vulnerability-cluster", {
+    type: "geojson",
+    data: dataClean,
+  });
+
+  map.addLayer(
+    {
+      id: "vulnerability-cluster",
+      type: "fill",
+      source: "vulnerability-cluster",
+      paint: {
+        "fill-color": [
+          "case",
+          ["==", ["get", "cluster"], 0],
+          color.yellow.categorized[0],
+          ["==", ["get", "cluster"], 1],
+          color.yellow.categorized[1],
+          ["==", ["get", "cluster"], 2],
+          color.yellow.categorized[2],
+          ["==", ["get", "cluster"], 3],
+          color.yellow.categorized[3],
+          "#ffffff",
+        ],
+        "fill-opacity": 1,
+        "fill-outline-color": "rgba(217, 217, 217, 0.36)",
+      },
+    },
+    "road-simple"
+  );
 }
