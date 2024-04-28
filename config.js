@@ -1,6 +1,40 @@
-// Variables for user inputs. Factors are stored in the order of preference
+// Default values for inputs. They will be replaced with user inputs.
+// preferedFactors are stored in the order of preference
+let preferedFactors = ["vulnerability", "profitability", "built environment"];
 let selectedCounties = "NYC Counties";
-let preferedFactors = ["vulnerability", "profitability", "built_environment"];
+let selectedDatasetItems = [];
+let vulnerabilityFeatures = [
+  "no leisure-time physical activity",
+  "binge drinking",
+  "sleeping less than 7 hours",
+  "current smoking",
+  "current lack of health insurance",
+  "visits to dentist or dental clinic",
+  "visits to doctor for routine checkup",
+  "physical health not good for >=14 days",
+  "mental health not good for >=14 days",
+];
+let profitabilityFeatures = [
+  "unserved medicaid enrollees / km2",
+  "unserved commercial enrollees / km2",
+  "insured population / km2",
+  "median household disposable income",
+  "average land price / ft2",
+];
+let builtEnvironmentFeatures = [
+  "agricultural land percent",
+  "residential district percent",
+  "commercial district percent",
+  "industrial district percent",
+  "vacant land percent",
+  "drove alone percent",
+  "public transit percent",
+  "walked percent",
+  "worked from home percent",
+];
+
+// Singleton state control for syncMap() function
+let isSyncing = false;
 
 // Colors used for mapping
 const color = {
@@ -50,7 +84,7 @@ const config = {
       default: { attribute: "unserved population / km2", color: color.yellow },
     },
     {
-      id: "cluster",
+      id: "cluster1",
       layers: [
         { layer: "counties-others", opacity: 0.6 },
         { layer: "tracts", opacity: 1 },
@@ -60,14 +94,24 @@ const config = {
       default: { attribute: "unserved population / km2", color: color.yellow },
     },
     {
-      id: "select",
+      id: "cluster2",
       layers: [
         { layer: "counties-others", opacity: 0.6 },
         { layer: "tracts", opacity: 1 },
         { layer: "tracts-features-nyc", opacity: 1 },
         { layer: "tracts-features-upstate", opacity: 1 },
       ],
-      default: {},
+      default: { attribute: "unserved population / km2", color: color.yellow },
+    },
+    {
+      id: "cluster3",
+      layers: [
+        { layer: "counties-others", opacity: 0.6 },
+        { layer: "tracts", opacity: 1 },
+        { layer: "tracts-features-nyc", opacity: 1 },
+        { layer: "tracts-features-upstate", opacity: 1 },
+      ],
+      default: { attribute: "unserved population / km2", color: color.yellow },
     },
   ],
 };
@@ -106,7 +150,7 @@ const config2 = {
       },
     },
     {
-      id: "cluster",
+      id: "cluster1",
       layers: [
         { layer: "counties-others", opacity: 0.6 },
         { layer: "tracts", opacity: 1 },
@@ -119,14 +163,30 @@ const config2 = {
       },
     },
     {
-      id: "select",
+      id: "cluster2",
       layers: [
         { layer: "counties-others", opacity: 0.6 },
         { layer: "tracts", opacity: 1 },
         { layer: "tracts-features-nyc", opacity: 1 },
         { layer: "tracts-features-upstate", opacity: 1 },
       ],
-      default: {},
+      default: {
+        attribute: "current lack of health insurance",
+        color: color.blue,
+      },
+    },
+    {
+      id: "cluster3",
+      layers: [
+        { layer: "counties-others", opacity: 0.6 },
+        { layer: "tracts", opacity: 1 },
+        { layer: "tracts-features-nyc", opacity: 1 },
+        { layer: "tracts-features-upstate", opacity: 1 },
+      ],
+      default: {
+        attribute: "current lack of health insurance",
+        color: color.blue,
+      },
     },
   ],
 };

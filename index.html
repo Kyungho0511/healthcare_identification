@@ -72,7 +72,7 @@
           <img class="logo" src="./images/logo2.PNG" alt="logo_image" />
         </div>
         <div class="sidebar__prompt prefernce">
-          <h4>Choose Your Preference</h4>
+          <h4 class="prompt-title">Choose Your Preference</h4>
           <div class="promt_text">
             What is the most important factor when providing healthcare
             facilities?
@@ -92,18 +92,20 @@
               <input
                 type="radio"
                 name="most-important"
-                value="built_environment"
+                value="built environment"
               />
               <span class="radio-indicator"></span>
               <div class="radio-text">Built Environment</div>
             </label>
           </div>
-          <div class="promt_text">What factor is the least important?</div>
+          <div class="promt_text">
+            What is the second most important factor?
+          </div>
           <div class="radio-list">
             <label class="custom-radio">
               <input
                 type="radio"
-                name="least-important"
+                name="second-important"
                 value="vulnerability"
               />
               <span class="radio-indicator"></span>
@@ -112,7 +114,7 @@
             <label class="custom-radio">
               <input
                 type="radio"
-                name="least-important"
+                name="second-important"
                 value="profitability"
               />
               <span class="radio-indicator"></span>
@@ -121,8 +123,8 @@
             <label class="custom-radio">
               <input
                 type="radio"
-                name="least-important"
-                value="built_environment"
+                name="second-important"
+                value="built environment"
               />
               <span class="radio-indicator"></span>
               <div class="radio-text">Built Environment</div>
@@ -131,7 +133,7 @@
         </div>
 
         <div class="sidebar__prompt counties">
-          <h4>Choose Counties</h4>
+          <h4 class="prompt-title">Choose Counties</h4>
           <div class="promt_text">
             Choose counties for healthcare provision. Click 'Continue' button
             after you are done.
@@ -197,7 +199,7 @@
           <img class="logo" src="./images/logo2.PNG" alt="logo_image" />
         </div>
         <div class="sidebar__prompt">
-          <h4>Explore Datasets</h4>
+          <h4 class="prompt-title">Explore Datasets</h4>
           Explore datasets of shortage areas by comparing target data on
           shortages with other secondary data. Add or remove datasets as needed
           for the clustering analysis of healthcare shortages. Once you are
@@ -205,7 +207,7 @@
         </div>
 
         <div class="sidebar__dataset target_data dropdown selectable">
-          <h4>Select Target Data</h4>
+          <h4 class="dataset-title">Select Target Data</h4>
           <button class="dropbtn">
             <span class="triangle"></span>Unserved Population Density
           </button>
@@ -247,7 +249,7 @@
         </div>
 
         <div class="sidebar__dataset second_data dropdown selectable blue">
-          <h4>Select Second Data</h4>
+          <h4 class="dataset-title">Select Second Data</h4>
           <button class="dropbtn">
             <span class="triangle"></span>Health Behaviors
           </button>
@@ -390,10 +392,10 @@
         <div class="sidebar__dataset dropdown">
           <button class="dropbtn">
             <span class="triangle expanded"></span
-            ><b style="font-size: 1rem">Datasets to Cluster</b>
+            ><b style="font-size: 1rem">Added Features</b>
           </button>
           <ul
-            class="dataset__list dropdown-content selected_dataset expanded"
+            class="dataset__list dropdown-content selected_dataset explore expanded"
           ></ul>
         </div>
       </aside>
@@ -443,7 +445,7 @@
           <img class="logo" src="./images/logo2.PNG" alt="logo_image" />
         </div>
         <div class="sidebar__prompt">
-          <h4>Customize Clustering Analysis</h4>
+          <h4 class="prompt-title">Customize Clustering Analysis</h4>
           See how the datasets below are used to identify distinct clusters of
           primary care shortage areas by default. Add or remove datasets to
           customize your clusters. Click the 'Cluster' button when you are
@@ -451,68 +453,15 @@
         </div>
 
         <div class="sidebar__dataset cluster-container dropdown">
-          <h4>VULNERABILITY CLUSTERS</h4>
+          <h4 class="dataset-title"></h4>
           <button class="dropbtn">
-            <span class="triangle"></span>default features
+            <span class="triangle"></span>Default Features
           </button>
-          <ul class="dataset__list dropdown-content">
-            <li class="dataset__item">
-              <p>Unserved Medicaid enrollees / km2</p>
-              <i class="fa-regular fa-square-minus"></i>
-            </li>
-            <li class="dataset__item">
-              <p>Current lack of health insurance</p>
-              <i class="fa-regular fa-square-minus"></i>
-            </li>
-            <li class="dataset__item">
-              <p>No leisure-time physical activity</p>
-              <i class="fa-regular fa-square-minus"></i>
-            </li>
-            <li class="dataset__item">
-              <p>Binge drinking</p>
-              <i class="fa-regular fa-square-minus"></i>
-            </li>
-            <li class="dataset__item">
-              <p>Sleeping less than 7 hours</p>
-              <i class="fa-regular fa-square-minus"></i>
-            </li>
-            <li class="dataset__item">
-              <p>Current smoking</p>
-              <i class="fa-regular fa-square-minus"></i>
-            </li>
-            <li class="dataset__item">
-              <p>Cholesterol screening</p>
-              <i class="fa-regular fa-square-minus"></i>
-            </li>
-            <li class="dataset__item">
-              <p>Taking medicine for high blood pressure</p>
-              <i class="fa-regular fa-square-minus"></i>
-            </li>
-            <li class="dataset__item">
-              <p>Visits to dentist or dental clinic</p>
-              <i class="fa-regular fa-square-minus"></i>
-            </li>
-            <li class="dataset__item">
-              <p>Visits to doctor for routine checkup</p>
-              <i class="fa-regular fa-square-minus"></i>
-            </li>
-            <li class="dataset__item">
-              <p>Physical health not good for >=14 days</p>
-              <i class="fa-regular fa-square-minus"></i>
-            </li>
-            <li class="dataset__item">
-              <p>Mental health not good for >=14 days</p>
-              <i class="fa-regular fa-square-minus"></i>
-            </li>
-            <li class="dataset__item">
-              <p>Fair or poor self-rated health status</p>
-              <i class="fa-regular fa-square-minus"></i>
-            </li>
-          </ul>
+          <ul class="dataset__list dropdown-content"></ul>
           <hr />
 
           <button class="dropbtn">
-            <span class="triangle"></span>add features
+            <span class="triangle"></span>Added Features
           </button>
           <ul class="dataset__list dropdown-content selected_dataset"></ul>
           <button class="sidebar__button button_grey">CLUSTER</button>
@@ -564,7 +513,7 @@
           <img class="logo" src="./images/logo2.PNG" alt="logo_image" />
         </div>
         <div class="sidebar__prompt">
-          <h4>Customize Clustering Analysis</h4>
+          <h4 class="prompt-title">Customize Clustering Analysis</h4>
           See how the datasets below are used to identify distinct clusters of
           primary care shortage areas by default. Add or remove datasets to
           customize your clusters. Click the 'Cluster' button when you are
@@ -572,40 +521,83 @@
         </div>
 
         <div class="sidebar__dataset dropdown add-container blue">
-          <h4>PROFITABILITY CLUSTERS</h4>
+          <h4 class="dataset-title"></h4>
           <button class="dropbtn">
-            <span class="triangle"></span>features to cluster
+            <span class="triangle"></span>Default Features
           </button>
-          <ul class="dataset__list dropdown-content">
-            <li class="dataset__item">
-              <p>Unserved Medicaid enrollees / km2</p>
-              <i class="fa-regular fa-square-minus"></i>
-            </li>
-            <li class="dataset__item">
-              <p>Unserved Commercial enrollees / km2</p>
-              <i class="fa-regular fa-square-minus"></i>
-            </li>
-            <li class="dataset__item">
-              <p>Insured population / km2</p>
-              <i class="fa-regular fa-square-minus"></i>
-            </li>
-            <li class="dataset__item">
-              <p>Median household income</p>
-              <i class="fa-regular fa-square-minus"></i>
-            </li>
-            <li class="dataset__item">
-              <p>Median household disposable income</p>
-              <i class="fa-regular fa-square-minus"></i>
-            </li>
-            <li class="dataset__item">
-              <p>Average land price / ft2</p>
-              <i class="fa-regular fa-square-minus"></i>
-            </li>
-          </ul>
+          <ul class="dataset__list dropdown-content"></ul>
           <hr />
 
           <button class="dropbtn">
-            <span class="triangle"></span>add features
+            <span class="triangle"></span>Added Features
+          </button>
+          <ul class="dataset__list dropdown-content selected_dataset"></ul>
+          <button class="sidebar__button button_grey">CLUSTER</button>
+        </div>
+      </aside>
+
+      <footer class="footerbar">
+        <div class="progressbar_container">
+          <ul class="progressbar">
+            <li>start</li>
+            <li>explore</li>
+            <li>cluster1</li>
+            <li>cluster2</li>
+            <li>cluster3</li>
+            <li>share</li>
+          </ul>
+        </div>
+        <button class="footerbar__button button_grey">continue</button>
+      </footer>
+    </section>
+
+    <!-- Cluster3 section -->
+    <section id="cluster3" class="content">
+      <div class="legend legend-map">
+        <h4 class="legend__title">VULNERABILITY CLUSTERS</h4>
+        <ul class="cluster-legend-list">
+          <li><span class="color-box"></span>Inconsistent Healthcare</li>
+          <li><span class="color-box"></span>High-Risk, Healthcare Averse</li>
+          <li><span class="color-box"></span>Moderate Vigilance</li>
+          <li>
+            <span class="color-box"></span>Health-Conscious, Well-Serviced
+          </li>
+        </ul>
+      </div>
+
+      <div class="legend legend-map2">
+        <h4 class="legend__title">PROFITABILITY CLUSTERS</h4>
+        <ul class="cluster-legend-list">
+          <li><span class="color-box"></span>Emerging Markets, Low Cost</li>
+          <li><span class="color-box"></span>High Commercial, Profitable</li>
+          <li><span class="color-box"></span>High Medicaid, High Cost</li>
+          <li><span class="color-box"></span>Affluent Niche</li>
+          <li><span class="color-box"></span>Moderate Demand, High Cost</li>
+        </ul>
+      </div>
+
+      <aside class="sidebar">
+        <div class="sidebar__title">
+          <img class="logo" src="./images/logo2.PNG" alt="logo_image" />
+        </div>
+        <div class="sidebar__prompt">
+          <h4 class="prompt-title">Customize Clustering Analysis</h4>
+          See how the datasets below are used to identify distinct clusters of
+          primary care shortage areas by default. Add or remove datasets to
+          customize your clusters. Click the 'Cluster' button when you are
+          ready.
+        </div>
+
+        <div class="sidebar__dataset dropdown add-container blue">
+          <h4 class="dataset-title"></h4>
+          <button class="dropbtn">
+            <span class="triangle"></span>Default Features
+          </button>
+          <ul class="dataset__list dropdown-content"></ul>
+          <hr />
+
+          <button class="dropbtn">
+            <span class="triangle"></span>Added Features
           </button>
           <ul class="dataset__list dropdown-content selected_dataset"></ul>
           <button class="sidebar__button button_grey">CLUSTER</button>

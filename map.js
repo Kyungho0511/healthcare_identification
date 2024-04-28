@@ -60,6 +60,9 @@ const map2 = new mapboxgl.Map({
 map2.dragRotate.disable();
 map2.touchZoomRotate.disableRotation();
 
+// Sync Map, Map2 navigation
+enableSyncMap();
+
 /**
  * Functions
  */
@@ -191,18 +194,37 @@ function syncMap(sourceMap, targetMap) {
 
     // Re-enable the listener on the target map after the update
     requestAnimationFrame(() => {
-      targetMap.on("move", targetMap.sync);
+      if (isSyncing) {
+        // Check to avoid re-binding if syncing has been disabled
+        targetMap.on("move", targetMap.sync);
+      }
     });
   };
 }
 
 function enableSyncMap() {
-  // Attach the synchronization handlers
+  if (isSyncing) return; // Prevent multiple sync initializations
+  isSyncing = true;
+
+  // Only attach handlers if syncing isn't already enabled
   map.sync = syncMap(map, map2);
   map2.sync = syncMap(map2, map);
 
   map.on("move", map.sync);
   map2.on("move", map2.sync);
+}
+
+function disableSyncMap() {
+  if (isSyncing) {
+    map.off("move", map.sync);
+    map2.off("move", map2.sync);
+
+    map.sync = null;
+    map2.sync = null;
+
+    isSyncing = false; // Reset syncing state
+    console.log("Map synchronization disabled.");
+  }
 }
 
 function updateLayerStyle(
@@ -246,6 +268,11 @@ function flyTo() {
     map.jumpTo(config2.location);
     map2.jumpTo(config2.location);
   }
+}
+
+function flyReset() {
+  map.jumpTo(config.location);
+  map2.jumpTo(config2.location);
 }
 
 function selectFeatureByName(layerId, propertyName, value) {

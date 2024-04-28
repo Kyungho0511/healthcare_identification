@@ -21,7 +21,11 @@ function onLegend(sectionId, mapId) {
   }
 
   // Edge Case 2:
-  else if (sectionId === "cluster") {
+  else if (
+    sectionId === "cluster1" ||
+    sectionId === "cluster2" ||
+    sectionId === "cluster3"
+  ) {
     updateClusterLegend(legend);
   }
 

@@ -1,76 +1,50 @@
 const explore = document.querySelector("#explore");
 const exploreDatasetContainers = explore.querySelectorAll(".sidebar__dataset");
-
-// Mouse interaction with dataset item
-exploreDatasetContainers.forEach((container) => {
-  if (!container.classList.contains("selectable")) return;
-
-  container.addEventListener("click", (event) => {
-    if (event.target.tagName === "P") {
-      // Deselect all data
-      container.querySelectorAll("p").forEach((item) => {
-        item.classList.remove("selectedData");
-      });
-
-      // Highlight selected data
-      event.target.classList.add("selectedData");
-    }
-  });
-});
+const exploreContinueBtn = explore.querySelector(".footerbar__button");
 
 // Add data to the selected dataset container when plus icon is clicked
 explore.querySelectorAll(".fa-square-plus").forEach((icon) => {
   icon.addEventListener("click", function () {
     const originalListItem = icon.closest(".dataset__item");
-    const targetLists = document.querySelectorAll(
+    const targetList = document.querySelector(
       ".dataset__list.selected_dataset"
     );
 
     if (!icon.classList.contains("added")) {
       // Append a clone of the 'li' to each target 'ul'
-      targetLists.forEach((list, idx) => {
-        const clonedListItem = originalListItem.cloneNode(true);
-        const clonedIcon = clonedListItem.querySelector(".fa-square-plus");
+      const clonedListItem = originalListItem.cloneNode(true);
+      const clonedIcon = clonedListItem.querySelector(".fa-square-plus");
 
-        // Explore selected dataset
-        if (clonedIcon && idx === 0) {
-          clonedIcon.classList.remove("fa-square-plus");
-          clonedIcon.classList.add("fa-square-minus");
+      // Explore selected dataset
+      if (clonedIcon) {
+        clonedIcon.classList.remove("fa-square-plus");
+        clonedIcon.classList.add("fa-square-minus");
 
-          // Remove data from the selected dataset container when minus icon is clicked
-          clonedIcon.addEventListener("click", () => {
-            clonedListItem.remove();
-            icon.classList.remove("added");
-          });
-        }
-
-        // Cluster selected dataset
-        else {
-          // update clonedIcon interaction here!
-        }
-
-        list.appendChild(clonedListItem);
-      });
+        // Remove data from the selected dataset container when minus icon is clicked
+        clonedIcon.addEventListener("click", () => {
+          clonedListItem.remove();
+          icon.classList.remove("added");
+        });
+      }
+      targetList.appendChild(clonedListItem);
 
       icon.classList.add("added");
     } else {
       // Remove the item from all lists if it has already been added
       icon.classList.remove("added");
-      targetLists.forEach((list) => {
-        list.querySelectorAll("li").forEach((item) => {
-          if (
-            item.querySelector("p").innerText ===
-            originalListItem.querySelector("p").innerText
-          ) {
-            item.remove();
-          }
-        });
+      targetList.querySelectorAll("li").forEach((item) => {
+        if (
+          item.querySelector("p").innerText ===
+          originalListItem.querySelector("p").innerText
+        ) {
+          item.remove();
+        }
       });
     }
   });
 });
 
-//  Mouse interaction with dataset item
+//  Mouse interaction with dataset item (updateLayerStyle & updateLegend)
 exploreDatasetContainers.forEach((container) => {
   if (!container.classList.contains("selectable")) return;
 
@@ -145,3 +119,33 @@ exploreDatasetContainers.forEach((container) => {
     });
   }
 });
+
+// Store selectedDatasetItems to session storage (declared in config.js)
+exploreContinueBtn.addEventListener("click", () => {
+  tempDatasets = [];
+  explore
+    .querySelector(".selected_dataset")
+    .querySelectorAll(".dataset__item")
+    .forEach((item) => {
+      tempDatasets.push(item.querySelector("p").innerText);
+    });
+
+  selectedDatasetItems = tempDatasets;
+  sessionStorage.setItem(
+    "selectedDatasetItems",
+    JSON.stringify(selectedDatasetItems)
+  );
+});
+
+function setSelectedDataset() {
+  const list = document.createElement("ul");
+  document.querySelectorAll(".selected_dataset").forEach((dataset) => {
+    if (dataset.classList.contains("explore")) {
+      selectedDatasetItems.forEach((item) => createItem(list, item, "minus"));
+      dataset.innerHTML = list.innerHTML;
+    } else {
+      selectedDatasetItems.forEach((item) => createItem(list, item, "plus"));
+      dataset.innerHTML = list.innerHTML;
+    }
+  });
+}

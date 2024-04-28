@@ -256,7 +256,6 @@ hr {
   border-radius: 0.5rem;
 
   & h4 {
-    font-size: 1.1rem;
     margin: 0;
     margin-bottom: 1rem;
   }
@@ -266,6 +265,13 @@ hr {
   font-weight: var(--font-medium);
   margin-bottom: 0.5rem;
   margin-top: 1.2rem;
+}
+
+.prompt-title,
+.dataset-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-transform: capitalize;
 }
 
 .sidebar__dataset.selectable .dataset__item {
@@ -343,7 +349,7 @@ hr {
   width: 100%;
   text-align: start;
   padding: 0;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: var(--font-medium);
   border: none;
   cursor: pointer;

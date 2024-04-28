@@ -57,7 +57,7 @@ cluster.querySelector(".footerbar__button").addEventListener("click", () => {
 function getFeatures() {
   const features = [];
   document
-    .querySelector("#cluster")
+    .querySelector("#cluster1")
     .querySelector(".cluster-container")
     .querySelectorAll(".dataset__item")
     .forEach((item) => {

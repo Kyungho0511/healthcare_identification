@@ -29,7 +29,6 @@ dropdowns.forEach((dropdown) => {
     });
   });
 });
-
 const expandedLists = document.querySelectorAll(".expanded.dataset__list");
 const expandedTriangles = document.querySelectorAll(".expanded.triangle");
 
@@ -38,3 +37,22 @@ expandedLists.forEach((list) => (list.style.display = "block"));
 expandedTriangles.forEach(
   (triangle) => (triangle.style.transform = "rotate(90deg) translateY(-10%)")
 );
+
+/**
+ * Selectable dataset menu interaction
+ */
+document.querySelectorAll(".sidebar__dataset").forEach((container) => {
+  if (!container.classList.contains("selectable")) return;
+
+  container.addEventListener("click", (event) => {
+    if (event.target.tagName === "P") {
+      // Deselect all data
+      container.querySelectorAll("p").forEach((item) => {
+        item.classList.remove("selectedData");
+      });
+
+      // Highlight selected data
+      event.target.classList.add("selectedData");
+    }
+  });
+});

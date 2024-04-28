@@ -37,13 +37,16 @@ sections.forEach((sec, idx) => {
 
 // Listen to window popstate for browser history
 window.addEventListener("popstate", function (event) {
-  if (event.state == null) {
+  if (event.state == null || event.state?.section === "start") {
     showSection("start");
     checkProgress("start");
     onLayers("start", "map");
     onLayers("start", "map2");
     onLegend("start", "map");
     onLegend("start", "map2");
+    flyReset();
+    disableSyncMap();
+    return;
   }
 
   if (event.state && event.state.section) {
@@ -54,6 +57,8 @@ window.addEventListener("popstate", function (event) {
     onLayers(sectionId, "map2");
     onLegend(sectionId, "map");
     onLegend(sectionId, "map2");
+    flyTo();
+    enableSyncMap();
   }
 });
 
@@ -62,25 +67,39 @@ document.addEventListener("DOMContentLoaded", function () {
   // On page load, retrieve the selected counties from sessionStorage
   if (sessionStorage.getItem("selectedCounties")) {
     selectedCounties = JSON.parse(sessionStorage.getItem("selectedCounties"));
-    console.log(selectedCounties);
+    console.log("user selected Counties: ", selectedCounties);
   }
 
   if (sessionStorage.getItem("preferedFactors")) {
     preferedFactors = JSON.parse(sessionStorage.getItem("preferedFactors"));
-    console.log(preferedFactors);
+    console.log("user selected Factors: ", preferedFactors);
+  }
+
+  if (sessionStorage.getItem("selectedDatasetItems")) {
+    selectedDatasetItems = JSON.parse(
+      sessionStorage.getItem("selectedDatasetItems")
+    );
+    console.log("user selected Dataset Items: ", selectedDatasetItems);
   }
 
   const sectionId = window.location.hash.replace("#", "");
-  if (!sectionId) {
+  // Edge case:
+  if (!sectionId || sectionId === "start") {
     map.on("load", () => {
       checkProgress("start");
       onLayers("start", "map");
       onLayers("start", "map2");
       onLegend("start", "map");
       onLegend("start", "map2");
+      flyReset();
+      disableSyncMap();
     });
     return;
   }
+
+  // Normal cases:
+  setSelectedDataset();
+  setClusterContent();
   showSection(sectionId);
 
   map.on("load", () => {
@@ -89,9 +108,8 @@ document.addEventListener("DOMContentLoaded", function () {
     onLayers(sectionId, "map2");
     onLegend(sectionId, "map");
     onLegend(sectionId, "map2");
-    if (sectionId !== "start") {
-      enableSyncMap();
-    }
+    flyTo();
+    enableSyncMap();
   });
 });
 
@@ -149,4 +167,18 @@ function resetProgress() {
     step.classList.remove("checked");
     step.classList.remove("progressed");
   });
+}
+
+// Dynamically create tags
+function createItem(list, name, sign) {
+  const li = document.createElement("li");
+  const p = document.createElement("p");
+  const i = document.createElement("i");
+  p.innerText = name;
+  li.classList.add("dataset__item");
+  i.classList.add("fa-regular");
+  i.classList.add(`fa-square-${sign}`);
+  li.appendChild(p);
+  li.appendChild(i);
+  list.appendChild(li);
 }
