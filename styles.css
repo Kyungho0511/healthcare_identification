@@ -5,7 +5,7 @@
   --color-dark-grey: rgb(87, 87, 87);
   --color-grey: rgb(150, 150, 150);
   --color-light-grey: rgb(220, 220, 220);
-  --color-light-white: rgb(250, 250, 250);
+  --color-light-white: rgb(247, 247, 247);
   --color-white: white;
   --color-blue: #036bfc;
   --color-blue-transparent: #036bfccc;
@@ -60,83 +60,12 @@ hr {
   border: solid var(--color-white) 1px;
 }
 
-/* Navbar */
-#navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  width: 100%;
-  height: 50px;
-  background-color: var(--color-white);
-  font-weight: bold;
-  margin: auto;
-  border-bottom: 0.5px solid var(--color-light-grey);
-  transition: all 300ms ease-in-out;
-  z-index: 1;
-
-  & a {
-    color: var(--color-grey);
-    padding: 1rem 1.5rem;
-    text-decoration: none;
-    text-transform: capitalize;
-
-    &:hover,
-    &.active {
-      color: var(--color-black);
-    }
-  }
-
-  & .navbar__container {
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    transition: all 300ms ease-in-out;
-  }
-
-  & #navbar_header {
-    text-transform: uppercase;
-    font-weight: var(--font-bold);
-    font-size: 1rem;
-    transition: all 300ms ease-in-out;
-    text-decoration: none;
-    color: var(--color-black);
-
-    & .logo {
-      padding: 1rem;
-      width: 230px;
-      opacity: 0.75;
-      transition: all 300ms ease-in-out;
-
-      &:hover {
-        opacity: 1;
-      }
-    }
-  }
-
-  &.highlight {
-    background-color: transparent;
-    border-bottom-color: transparent;
-
-    & .navbar__container {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    & #navbar_header {
-      & .logo {
-        opacity: 0.4;
-      }
-    }
-  }
-}
-
 .logo {
   display: block;
   margin: auto;
   padding: 1rem;
   padding-top: 0.5rem;
-  opacity: 0.75;
+  opacity: 0.85;
   width: 95%;
   cursor: pointer;
 
@@ -153,7 +82,7 @@ hr {
 }
 
 .progressbar {
-  max-width: 700px;
+  max-width: 800px;
   width: 100%;
   counter-reset: step;
   list-style: none;
@@ -288,7 +217,7 @@ hr {
 
 .sidebar__button {
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: var(--font-bold);
   margin-top: 0.8rem;
   width: 100%;
 }
@@ -304,7 +233,7 @@ hr {
   pointer-events: none;
 }
 
-/* County, Explore, Cluster, Select */
+/* Start, Explore, Cluster, Share */
 .sidebar {
   position: fixed;
   left: 0;
@@ -327,10 +256,16 @@ hr {
   border-radius: 0.5rem;
 
   & h4 {
-    font-size: 1rem;
+    font-size: 1.1rem;
     margin: 0;
     margin-bottom: 1rem;
   }
+}
+
+.promt_text {
+  font-weight: var(--font-medium);
+  margin-bottom: 0.5rem;
+  margin-top: 1.2rem;
 }
 
 .sidebar__dataset.selectable .dataset__item {
@@ -379,7 +314,7 @@ hr {
     &:hover,
     &.added {
       opacity: 0.7;
-      font-weight: bold;
+      font-weight: var(--font-bold);
       color: var(--color-grey);
     }
   }
@@ -439,16 +374,57 @@ hr {
   min-width: 160px;
 }
 
-.select-counties {
-  & p {
-    color: var(--color-yellow);
-  }
+/* radiobox */
+.radio-list {
+  display: flex;
+  flex-direction: column;
+}
 
-  &:hover,
-  &.added {
-    color: var(--color-yellow);
-    font-weight: var(--font-bold);
+.custom-radio {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+
+  &.radio-disabled {
+    opacity: 0.3;
+    pointer-events: none;
   }
+}
+
+.custom-radio input[type="radio"] {
+  opacity: 0;
+  position: absolute;
+}
+
+.custom-radio .radio-indicator {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--color-grey);
+  background-color: var(--color-white);
+  margin-right: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+}
+
+.custom-radio .radio-indicator::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background-color: var(--color-yellow);
+  transform: scale(0);
+}
+
+.custom-radio input[type="radio"]:checked + .radio-indicator::before {
+  transform: scale(1); /* Scales up the inner circle to indicate selection */
+}
+
+.radio-text {
+  margin: 0.25rem;
 }
 
 /* footerbar */

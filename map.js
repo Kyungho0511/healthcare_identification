@@ -238,7 +238,6 @@ function updateLayerStyle(
   }
 }
 
-let selectedCounties = null;
 function flyTo() {
   if (selectedCounties === "NYC Counties") {
     map.jumpTo(config.location);

@@ -71,61 +71,83 @@
         <div class="sidebar__title">
           <img class="logo" src="./images/logo2.PNG" alt="logo_image" />
         </div>
-        <div class="sidebar__prompt">
-          <h4>Start Your Analysis</h4>
-          Observe the distribution of the unserved population across counties in
-          New York State. Choose counties for your healthcare provision plan.
-          After making your selection, click the "Continue" button at the bottom
-          right side.
+        <div class="sidebar__prompt prefernce">
+          <h4>Choose Your Preference</h4>
+          <div class="promt_text">
+            What is the most important factor when providing healthcare
+            facilities?
+          </div>
+          <div class="radio-list">
+            <label class="custom-radio">
+              <input type="radio" name="most-important" value="vulnerability" />
+              <span class="radio-indicator"></span>
+              <div class="radio-text">Health Vulnerability of Residents</div>
+            </label>
+            <label class="custom-radio">
+              <input type="radio" name="most-important" value="profitability" />
+              <span class="radio-indicator"></span>
+              <div class="radio-text">Profitability of Facilities</div>
+            </label>
+            <label class="custom-radio">
+              <input
+                type="radio"
+                name="most-important"
+                value="built_environment"
+              />
+              <span class="radio-indicator"></span>
+              <div class="radio-text">Built Environment</div>
+            </label>
+          </div>
+          <div class="promt_text">What factor is the least important?</div>
+          <div class="radio-list">
+            <label class="custom-radio">
+              <input
+                type="radio"
+                name="least-important"
+                value="vulnerability"
+              />
+              <span class="radio-indicator"></span>
+              <div class="radio-text">Health Vulnerability of Residents</div>
+            </label>
+            <label class="custom-radio">
+              <input
+                type="radio"
+                name="least-important"
+                value="profitability"
+              />
+              <span class="radio-indicator"></span>
+              <div class="radio-text">Profitability of Facilities</div>
+            </label>
+            <label class="custom-radio">
+              <input
+                type="radio"
+                name="least-important"
+                value="built_environment"
+              />
+              <span class="radio-indicator"></span>
+              <div class="radio-text">Built Environment</div>
+            </label>
+          </div>
         </div>
 
-        <div class="sidebar__dataset counties dropdown">
-          <h4>Select Counties</h4>
-          <button class="dropbtn select-counties">
-            <span class="triangle"></span>NYC Counties
-          </button>
-          <ul class="dataset__list dropdown-content nyc_counties selectable">
-            <li class="dataset__item"><p>Bronx</p></li>
-            <li class="dataset__item"><p>Kings</p></li>
-            <li class="dataset__item"><p>New York</p></li>
-            <li class="dataset__item"><p>Queens</p></li>
-            <li class="dataset__item"><p>Richmond</p></li>
-          </ul>
-          <br />
-          <button class="dropbtn select-counties">
-            <span class="triangle"></span>Upstate NY Counties
-          </button>
-          <ul
-            class="dataset__list dropdown-content upstate_counties selectable"
-          >
-            <li class="dataset__item"><p>Albany</p></li>
-            <li class="dataset__item"><p>Cayuga</p></li>
-            <li class="dataset__item"><p>Chautauqua</p></li>
-            <li class="dataset__item"><p>Cortland</p></li>
-            <li class="dataset__item"><p>Erie</p></li>
-            <li class="dataset__item"><p>Genesee</p></li>
-            <li class="dataset__item"><p>Greene</p></li>
-            <li class="dataset__item"><p>Hamilton</p></li>
-            <li class="dataset__item"><p>Lewis</p></li>
-            <li class="dataset__item"><p>Montgomery</p></li>
-            <li class="dataset__item"><p>Oneida</p></li>
-            <li class="dataset__item"><p>Onondaga</p></li>
-            <li class="dataset__item"><p>Ontario</p></li>
-            <li class="dataset__item"><p>Orange</p></li>
-            <li class="dataset__item"><p>Oswego</p></li>
-            <li class="dataset__item"><p>Putnam</p></li>
-            <li class="dataset__item"><p>Rensselaer</p></li>
-            <li class="dataset__item"><p>Rockland</p></li>
-            <li class="dataset__item"><p>Schuyler</p></li>
-            <li class="dataset__item"><p>St Lawrence</p></li>
-            <li class="dataset__item"><p>Steuben</p></li>
-            <li class="dataset__item"><p>Sullivan</p></li>
-            <li class="dataset__item"><p>Tioga</p></li>
-            <li class="dataset__item"><p>Tompkins</p></li>
-            <li class="dataset__item"><p>Ulster</p></li>
-            <li class="dataset__item"><p>Warren</p></li>
-            <li class="dataset__item"><p>Westchester</p></li>
-          </ul>
+        <div class="sidebar__prompt counties">
+          <h4>Choose Counties</h4>
+          <div class="promt_text">
+            Choose counties for healthcare provision. Click 'Continue' button
+            after you are done.
+          </div>
+          <div class="radio-list">
+            <label class="custom-radio">
+              <input type="radio" name="counties" value="NYC Counties" />
+              <span class="radio-indicator"></span>
+              <div class="radio-text">NYC Counties</div>
+            </label>
+            <label class="custom-radio">
+              <input type="radio" name="counties" value="Upstate NY Counties" />
+              <span class="radio-indicator"></span>
+              <div class="radio-text">Upstate NY Counties</div>
+            </label>
+          </div>
         </div>
       </aside>
 
@@ -134,8 +156,9 @@
           <ul class="progressbar">
             <li>start</li>
             <li>explore</li>
-            <li>cluster</li>
-            <li>select</li>
+            <li>cluster1</li>
+            <li>cluster2</li>
+            <li>cluster3</li>
             <li>share</li>
           </ul>
         </div>
@@ -380,8 +403,9 @@
           <ul class="progressbar">
             <li>start</li>
             <li>explore</li>
-            <li>cluster</li>
-            <li>select</li>
+            <li>cluster1</li>
+            <li>cluster2</li>
+            <li>cluster3</li>
             <li>share</li>
           </ul>
         </div>
@@ -389,8 +413,8 @@
       </footer>
     </section>
 
-    <!-- Cluster section -->
-    <section id="cluster" class="content">
+    <!-- Cluster1 section -->
+    <section id="cluster1" class="content">
       <div class="legend legend-map">
         <h4 class="legend__title">VULNERABILITY CLUSTERS</h4>
         <ul class="cluster-legend-list">
@@ -493,6 +517,59 @@
           <ul class="dataset__list dropdown-content selected_dataset"></ul>
           <button class="sidebar__button button_grey">CLUSTER</button>
         </div>
+      </aside>
+
+      <footer class="footerbar">
+        <div class="progressbar_container">
+          <ul class="progressbar">
+            <li>start</li>
+            <li>explore</li>
+            <li>cluster1</li>
+            <li>cluster2</li>
+            <li>cluster3</li>
+            <li>share</li>
+          </ul>
+        </div>
+        <button class="footerbar__button button_grey">continue</button>
+      </footer>
+    </section>
+
+    <!-- Cluster2 section -->
+    <section id="cluster2" class="content">
+      <div class="legend legend-map">
+        <h4 class="legend__title">VULNERABILITY CLUSTERS</h4>
+        <ul class="cluster-legend-list">
+          <li><span class="color-box"></span>Inconsistent Healthcare</li>
+          <li><span class="color-box"></span>High-Risk, Healthcare Averse</li>
+          <li><span class="color-box"></span>Moderate Vigilance</li>
+          <li>
+            <span class="color-box"></span>Health-Conscious, Well-Serviced
+          </li>
+        </ul>
+      </div>
+
+      <div class="legend legend-map2">
+        <h4 class="legend__title">PROFITABILITY CLUSTERS</h4>
+        <ul class="cluster-legend-list">
+          <li><span class="color-box"></span>Emerging Markets, Low Cost</li>
+          <li><span class="color-box"></span>High Commercial, Profitable</li>
+          <li><span class="color-box"></span>High Medicaid, High Cost</li>
+          <li><span class="color-box"></span>Affluent Niche</li>
+          <li><span class="color-box"></span>Moderate Demand, High Cost</li>
+        </ul>
+      </div>
+
+      <aside class="sidebar">
+        <div class="sidebar__title">
+          <img class="logo" src="./images/logo2.PNG" alt="logo_image" />
+        </div>
+        <div class="sidebar__prompt">
+          <h4>Customize Clustering Analysis</h4>
+          See how the datasets below are used to identify distinct clusters of
+          primary care shortage areas by default. Add or remove datasets to
+          customize your clusters. Click the 'Cluster' button when you are
+          ready.
+        </div>
 
         <div class="sidebar__dataset dropdown add-container blue">
           <h4>PROFITABILITY CLUSTERS</h4>
@@ -540,8 +617,9 @@
           <ul class="progressbar">
             <li>start</li>
             <li>explore</li>
-            <li>cluster</li>
-            <li>select</li>
+            <li>cluster1</li>
+            <li>cluster2</li>
+            <li>cluster3</li>
             <li>share</li>
           </ul>
         </div>
@@ -577,8 +655,9 @@
           <ul class="progressbar">
             <li>start</li>
             <li>explore</li>
-            <li>cluster</li>
-            <li>select</li>
+            <li>cluster1</li>
+            <li>cluster2</li>
+            <li>cluster3</li>
             <li>share</li>
           </ul>
         </div>
@@ -629,8 +708,9 @@
           <ul class="progressbar">
             <li>start</li>
             <li>explore</li>
-            <li>cluster</li>
-            <li>select</li>
+            <li>cluster1</li>
+            <li>cluster2</li>
+            <li>cluster3</li>
             <li>share</li>
           </ul>
         </div>

@@ -1,4 +1,4 @@
-const cluster = document.querySelector("#cluster");
+const cluster = document.querySelector("#cluster1");
 const clusterDatasetContainers = cluster.querySelectorAll(".sidebar__dataset");
 const clusterContainer = cluster.querySelector(".cluster-container");
 const clusterBtn = cluster.querySelector(".sidebar__button");
@@ -108,6 +108,8 @@ function addKMeansLayer(kmeans, data) {
     type: "geojson",
     data: dataClean,
   });
+
+  console.log(kmeans.centroids);
 
   map.addLayer(
     {

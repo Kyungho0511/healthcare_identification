@@ -38,28 +38,3 @@ expandedLists.forEach((list) => (list.style.display = "block"));
 expandedTriangles.forEach(
   (triangle) => (triangle.style.transform = "rotate(90deg) translateY(-10%)")
 );
-
-/**
- * Start
- */
-// Temporary: Control visibility of the select-counties dropbutton titles based on interaction
-document.querySelectorAll(".select-counties").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    if (btn.classList.contains("added")) {
-      // dehighlight select-counties title
-      btn.classList.remove("added");
-
-      // dehighlight map overlay
-    } else {
-      // dehighlight all select-counties before highlight the target title
-      document
-        .querySelectorAll(".select-counties")
-        .forEach((btn) => btn.classList.remove("added"));
-      // dehighlight all map overlays
-
-      // highlight select-counties title
-      btn.classList.add("added");
-      // highlight map overlay
-    }
-  });
-});

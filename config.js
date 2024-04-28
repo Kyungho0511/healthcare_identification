@@ -1,3 +1,8 @@
+// Variables for user inputs. Factors are stored in the order of preference
+let selectedCounties = "NYC Counties";
+let preferedFactors = ["vulnerability", "profitability", "built_environment"];
+
+// Colors used for mapping
 const color = {
   blue: {
     categorized: ["#ebfffe", "#97d9ff", "#3399ff", "#0145ff", "#2500cc"],
@@ -5,15 +10,16 @@ const color = {
     max: "#006efe",
   },
   yellow: {
-    categorized: ["#f9ffd7", "#fff767", "#ffdb39", "#ffa621", "#e27100"],
+    categorized: ["#d7e317", "#f7e900", "#f9b91b", "#eb6200"],
     min: "#fffaec",
-    max: "#f5ab00",
+    max: "#f9b91b",
   },
   green: {
     categorized: [],
   },
 };
 
+// Config for Map (mapbox)
 const config = {
   accessToken:
     "pk.eyJ1Ijoia2xlZTA1MTEiLCJhIjoiY2xrYnFibnNjMGV4cjNrbzRqdGg1d21sYiJ9.nN0pE1qocGhTLnD_xPuYdg",
@@ -66,6 +72,7 @@ const config = {
   ],
 };
 
+// Config2 for Map2 (mapbox)
 const config2 = {
   accessToken:
     "pk.eyJ1Ijoia2xlZTA1MTEiLCJhIjoiY2xrYnFibnNjMGV4cjNrbzRqdGg1d21sYiJ9.nN0pE1qocGhTLnD_xPuYdg",
@@ -124,6 +131,7 @@ const config2 = {
   ],
 };
 
+// Bounds are used for updating Mapbox layer style
 const layerBoundsCountiesNYC = [
   {
     name: "unserved population / km2",
@@ -521,7 +529,7 @@ const layerBoundsTractsUpstate = [
   },
 ];
 
-// adjust scale units based on layer name
+// Unit categories are used to adjust scales in legend
 const unitPopulationDensity = [
   "medicaid enrollees / km2",
   "commercial enrollees / km2",

@@ -19,16 +19,7 @@ sections.forEach((sec, idx) => {
   const btn = sec.querySelector(".footerbar__button");
   btn.addEventListener("click", () => {
     // Edge case:
-    if (idx == 0) {
-      navigateToSection(`${sectionIds[idx + 1]}`);
-      checkProgress(`${sectionIds[idx + 1]}`);
-      onLayers(`${sectionIds[idx + 1]}`, "map");
-      onLayers(`${sectionIds[idx + 1]}`, "map2");
-      onLegend(`${sectionIds[idx + 1]}`, "map");
-      onLegend(`${sectionIds[idx + 1]}`, "map2");
-      flyTo();
-      enableSyncMap();
-    } else if (idx == sectionIds.length - 1) {
+    if (idx == sectionIds.length - 1) {
       console.log("share!");
     }
 
@@ -71,6 +62,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // On page load, retrieve the selected counties from sessionStorage
   if (sessionStorage.getItem("selectedCounties")) {
     selectedCounties = JSON.parse(sessionStorage.getItem("selectedCounties"));
+    console.log(selectedCounties);
+  }
+
+  if (sessionStorage.getItem("preferedFactors")) {
+    preferedFactors = JSON.parse(sessionStorage.getItem("preferedFactors"));
+    console.log(preferedFactors);
   }
 
   const sectionId = window.location.hash.replace("#", "");
