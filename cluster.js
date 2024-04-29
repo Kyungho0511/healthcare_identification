@@ -1,10 +1,9 @@
+// Iterate Cluster 1,2,3
 for (let i = 0; i < 3; i++) {
   const cluster = document.querySelector(`#cluster${i + 1}`);
   const clusterDatasetContainers =
     cluster.querySelectorAll(".sidebar__dataset");
   const clusterBtn = cluster.querySelector(".sidebar__button");
-  const clusterLegendMap = cluster.querySelector(".legend-map");
-  const clusterLegendMap2 = cluster.querySelector(".legend-map2");
 
   // Mouse interaction with dataset item
   clusterDatasetContainers.forEach((container) => {
@@ -18,43 +17,29 @@ for (let i = 0; i < 3; i++) {
     );
   });
 
-  // Handle cluster button to update cluster legend (map1)
+  // Handle cluster button to display clustering result on map1
   clusterBtn.addEventListener("click", () => {
-    if (selectedCounties === "NYC Counties") {
-      fetch("data/tracts_features_nyc.geojson")
-        .then((response) => response.json())
-        .then((data) => {
-          const features = getFeatures();
-          const kMeans = runKMeans(data, features);
-          addKMeansLayer(kMeans, data);
-        })
-        .catch((error) =>
-          console.error("Error fetching the GeoJSON file:", error)
-        );
-    } else {
-      fetch("data/tracts_features_upstate.geojson")
-        .then((response) => response.json())
-        .then((data) => {
-          const features = getFeatures();
-          const kmeans = runKMeans(data, features);
-          addKMeansLayer(kmeans, data);
-        })
-        .catch((error) =>
-          console.error("Error fetching the GeoJSON file:", error)
-        );
-    }
+    const fileName =
+      selectedCounties === "NYC Counties"
+        ? "data/tracts_features_nyc.geojson"
+        : "data/tracts_features_upstate.geojson";
 
-    // // Update cluster legend
-    //   updateClusterLegend(clusterLegendMap);
-  });
+    fetch(fileName)
+      .then((response) => response.json())
+      .then((data) => {
+        // Run kmeans and display mapping
+        const features = getFeatures();
+        const kMeans = runKMeans(data, features);
+        addKMeansLayer(kMeans, data);
 
-  // Retrieve categorized colors from config and update cluster color-boxes with them
-  const colorBoxesMap = cluster
-    .querySelector(".legend-map")
-    .querySelectorAll(".color-box");
-
-  colorBoxesMap.forEach((box, idx) => {
-    box.style.backgroundColor = color.yellow.categorized[idx];
+        // Update cluster legend
+        const legendMap = cluster.querySelector(".legend-map");
+        legendMap.classList.remove("invisible");
+        updateClusterLegend(legendMap, preferedFactors[i], kMeans.centroids);
+      })
+      .catch((error) =>
+        console.error("Error fetching the GeoJSON file:", error)
+      );
   });
 }
 
@@ -97,23 +82,21 @@ function runKMeans(geojson, propertyNames) {
   const numberOfClusters = 4;
 
   // Using the ML.js library to perform K-Means clustering
-  const kmeans = ML.KMeans(data, numberOfClusters);
+  const kMeans = ML.KMeans(data, numberOfClusters);
 
-  return kmeans;
+  return kMeans;
 }
 
-function addKMeansLayer(kmeans, data) {
+function addKMeansLayer(kMeans, data) {
   dataClean = structuredClone(data);
   dataClean.features.forEach((feature, idx) => {
     feature.properties = {};
-    feature.properties.cluster = kmeans.clusters[idx];
+    feature.properties.cluster = kMeans.clusters[idx];
   });
   map.addSource("vulnerability-cluster", {
     type: "geojson",
     data: dataClean,
   });
-
-  console.log(kmeans.centroids);
 
   map.addLayer(
     {

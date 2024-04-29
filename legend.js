@@ -27,7 +27,7 @@ function onLegend(sectionId, mapId) {
     sectionId === "cluster3"
   ) {
     mapId === "map"
-      ? updateClusterLegend(legend)
+      ? null // ? updateClusterLegend(legend)
       : updateLegend(
           legend.querySelector(".legend__title"),
           legend.querySelector(".scale-min"),
@@ -89,11 +89,17 @@ function updateLegend(title, scaleMin, scaleMax, bound) {
   }
 }
 
-function updateClusterLegend(legend) {
-  const list = legend.querySelector(".cluster-legend-list");
+function updateClusterLegend(legend, title, centroids) {
+  // Set title
+  legend.querySelector(".legend__title").innerText = title;
 
-  // Vulnerability cluster
-  if (legend.classList.contains("cluster-legend-map")) {
-    // update cluster list items here!
-  }
+  // Set item name and color-box
+  const items = legend.querySelectorAll("li");
+  items.forEach((item, idx) => {
+    item.innerHTML = `<span class="color-box"></span>cluster${idx}`;
+    item.querySelector(".color-box").style.backgroundColor =
+      color.yellow.categorized[idx];
+  });
+
+  console.log(centroids);
 }

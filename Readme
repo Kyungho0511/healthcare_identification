@@ -1,5 +1,4 @@
-Bugs to fix:
+Functionalities to implement further:
 
-1. skip intro in the middle of scrolly telling does not turn on layers correctly.
+1. Store cluster result to session storage and re-render it on page reload.
 
-2. browser back button from App to scrolly telling does not activate scroller.
