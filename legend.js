@@ -32,13 +32,7 @@ function onLegend(sectionId, mapId) {
           legend.querySelector(".legend__title"),
           legend.querySelector(".scale-min"),
           legend.querySelector(".scale-max"),
-          selectedCounties === "NYC Counties"
-            ? layerBoundsTractsNYC.find(
-                (bound) => bound.name === section.default.attribute
-              )
-            : layerBoundsTractsUpstate.find(
-                (bound) => bound.name === section.default.attribute
-              )
+          findBound(section.default.attribute)
         );
   }
 
@@ -48,13 +42,7 @@ function onLegend(sectionId, mapId) {
       legend.querySelector(".legend__title"),
       legend.querySelector(".scale-min"),
       legend.querySelector(".scale-max"),
-      selectedCounties === "NYC Counties"
-        ? layerBoundsTractsNYC.find(
-            (bound) => bound.name === section.default.attribute
-          )
-        : layerBoundsTractsUpstate.find(
-            (bound) => bound.name === section.default.attribute
-          )
+      findBound(section.default.attribute)
     );
   }
 }
@@ -65,32 +53,51 @@ function updateLegend(title, scaleMin, scaleMax, bound) {
   scaleMax.innerText = formatUnit(bound.max, bound.name);
 }
 
-function updateClusterLegend(legend, title, centroids) {
+function updateClusterLegend(legend, title, centroids, features) {
   // Set title
   legend.querySelector(".legend__title").innerText = `${title} clusters`;
 
   // Set legend item name and color-box
   const items = legend.querySelectorAll(".dropbtn");
-  items.forEach((item, idx) => {
-    item.innerHTML = `<span class="color-box"></span>cluster${idx + 1}`;
+  items.forEach((item, i) => {
+    item.innerHTML = `<span class="color-box"></span>cluster${i + 1}`;
     item.querySelector(".color-box").style.backgroundColor =
-      color.yellow.categorized[idx];
+      color.yellow.categorized[i];
   });
 
   // Set dropdown sub-items
   const subLists = legend.querySelectorAll(".cluster-legend-list");
-  subLists.forEach((list, idx) => {
+  subLists.forEach((list, i) => {
     list.innerHTML = "";
-    centroids[idx].centroid.forEach((num, idx) => {
-      // Format scale and unit
-      let formattedNum = formatUnit(num, clusterFeatures[`${title}`][idx]);
+    centroids[i].centroid.forEach((num, j) => {
+      // Unnormalize and format numbers
+      const bound = findBound(features[j]);
+      const unNormalizedNum = unNormalize(num, bound.min, bound.max);
+      const formattedNum = formatUnit(
+        unNormalizedNum,
+        clusterFeatures[`${title}`][j]
+      );
 
       // Append list items
       const li = document.createElement("li");
-      li.innerHTML = `${clusterFeatures[`${title}`][idx]}: ${formattedNum}`;
+      li.innerHTML = `${clusterFeatures[`${title}`][j]}: ${formattedNum}`;
       list.appendChild(li);
     });
   });
+}
+
+function findBound(attribute) {
+  const bound =
+    selectedCounties === "NYC Counties"
+      ? layerBoundsTractsNYC.find((bound) => bound.name === attribute)
+      : layerBoundsTractsUpstate.find((bound) => bound.name === attribute);
+
+  return bound;
+}
+
+function unNormalize(val, originalMin, originalMax) {
+  // restore original value of the normalized(0-1)
+  return (originalMax - originalMin) * val;
 }
 
 function formatUnit(num, name) {

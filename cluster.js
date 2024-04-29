@@ -28,12 +28,12 @@ for (let i = 0; i < 3; i++) {
     triangles.forEach(
       (tri) => (tri.style.transform = "rotate(0deg) translateY(-10%)")
     );
-    const fileName =
+    const fileNames =
       selectedCounties === "NYC Counties"
-        ? "data/tracts_features_nyc.geojson"
-        : "data/tracts_features_upstate.geojson";
+        ? "data/tracts_features_nyc_normalized.geojson"
+        : "data/tracts_features_upstate_normalized.geojson";
 
-    fetch(fileName)
+    fetch(fileNames)
       .then((response) => response.json())
       .then((data) => {
         // Run kmeans and display mapping
@@ -41,13 +41,18 @@ for (let i = 0; i < 3; i++) {
         const kMeans = runKMeans(data, features);
         addKMeansLayer(kMeans, data, preferedFactors[i]);
 
-        // Store selected cluster features from user (save to session storage later)
+        // Store selected cluster features from user (save to Session Storage later)
         clusterFeatures[`${preferedFactors[i]}`] = features;
 
         // Update cluster legend
         const legendMap = cluster.querySelector(".legend-map");
         legendMap.classList.remove("invisible");
-        updateClusterLegend(legendMap, preferedFactors[i], kMeans.centroids);
+        updateClusterLegend(
+          legendMap,
+          preferedFactors[i],
+          kMeans.centroids,
+          features
+        );
 
         // Update cluster select container
         const clusterSelect = cluster.querySelector(".cluster-select");
@@ -62,12 +67,11 @@ for (let i = 0; i < 3; i++) {
   // Handle continue button interaction
   continueBtn.addEventListener("click", () => {
     cluster.querySelectorAll("input").forEach((input) => {
+      // Store selected clusters from user (save to Session Storage later)
       if (input.checked) {
         selectedClusters[`${preferedFactors[i]}`].push(input.value);
       }
     });
-
-    console.log(selectedClusters[`${preferedFactors[i]}`]);
   });
 }
 
