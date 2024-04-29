@@ -451,19 +451,21 @@
           <img class="logo" src="./images/logo2.png" alt="logo_image" />
         </div>
         <div class="sidebar__prompt">
-          <h4 class="prompt-title">Customize Clustering Analysis</h4>
+          <h4 class="prompt-title">Customize & Select Clusters</h4>
           See how the datasets below are used to identify distinct clusters of
           primary care shortage areas by default. Add or remove datasets to
-          customize your clusters. Click the 'Cluster' button when you are
-          ready.
+          customize your clusters. Click the 'Cluster' button and select your
+          targets.
         </div>
 
-        <div class="sidebar__dataset cluster-container dropdown selectable">
+        <div class="sidebar__dataset cluster-dataset dropdown selectable">
           <h4 class="dataset-title"></h4>
           <button class="dropbtn">
             <span class="triangle expanded"></span>Features to Cluster
           </button>
-          <ul class="dataset__list dropdown-content expanded"></ul>
+          <ul
+            class="dataset__list dropdown-content features-to-cluster expanded"
+          ></ul>
           <hr />
 
           <button class="dropbtn">
@@ -471,6 +473,26 @@
           </button>
           <ul class="dataset__list dropdown-content selected_dataset"></ul>
           <button class="sidebar__button button_grey">CLUSTER</button>
+        </div>
+
+        <div class="sidebar__dataset cluster-select dropdown invisible">
+          <h4 class="legend__title"></h4>
+          <button class="dropbtn">
+            <span class="color-box"></span>Cluster1
+          </button>
+          <ul class="dropdown-content cluster-legend-list expanded"></ul>
+          <button class="dropbtn">
+            <span class="color-box"></span>Cluster2
+          </button>
+          <ul class="dropdown-content cluster-legend-list"></ul>
+          <button class="dropbtn">
+            <span class="color-box"></span>Cluster2
+          </button>
+          <ul class="dropdown-content cluster-legend-list"></ul>
+          <button class="dropbtn">
+            <span class="color-box"></span>Cluster2
+          </button>
+          <ul class="dropdown-content cluster-legend-list"></ul>
         </div>
       </aside>
 
@@ -492,14 +514,12 @@
     <!-- Cluster2 section -->
     <section id="cluster2" class="content">
       <div class="legend legend-map invisible">
-        <h4 class="legend__title">VULNERABILITY CLUSTERS</h4>
+        <h4 class="legend__title"></h4>
         <ul class="cluster-legend-list">
-          <li><span class="color-box"></span>Inconsistent Healthcare</li>
-          <li><span class="color-box"></span>High-Risk, Healthcare Averse</li>
-          <li><span class="color-box"></span>Moderate Vigilance</li>
-          <li>
-            <span class="color-box"></span>Health-Conscious, Well-Serviced
-          </li>
+          <li><span class="color-box"></span></li>
+          <li><span class="color-box"></span></li>
+          <li><span class="color-box"></span></li>
+          <li><span class="color-box"></span></li>
         </ul>
       </div>
 
@@ -527,12 +547,14 @@
           ready.
         </div>
 
-        <div class="sidebar__dataset cluster-container dropdown selectable">
+        <div class="sidebar__dataset cluster-dataset dropdown selectable">
           <h4 class="dataset-title"></h4>
           <button class="dropbtn">
             <span class="triangle expanded"></span>Features to Cluster
           </button>
-          <ul class="dataset__list dropdown-content expanded"></ul>
+          <ul
+            class="dataset__list dropdown-content features-to-cluster expanded"
+          ></ul>
           <hr />
 
           <button class="dropbtn">
@@ -596,12 +618,14 @@
           ready.
         </div>
 
-        <div class="sidebar__dataset cluster-container dropdown selectable">
+        <div class="sidebar__dataset cluster-dataset dropdown selectable">
           <h4 class="dataset-title"></h4>
           <button class="dropbtn">
             <span class="triangle expanded"></span>Features to Cluster
           </button>
-          <ul class="dataset__list dropdown-content expanded"></ul>
+          <ul
+            class="dataset__list dropdown-content features-to-cluster expanded"
+          ></ul>
           <hr />
 
           <button class="dropbtn">

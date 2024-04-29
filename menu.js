@@ -12,7 +12,8 @@ dropdowns.forEach((dropdown) => {
       if (dropdownContents[idx].style.display === "block") {
         // collapse dropdown menu
         dropdownContents[idx].style.display = "none";
-        triangles[idx].style.transform = "rotate(0deg) translateY(-10%)";
+        if (triangles != null)
+          triangles[idx].style.transform = "rotate(0deg) translateY(-10%)";
       } else {
         // collapse all dropdown menu before expanding dropdown menu
         // dropdown menu with "relational" class will open only one menu at once
@@ -20,7 +21,7 @@ dropdowns.forEach((dropdown) => {
           if (!content.parentElement.classList.contains("relational")) return;
           content.style.display = "none";
         });
-        triangles.forEach((tri) => {
+        triangles?.forEach((tri) => {
           if (!tri.parentElement.parentElement.classList.contains("relational"))
             return;
           tri.style.transform = "rotate(0deg) translateY(-10%)";
@@ -28,7 +29,8 @@ dropdowns.forEach((dropdown) => {
 
         // expand dropdown menu
         dropdownContents[idx].style.display = "block";
-        triangles[idx].style.transform = "rotate(90deg) translateY(-10%)";
+        if (triangles != null)
+          triangles[idx].style.transform = "rotate(90deg) translateY(-10%)";
       }
     });
   });

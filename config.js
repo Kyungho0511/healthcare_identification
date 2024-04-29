@@ -3,6 +3,7 @@
 let preferedFactors = [];
 let selectedCounties = "";
 let selectedDatasetItems = [];
+let vulnerabilityCluster;
 let vulnerabilityFeatures = [
   "physical health not good for >=14 days",
   "mental health not good for >=14 days",

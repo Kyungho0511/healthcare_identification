@@ -96,7 +96,7 @@ function updateClusterLegend(legend, title, centroids) {
   // Set item name and color-box
   const items = legend.querySelectorAll("li");
   items.forEach((item, idx) => {
-    item.innerHTML = `<span class="color-box"></span>cluster${idx}`;
+    item.innerHTML = `<span class="color-box"></span>cluster${idx + 1}`;
     item.querySelector(".color-box").style.backgroundColor =
       color.yellow.categorized[idx];
   });

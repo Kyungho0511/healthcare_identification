@@ -28,14 +28,18 @@ for (let i = 0; i < 3; i++) {
       .then((response) => response.json())
       .then((data) => {
         // Run kmeans and display mapping
-        const features = getFeatures();
+        const features = getFeatures(i);
         const kMeans = runKMeans(data, features);
-        addKMeansLayer(kMeans, data);
+        addKMeansLayer(kMeans, data, preferedFactors[i]);
 
         // Update cluster legend
         const legendMap = cluster.querySelector(".legend-map");
         legendMap.classList.remove("invisible");
         updateClusterLegend(legendMap, preferedFactors[i], kMeans.centroids);
+
+        // Update cluster select container
+        const clusterSelect = cluster.querySelector(".cluster-select");
+        clusterSelect.classList.remove("invisible");
       })
       .catch((error) =>
         console.error("Error fetching the GeoJSON file:", error)
@@ -43,11 +47,18 @@ for (let i = 0; i < 3; i++) {
   });
 }
 
-function getFeatures() {
+function getFeatures(clusterIdx) {
   const features = [];
+
+  console.log(
+    document
+      .querySelector(`#cluster${clusterIdx + 1}`)
+      .querySelector(".cluster-dataset")
+  );
+
   document
-    .querySelector("#cluster1")
-    .querySelector(".cluster-container")
+    .querySelector(`#cluster${clusterIdx + 1}`)
+    .querySelector(".features-to-cluster")
     .querySelectorAll(".dataset__item")
     .forEach((item) => {
       features.push(item.querySelector("p").innerText.toLowerCase());
@@ -87,22 +98,33 @@ function runKMeans(geojson, propertyNames) {
   return kMeans;
 }
 
-function addKMeansLayer(kMeans, data) {
+function addKMeansLayer(kMeans, data, title) {
+  // Clone and clean the data
   dataClean = structuredClone(data);
   dataClean.features.forEach((feature, idx) => {
     feature.properties = {};
     feature.properties.cluster = kMeans.clusters[idx];
   });
-  map.addSource("vulnerability-cluster", {
+
+  // Convert the title to a hyphenated format
+  titleCopy = title.replace(/\s+/g, "-");
+
+  // Check if the source already exists, and remove it if necessary
+  if (map.getSource(`${titleCopy}-cluster`)) {
+    map.removeLayer(`${titleCopy}-cluster`);
+    map.removeSource(`${titleCopy}-cluster`);
+  }
+
+  map.addSource(`${titleCopy}-cluster`, {
     type: "geojson",
     data: dataClean,
   });
 
   map.addLayer(
     {
-      id: "vulnerability-cluster",
+      id: `${titleCopy}-cluster`,
       type: "fill",
-      source: "vulnerability-cluster",
+      source: `${titleCopy}-cluster`,
       paint: {
         "fill-color": [
           "case",
