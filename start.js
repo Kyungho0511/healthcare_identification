@@ -73,14 +73,14 @@ startContinueBtn.addEventListener("click", () => {
   secondImportantRadios.forEach((radio) => {
     if (radio.checked) tempFactors.push(radio.value);
   });
-  preferedFactors.forEach((factor) => {
+  ["vulnerability", "profitability", "built environment"].forEach((factor) => {
     if (!tempFactors.includes(factor)) tempFactors.push(factor);
   });
-
   preferedFactors = tempFactors;
   sessionStorage.setItem("selectedCounties", JSON.stringify(selectedCounties));
   sessionStorage.setItem("preferedFactors", JSON.stringify(preferedFactors));
 
+  // Functions to load contents for the Explore section
   onLayers("explore", "map");
   onLayers("explore", "map2");
   flyTo();
@@ -114,5 +114,33 @@ function setClusterContent() {
       );
     }
     cluster.querySelector(".dataset__list").innerHTML = list.innerHTML;
+
+    // "features to cluster" icon interaction for Cluster1,2,3 sections
+    cluster.querySelectorAll(".fa-square-minus").forEach((icon) => {
+      icon.addEventListener("click", () =>
+        icon.closest(".dataset__item").remove()
+      );
+    });
   }
+}
+
+function setQuestionnaires() {
+  mostImportantRadios.forEach((radio) => {
+    if (radio.value === preferedFactors[0]) {
+      radio.checked = true;
+    }
+  });
+  secondImportantRadios.forEach((radio) => {
+    if (radio.value === preferedFactors[0]) {
+      radio.parentElement.classList.add("radio-disabled");
+      radio.disabled = true;
+    }
+    if (radio.value === preferedFactors[1]) radio.checked = true;
+  });
+
+  countiesRadios.forEach((radio) => {
+    if (radio.value === selectedCounties) radio.checked = true;
+  });
+
+  checkAllSelected();
 }

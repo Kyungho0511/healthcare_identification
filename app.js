@@ -91,6 +91,9 @@ document.addEventListener("DOMContentLoaded", function () {
       onLayers("start", "map2");
       onLegend("start", "map");
       onLegend("start", "map2");
+      setQuestionnaires();
+      setAddedFeatures();
+      setClusterContent();
       flyReset();
       disableSyncMap();
     });
@@ -98,8 +101,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Normal cases:
-  setSelectedDataset();
-  setClusterContent();
   showSection(sectionId);
 
   map.on("load", () => {
@@ -108,6 +109,9 @@ document.addEventListener("DOMContentLoaded", function () {
     onLayers(sectionId, "map2");
     onLegend(sectionId, "map");
     onLegend(sectionId, "map2");
+    setQuestionnaires();
+    setAddedFeatures();
+    setClusterContent();
     flyTo();
     enableSyncMap();
   });

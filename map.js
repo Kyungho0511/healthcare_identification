@@ -120,24 +120,26 @@ function onLayers(sectionId, mapId) {
       selectedCounties === "NYC Counties"
         ? "tracts-features-nyc"
         : "tracts-features-upstate";
-    const defaultAttribute = section.default.attribute;
+    const defaultAttribute = section.default?.attribute;
     const defaultBound =
       selectedCounties === "NYC Counties"
         ? layerBoundsTractsNYC.find((bound) => bound.name === defaultAttribute)
         : layerBoundsTractsUpstate.find(
             (bound) => bound.name === defaultAttribute
           );
-    const defaultColor = section.default.color;
-    updateLayerStyle(
-      defaultLayer,
-      defaultAttribute,
-      defaultBound.min,
-      defaultBound.max,
-      defaultColor.min,
-      defaultColor.max,
-      defaultBound.rateOfChange,
-      mapId
-    );
+    const defaultColor = section.default?.color;
+    if (section.default) {
+      updateLayerStyle(
+        defaultLayer,
+        defaultAttribute,
+        defaultBound.min,
+        defaultBound.max,
+        defaultColor.min,
+        defaultColor.max,
+        defaultBound.rateOfChange,
+        mapId
+      );
+    }
   }
 
   // Update layer visibility
@@ -223,7 +225,6 @@ function disableSyncMap() {
     map2.sync = null;
 
     isSyncing = false; // Reset syncing state
-    console.log("Map synchronization disabled.");
   }
 }
 
