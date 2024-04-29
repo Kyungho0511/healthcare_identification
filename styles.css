@@ -443,6 +443,7 @@ hr {
 
 .radio-text,
 .checkbox-text {
+  display: flex;
   margin: 0.25rem;
 }
 
@@ -469,6 +470,7 @@ hr {
 /* legend */
 .legend {
   max-width: 350px;
+  min-width: 250px;
   font-size: 0.9rem;
   position: fixed;
   top: 0;

@@ -3,9 +3,11 @@
 let preferedFactors = [];
 let selectedCounties = "";
 let selectedDatasetItems = [];
-let selectedVulnerabilityClusters = [];
-let selectedProfitabilityClusters = [];
-let selectedBuiltEnvironmentClusters = [];
+let selectedClusters = {
+  vulnerability: [],
+  profitability: [],
+  "built environment": [],
+};
 let clusterFeatures = {
   vulnerability: [
     "physical health not good for >=14 days",

@@ -4,6 +4,7 @@ for (let i = 0; i < 3; i++) {
   const clusterDatasetContainers =
     cluster.querySelectorAll(".sidebar__dataset");
   const clusterBtn = cluster.querySelector(".sidebar__button");
+  const continueBtn = cluster.querySelector(".footerbar__button");
 
   // Mouse interaction with dataset item
   clusterDatasetContainers.forEach((container) => {
@@ -19,6 +20,14 @@ for (let i = 0; i < 3; i++) {
 
   // Handle cluster button to display clustering result on map1
   clusterBtn.addEventListener("click", () => {
+    // Collapse cluster dropdown menu
+    const triangles = clusterBtn.parentElement.querySelectorAll(".triangle");
+    const dropdownContents =
+      clusterBtn.parentElement.querySelectorAll(".dropdown-content");
+    dropdownContents.forEach((content) => (content.style.display = "none"));
+    triangles.forEach(
+      (tri) => (tri.style.transform = "rotate(0deg) translateY(-10%)")
+    );
     const fileName =
       selectedCounties === "NYC Counties"
         ? "data/tracts_features_nyc.geojson"
@@ -43,10 +52,22 @@ for (let i = 0; i < 3; i++) {
         // Update cluster select container
         const clusterSelect = cluster.querySelector(".cluster-select");
         clusterSelect.classList.remove("invisible");
+        updateClusterSelect(clusterSelect);
       })
       .catch((error) =>
         console.error("Error fetching the GeoJSON file:", error)
       );
+  });
+
+  // Handle continue button interaction
+  continueBtn.addEventListener("click", () => {
+    cluster.querySelectorAll("input").forEach((input) => {
+      if (input.checked) {
+        selectedClusters[`${preferedFactors[i]}`].push(input.value);
+      }
+    });
+
+    console.log(selectedClusters[`${preferedFactors[i]}`]);
   });
 }
 
@@ -140,4 +161,10 @@ function addKMeansLayer(kMeans, data, title) {
     },
     "road-simple"
   );
+}
+
+function updateClusterSelect(clusterSelect) {
+  clusterSelect.querySelectorAll(".color-box").forEach((box, idx) => {
+    box.style.backgroundColor = color.yellow.categorized[idx];
+  });
 }

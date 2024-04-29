@@ -463,58 +463,65 @@
         <div class="sidebar__title">
           <img class="logo" src="./images/logo2.png" alt="logo_image" />
         </div>
-        <div class="sidebar__prompt">
-          <h4 class="prompt-title">Customize & Select Clusters</h4>
-          See how the datasets below are used to identify distinct clusters of
-          primary care shortage areas by default. Add or remove datasets to
-          customize your clusters. Click the 'Cluster' button and select your
-          targets.
-        </div>
 
         <div class="sidebar__dataset cluster-dataset dropdown selectable">
           <h4 class="dataset-title"></h4>
+          Add or remove features to customize your clustering analysis. Click
+          the 'Cluster' button when you are ready.
+          <br /><br />
           <button class="dropbtn">
-            <span class="triangle"></span>Features to Cluster
+            <span class="triangle expanded"></span>Features to Cluster
           </button>
-          <ul class="dataset__list dropdown-content features-to-cluster"></ul>
+          <ul
+            class="dataset__list dropdown-content features-to-cluster expanded"
+          ></ul>
           <hr />
 
           <button class="dropbtn">
-            <span class="triangle"></span>Features to Add
+            <span class="triangle expanded"></span>Features to Add
           </button>
-          <ul class="dataset__list dropdown-content selected_dataset"></ul>
+          <ul
+            class="dataset__list dropdown-content selected_dataset expanded"
+          ></ul>
           <button class="sidebar__button button_grey">CLUSTER</button>
         </div>
 
-        <div
-          class="sidebar__dataset cluster-select dropdown relational invisible"
-        >
+        <div class="sidebar__dataset cluster-select invisible">
           <h4 class="dataset-title">Select Target Clusters</h4>
-          <button class="dropbtn">
-            <span class="color-box"></span>Cluster1
-          </button>
-          <ul class="dropdown-content dataset__list cluster-legend-list"></ul>
-          <button class="dropbtn">
-            <span class="color-box"></span>Cluster2
-          </button>
-          <ul class="dropdown-content dataset__list cluster-legend-list"></ul>
-          <button class="dropbtn">
-            <span class="color-box"></span>Cluster2
-          </button>
-          <ul class="dropdown-content dataset__list cluster-legend-list"></ul>
-          <button class="dropbtn">
-            <span class="color-box"></span>Cluster2
-          </button>
-          <ul class="dropdown-content dataset__list cluster-legend-list"></ul>
+          Review the subcategory values for each cluster listed in the legend.
+          Choose the clusters you're targeting and continue.
+          <br /><br />
+          <div class="checkbox-list">
+            <label class="custom-checkbox">
+              <input type="checkbox" name="select" value="1" />
+              <span class="checkbox-indicator"></span>
+              <div class="checkbox-text">
+                <span class="color-box"></span>cluster1
+              </div>
+            </label>
+            <label class="custom-checkbox">
+              <input type="checkbox" name="select" value="2" />
+              <span class="checkbox-indicator"></span>
+              <div class="checkbox-text">
+                <span class="color-box"></span>cluster2
+              </div>
+            </label>
+            <label class="custom-checkbox">
+              <input type="checkbox" name="select" value="3" />
+              <span class="checkbox-indicator"></span>
+              <div class="checkbox-text">
+                <span class="color-box"></span>cluster3
+              </div>
+            </label>
+            <label class="custom-checkbox">
+              <input type="checkbox" name="select" value="4" />
+              <span class="checkbox-indicator"></span>
+              <div class="checkbox-text">
+                <span class="color-box"></span>cluster4
+              </div>
+            </label>
+          </div>
         </div>
-
-        <!-- <div class="checkbox-list">
-          <label class="custom-checkbox">
-            <input type="checkbox" name="vulnerability" value="vulnerability" />
-            <span class="checkbox-indicator"></span>
-            <div class="checkbox-text">Health Vulnerability of Residents</div>
-          </label>
-        </div> -->
       </aside>
 
       <footer class="footerbar">
@@ -560,16 +567,12 @@
         <div class="sidebar__title">
           <img class="logo" src="./images/logo2.png" alt="logo_image" />
         </div>
-        <div class="sidebar__prompt">
-          <h4 class="prompt-title">Customize Clustering Analysis</h4>
-          See how the datasets below are used to identify distinct clusters of
-          primary care shortage areas by default. Add or remove datasets to
-          customize your clusters. Click the 'Cluster' button when you are
-          ready.
-        </div>
 
         <div class="sidebar__dataset cluster-dataset dropdown selectable">
           <h4 class="dataset-title"></h4>
+          Add or remove features to customize your clustering analysis. Click
+          the 'Cluster' button when you are ready.
+          <br /><br />
           <button class="dropbtn">
             <span class="triangle expanded"></span>Features to Cluster
           </button>
@@ -579,10 +582,49 @@
           <hr />
 
           <button class="dropbtn">
-            <span class="triangle"></span>Features to Add
+            <span class="triangle expanded"></span>Features to Add
           </button>
-          <ul class="dataset__list dropdown-content selected_dataset"></ul>
+          <ul
+            class="dataset__list dropdown-content selected_dataset expanded"
+          ></ul>
           <button class="sidebar__button button_grey">CLUSTER</button>
+        </div>
+
+        <div class="sidebar__dataset cluster-select invisible">
+          <h4 class="dataset-title">Select Target Clusters</h4>
+          Review the subcategory values for each cluster listed in the legend.
+          Choose the clusters you're targeting and continue.
+          <br /><br />
+          <div class="checkbox-list">
+            <label class="custom-checkbox">
+              <input type="checkbox" name="select" value="1" />
+              <span class="checkbox-indicator"></span>
+              <div class="checkbox-text">
+                <span class="color-box"></span>cluster1
+              </div>
+            </label>
+            <label class="custom-checkbox">
+              <input type="checkbox" name="select" value="2" />
+              <span class="checkbox-indicator"></span>
+              <div class="checkbox-text">
+                <span class="color-box"></span>cluster2
+              </div>
+            </label>
+            <label class="custom-checkbox">
+              <input type="checkbox" name="select" value="3" />
+              <span class="checkbox-indicator"></span>
+              <div class="checkbox-text">
+                <span class="color-box"></span>cluster3
+              </div>
+            </label>
+            <label class="custom-checkbox">
+              <input type="checkbox" name="select" value="4" />
+              <span class="checkbox-indicator"></span>
+              <div class="checkbox-text">
+                <span class="color-box"></span>cluster4
+              </div>
+            </label>
+          </div>
         </div>
       </aside>
 
@@ -631,16 +673,12 @@
         <div class="sidebar__title">
           <img class="logo" src="./images/logo2.png" alt="logo_image" />
         </div>
-        <div class="sidebar__prompt">
-          <h4 class="prompt-title">Customize Clustering Analysis</h4>
-          See how the datasets below are used to identify distinct clusters of
-          primary care shortage areas by default. Add or remove datasets to
-          customize your clusters. Click the 'Cluster' button when you are
-          ready.
-        </div>
 
         <div class="sidebar__dataset cluster-dataset dropdown selectable">
           <h4 class="dataset-title"></h4>
+          Add or remove features to customize your clustering analysis. Click
+          the 'Cluster' button when you are ready.
+          <br /><br />
           <button class="dropbtn">
             <span class="triangle expanded"></span>Features to Cluster
           </button>
@@ -650,48 +688,49 @@
           <hr />
 
           <button class="dropbtn">
-            <span class="triangle"></span>Features to Add
+            <span class="triangle expanded"></span>Features to Add
           </button>
-          <ul class="dataset__list dropdown-content selected_dataset"></ul>
+          <ul
+            class="dataset__list dropdown-content selected_dataset expanded"
+          ></ul>
           <button class="sidebar__button button_grey">CLUSTER</button>
         </div>
-      </aside>
 
-      <footer class="footerbar">
-        <div class="progressbar_container">
-          <ul class="progressbar">
-            <li>start</li>
-            <li>explore</li>
-            <li>cluster1</li>
-            <li>cluster2</li>
-            <li>cluster3</li>
-            <li>share</li>
-          </ul>
-        </div>
-        <button class="footerbar__button button_grey">continue</button>
-      </footer>
-    </section>
-
-    <!-- Select section -->
-    <section id="select" class="content">
-      <aside class="sidebar">
-        <div class="sidebar__title">
-          <img class="logo" src="./images/logo2.png" alt="logo_image" />
-        </div>
-        <div class="sidebar__prompt">
-          <h4>Target Shortage Areas</h4>
-          Select your target areas by analyzing the matrix of Profitability
-          Clusters and Health Vulnerability Clusters. Consider the built
-          environment of these areas as you proceed with the selection process.
-        </div>
-        <div class="sidebar__dataset">
-          <ul class="dataset__list">
-            <b>Target Shortage Areas</b>
-            <li class="dataset__item">Tompkins</li>
-            <li class="dataset__item">Ulster</li>
-            <li class="dataset__item">Warren</li>
-            <li class="dataset__item">Westchester</li>
-          </ul>
+        <div class="sidebar__dataset cluster-select invisible">
+          <h4 class="dataset-title">Select Target Clusters</h4>
+          Review the subcategory values for each cluster listed in the legend.
+          Choose the clusters you're targeting and continue.
+          <br /><br />
+          <div class="checkbox-list">
+            <label class="custom-checkbox">
+              <input type="checkbox" name="select" value="1" />
+              <span class="checkbox-indicator"></span>
+              <div class="checkbox-text">
+                <span class="color-box"></span>cluster1
+              </div>
+            </label>
+            <label class="custom-checkbox">
+              <input type="checkbox" name="select" value="2" />
+              <span class="checkbox-indicator"></span>
+              <div class="checkbox-text">
+                <span class="color-box"></span>cluster2
+              </div>
+            </label>
+            <label class="custom-checkbox">
+              <input type="checkbox" name="select" value="3" />
+              <span class="checkbox-indicator"></span>
+              <div class="checkbox-text">
+                <span class="color-box"></span>cluster3
+              </div>
+            </label>
+            <label class="custom-checkbox">
+              <input type="checkbox" name="select" value="4" />
+              <span class="checkbox-indicator"></span>
+              <div class="checkbox-text">
+                <span class="color-box"></span>cluster4
+              </div>
+            </label>
+          </div>
         </div>
       </aside>
 

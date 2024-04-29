@@ -2,3 +2,4 @@ Functionalities to implement further:
 
 1. Store cluster result to session storage and re-render it on page reload.
 
+2. If cluster button is clicked before page is fully loaded, the cluster legend dropdown menu is not updated.
