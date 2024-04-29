@@ -1,58 +1,62 @@
-const cluster = document.querySelector("#cluster1");
-const clusterDatasetContainers = cluster.querySelectorAll(".sidebar__dataset");
-const clusterContainer = cluster.querySelector(".cluster-container");
-const clusterBtn = cluster.querySelector(".sidebar__button");
-const clusterLegendMap = cluster.querySelector(".legend-map");
-const clusterLegendMap2 = cluster.querySelector(".legend-map2");
+for (let i = 0; i < 3; i++) {
+  const cluster = document.querySelector(`#cluster${i + 1}`);
+  const clusterDatasetContainers =
+    cluster.querySelectorAll(".sidebar__dataset");
+  const clusterBtn = cluster.querySelector(".sidebar__button");
+  const clusterLegendMap = cluster.querySelector(".legend-map");
+  const clusterLegendMap2 = cluster.querySelector(".legend-map2");
 
-// Mouse interaction with dataset item
-clusterDatasetContainers.forEach((container) => {
-  if (!container.classList.contains("selectable")) return;
-});
+  // Mouse interaction with dataset item
+  clusterDatasetContainers.forEach((container) => {
+    if (!container.classList.contains("selectable")) return;
+    setDataMappingInteraction(
+      cluster,
+      container,
+      color.yellow.min,
+      color.yellow.max,
+      "map2"
+    );
+  });
 
-// Handle cluster button to update cluster legend (map1)
-clusterBtn.addEventListener("click", () => {
-  if (selectedCounties === "NYC Counties") {
-    fetch("data/tracts_features_nyc.geojson")
-      .then((response) => response.json())
-      .then((data) => {
-        const features = getFeatures();
-        const kMeans = runKMeans(data, features);
-        addKMeansLayer(kMeans, data);
-      })
-      .catch((error) =>
-        console.error("Error fetching the GeoJSON file:", error)
-      );
-  } else {
-    fetch("data/tracts_features_upstate.geojson")
-      .then((response) => response.json())
-      .then((data) => {
-        const features = getFeatures();
-        const kmeans = runKMeans(data, features);
-        addKMeansLayer(kmeans, data);
-      })
-      .catch((error) =>
-        console.error("Error fetching the GeoJSON file:", error)
-      );
-  }
+  // Handle cluster button to update cluster legend (map1)
+  clusterBtn.addEventListener("click", () => {
+    if (selectedCounties === "NYC Counties") {
+      fetch("data/tracts_features_nyc.geojson")
+        .then((response) => response.json())
+        .then((data) => {
+          const features = getFeatures();
+          const kMeans = runKMeans(data, features);
+          addKMeansLayer(kMeans, data);
+        })
+        .catch((error) =>
+          console.error("Error fetching the GeoJSON file:", error)
+        );
+    } else {
+      fetch("data/tracts_features_upstate.geojson")
+        .then((response) => response.json())
+        .then((data) => {
+          const features = getFeatures();
+          const kmeans = runKMeans(data, features);
+          addKMeansLayer(kmeans, data);
+        })
+        .catch((error) =>
+          console.error("Error fetching the GeoJSON file:", error)
+        );
+    }
 
-  // // Update cluster legend
-  // if (btn.classList.contains("cluster-map")) {
-  //   updateClusterLegend(clusterLegendMap);
-  // } else {
-  //   updateClusterLegend(clusterLegendMap2);
-  // }
-});
+    // // Update cluster legend
+    //   updateClusterLegend(clusterLegendMap);
+  });
 
-// cluster legend is moved to Select section when continue button is clicked
-cluster.querySelector(".footerbar__button").addEventListener("click", () => {
-  const clonedlegendMap = clusterLegendMap.cloneNode(true);
-  const clonedlegendMap2 = clusterLegendMap2.cloneNode(true);
+  // Retrieve categorized colors from config and update cluster color-boxes with them
+  const colorBoxesMap = cluster
+    .querySelector(".legend-map")
+    .querySelectorAll(".color-box");
 
-  const select = document.querySelector("#select");
-  select.appendChild(clonedlegendMap);
-  select.appendChild(clonedlegendMap2);
-});
+  colorBoxesMap.forEach((box, idx) => {
+    box.style.backgroundColor = color.yellow.categorized[idx];
+  });
+}
 
 function getFeatures() {
   const features = [];

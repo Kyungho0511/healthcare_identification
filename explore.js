@@ -42,81 +42,72 @@ explore.querySelectorAll(".fa-square-plus").forEach((icon) => {
   });
 });
 
-//  Mouse interaction with dataset item (updateLayerStyle & updateLegend)
+// Mouse interaction with dataset item
 exploreDatasetContainers.forEach((container) => {
   if (!container.classList.contains("selectable")) return;
 
   // Target Data:
   if (container.classList.contains("target_data")) {
-    container.addEventListener("click", (event) => {
-      const layerBounds =
-        selectedCounties === "NYC Counties"
-          ? layerBoundsTractsNYC
-          : layerBoundsTractsUpstate;
-      if (event.target.tagName === "P") {
-        layerBounds.forEach((bound) => {
-          if (bound.name === event.target.innerText.toLowerCase()) {
-            updateLayerStyle(
-              selectedCounties === "NYC Counties"
-                ? "tracts-features-nyc"
-                : "tracts-features-upstate",
-              bound.name,
-              bound.min,
-              bound.max,
-              color.yellow.min,
-              color.yellow.max,
-              bound.rateOfChange,
-              "map"
-            );
-
-            const legend1 = explore.querySelector(".legend-map");
-            updateLegend(
-              legend1.querySelector(".legend__title"),
-              legend1.querySelector(".scale-min"),
-              legend1.querySelector(".scale-max"),
-              bound
-            );
-          }
-        });
-      }
-    });
+    setDataMappingInteraction(
+      explore,
+      container,
+      color.yellow.min,
+      color.yellow.max,
+      "map"
+    );
 
     // Second Data:
   } else if (container.classList.contains("second_data")) {
-    container.addEventListener("click", (event) => {
-      const layerBounds =
-        selectedCounties === "NYC Counties"
-          ? layerBoundsTractsNYC
-          : layerBoundsTractsUpstate;
-      if (event.target.tagName === "P") {
-        layerBounds.forEach((bound) => {
-          if (bound.name === event.target.innerText.toLowerCase()) {
-            updateLayerStyle(
-              selectedCounties === "NYC Counties"
-                ? "tracts-features-nyc"
-                : "tracts-features-upstate",
-              bound.name,
-              bound.min,
-              bound.max,
-              color.blue.min,
-              color.blue.max,
-              bound.rateOfChange,
-              "map2"
-            );
-
-            const legend2 = explore.querySelector(".legend-map2");
-            updateLegend(
-              legend2.querySelector(".legend__title"),
-              legend2.querySelector(".scale-min"),
-              legend2.querySelector(".scale-max"),
-              bound
-            );
-          }
-        });
-      }
-    });
+    setDataMappingInteraction(
+      explore,
+      container,
+      color.blue.min,
+      color.blue.max,
+      "map2"
+    );
   }
 });
+
+function setDataMappingInteraction(
+  section,
+  container,
+  colorMin,
+  colorMax,
+  mapId
+) {
+  container.addEventListener("click", (event) => {
+    const layerBounds =
+      selectedCounties === "NYC Counties"
+        ? layerBoundsTractsNYC
+        : layerBoundsTractsUpstate;
+    if (event.target.tagName === "P") {
+      layerBounds.forEach((bound) => {
+        if (bound.name === event.target.innerText.toLowerCase()) {
+          updateLayerStyle(
+            selectedCounties === "NYC Counties"
+              ? "tracts-features-nyc"
+              : "tracts-features-upstate",
+            bound.name,
+            bound.min,
+            bound.max,
+            colorMin,
+            colorMax,
+            bound.rateOfChange,
+            mapId
+          );
+
+          const legend = section.querySelector(`.legend-${mapId}`);
+          updateLegend(
+            legend.querySelector(".legend__title"),
+            legend.querySelector(".scale-min"),
+            legend.querySelector(".scale-max"),
+            bound
+          );
+        }
+      });
+    }
+  });
+}
 
 exploreContinueBtn.addEventListener("click", () => {
   // Store selectedDatasetItems to session storage (declared in config.js)

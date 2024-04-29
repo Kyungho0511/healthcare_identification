@@ -26,7 +26,20 @@ function onLegend(sectionId, mapId) {
     sectionId === "cluster2" ||
     sectionId === "cluster3"
   ) {
-    updateClusterLegend(legend);
+    mapId === "map"
+      ? updateClusterLegend(legend)
+      : updateLegend(
+          legend.querySelector(".legend__title"),
+          legend.querySelector(".scale-min"),
+          legend.querySelector(".scale-max"),
+          selectedCounties === "NYC Counties"
+            ? layerBoundsTractsNYC.find(
+                (bound) => bound.name === section.default.attribute
+              )
+            : layerBoundsTractsUpstate.find(
+                (bound) => bound.name === section.default.attribute
+              )
+        );
   }
 
   // Normal case:
@@ -83,20 +96,4 @@ function updateClusterLegend(legend) {
   if (legend.classList.contains("cluster-legend-map")) {
     // update cluster list items here!
   }
-
-  // Profitability cluster
-  if (legend.classList.contains("cluster-legend-map2")) {
-    // update cluster list items here!
-  }
 }
-
-// Retrieve categorized colors from config and update cluster color-boxes with them
-const colorBoxesMap = clusterLegendMap.querySelectorAll(".color-box");
-const colorBoxesMap2 = clusterLegendMap2.querySelectorAll(".color-box");
-
-colorBoxesMap.forEach((box, idx) => {
-  box.style.backgroundColor = color.yellow.categorized[idx];
-});
-colorBoxesMap2.forEach((box, idx) => {
-  box.style.backgroundColor = color.blue.categorized[idx];
-});
