@@ -4,9 +4,9 @@ let preferedFactors = [];
 let selectedCounties = "";
 let selectedDatasetItems = [];
 let selectedClusters = {
-  vulnerability: [],
-  profitability: [],
-  "built environment": [],
+  vulnerability: { 0: true, 1: true, 2: true, 3: true },
+  profitability: { 0: true, 1: true, 2: true, 3: true },
+  "built environment": { 0: true, 1: true, 2: true, 3: true },
 };
 let clusterFeatures = {
   vulnerability: [

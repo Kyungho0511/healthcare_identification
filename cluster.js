@@ -28,17 +28,18 @@ for (let i = 0; i < 3; i++) {
     triangles.forEach(
       (tri) => (tri.style.transform = "rotate(0deg) translateY(-10%)")
     );
-    const fileNames =
+    const fileName =
       selectedCounties === "NYC Counties"
         ? "data/tracts_features_nyc_normalized.geojson"
         : "data/tracts_features_upstate_normalized.geojson";
 
-    fetch(fileNames)
+    fetch(fileName)
       .then((response) => response.json())
       .then((data) => {
         // Run kmeans and display mapping
         const features = getFeatures(i);
         const kMeans = runKMeans(data, features);
+
         addKMeansLayer(kMeans, data, preferedFactors[i]);
 
         // Store selected cluster features from user (save to Session Storage later)
@@ -64,12 +65,24 @@ for (let i = 0; i < 3; i++) {
       );
   });
 
+  // Select Cluster interaction
+  cluster.querySelectorAll("input").forEach((input) => {
+    input.addEventListener("change", () => {
+      selectedClusters[`${preferedFactors[i]}`][input.value] = input.checked;
+
+      // Update Mapbox source and layer based on selected cluster
+      updateKMeansLayerStyle(preferedFactors[i]);
+    });
+  });
+
   // Handle continue button interaction
   continueBtn.addEventListener("click", () => {
     cluster.querySelectorAll("input").forEach((input) => {
       // Store selected clusters from user (save to Session Storage later)
       if (input.checked) {
-        selectedClusters[`${preferedFactors[i]}`].push(input.value);
+        selectedClusters[`${preferedFactors[i]}`][input.value] = true;
+      } else {
+        selectedClusters[`${preferedFactors[i]}`][input.value] = false;
       }
     });
   });
@@ -102,20 +115,12 @@ function runKMeans(geojson, propertyNames) {
     };
   });
 
-  // Convert array of properties objects to 2d array
-  const data = [];
-  geojsonFiltered.forEach((item) => {
-    const featureVals = [];
-    Object.values(item.properties).forEach((val) => featureVals.push(val));
-    data.push(featureVals);
-  });
-
-  // Number of clusters
-  const numberOfClusters = 4;
-
   // Using the ML.js library to perform K-Means clustering
-  const options = { initialization: "kmeans++", iterations: 100 };
+  const data = geojsonFiltered.map((item) => Object.values(item.properties));
+  const numberOfClusters = 4;
+  const options = { seed: 10, initialization: "kmeans++", iterations: 100 };
   const kMeans = ML.KMeans(data, numberOfClusters, options);
+
   return kMeans;
 }
 
@@ -128,24 +133,24 @@ function addKMeansLayer(kMeans, data, title) {
   });
 
   // Convert the title to a hyphenated format
-  titleCopy = title.replace(/\s+/g, "-");
+  titleHyphen = title.replace(/\s+/g, "-");
 
   // Check if the source already exists, and remove it if necessary
-  if (map.getSource(`${titleCopy}-cluster`)) {
-    map.removeLayer(`${titleCopy}-cluster`);
-    map.removeSource(`${titleCopy}-cluster`);
+  if (map.getSource(`${titleHyphen}-cluster`)) {
+    map.removeLayer(`${titleHyphen}-cluster`);
+    map.removeSource(`${titleHyphen}-cluster`);
   }
 
-  map.addSource(`${titleCopy}-cluster`, {
+  map.addSource(`${titleHyphen}-cluster`, {
     type: "geojson",
     data: dataClean,
   });
 
   map.addLayer(
     {
-      id: `${titleCopy}-cluster`,
+      id: `${titleHyphen}-cluster`,
       type: "fill",
-      source: `${titleCopy}-cluster`,
+      source: `${titleHyphen}-cluster`,
       paint: {
         "fill-color": [
           "case",
@@ -165,6 +170,26 @@ function addKMeansLayer(kMeans, data, title) {
     },
     "road-simple"
   );
+}
+function updateKMeansLayerStyle(title) {
+  const selectedCluster = selectedClusters[title];
+  titleHyphen = title.replace(/\s+/g, "-");
+
+  const layerId = `${titleHyphen}-cluster`;
+  if (map.getLayer(layerId)) {
+    map.setPaintProperty(layerId, "fill-color", [
+      "case",
+      ["==", ["get", "cluster"], 0],
+      selectedCluster[0] ? color.yellow.categorized[0] : "#ffffff",
+      ["==", ["get", "cluster"], 1],
+      selectedCluster[1] ? color.yellow.categorized[1] : "#ffffff",
+      ["==", ["get", "cluster"], 2],
+      selectedCluster[2] ? color.yellow.categorized[2] : "#ffffff",
+      ["==", ["get", "cluster"], 3],
+      selectedCluster[3] ? color.yellow.categorized[3] : "#ffffff",
+      "#ffffff",
+    ]);
+  }
 }
 
 function updateClusterSelect(clusterSelect) {

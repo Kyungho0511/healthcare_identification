@@ -96,7 +96,7 @@ function setClusterContent() {
     // Set title
     cluster.querySelector(
       ".dataset-title"
-    ).innerHTML = `custom ${preferedFactors[i]} cluster`;
+    ).innerHTML = `custom ${preferedFactors[i]} clusters`;
 
     // Set list of features
     const list = document.createElement("ul");
