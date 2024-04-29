@@ -423,12 +423,25 @@
     <section id="cluster1" class="content">
       <div class="legend legend-map invisible">
         <h4 class="legend__title"></h4>
-        <ul class="cluster-legend-list">
-          <li><span class="color-box"></span></li>
-          <li><span class="color-box"></span></li>
-          <li><span class="color-box"></span></li>
-          <li><span class="color-box"></span></li>
-        </ul>
+        <div class="cluster-legend-container dropdown relational">
+          <button class="dropbtn cluster">
+            <span class="color-box"></span>
+          </button>
+          <ul class="dropdown-content cluster-legend-list expanded"></ul>
+          <button class="dropbtn cluster">
+            <span class="color-box"></span>
+          </button>
+          <ul class="dropdown-content cluster-legend-list"></ul>
+          <button class="dropbtn cluster">
+            <span class="color-box"></span>
+          </button>
+          <ul class="dropdown-content cluster-legend-list"></ul>
+          <button class="dropbtn cluster">
+            <span class="color-box"></span>
+          </button>
+          <ul class="dropdown-content cluster-legend-list"></ul>
+        </div>
+
         <div class="color-box-container">
           <span class="color-box-non-selected"></span>non-selected areas
         </div>
@@ -461,11 +474,9 @@
         <div class="sidebar__dataset cluster-dataset dropdown selectable">
           <h4 class="dataset-title"></h4>
           <button class="dropbtn">
-            <span class="triangle expanded"></span>Features to Cluster
+            <span class="triangle"></span>Features to Cluster
           </button>
-          <ul
-            class="dataset__list dropdown-content features-to-cluster expanded"
-          ></ul>
+          <ul class="dataset__list dropdown-content features-to-cluster"></ul>
           <hr />
 
           <button class="dropbtn">
@@ -475,25 +486,35 @@
           <button class="sidebar__button button_grey">CLUSTER</button>
         </div>
 
-        <div class="sidebar__dataset cluster-select dropdown invisible">
-          <h4 class="legend__title"></h4>
+        <div
+          class="sidebar__dataset cluster-select dropdown relational invisible"
+        >
+          <h4 class="dataset-title">Select Target Clusters</h4>
           <button class="dropbtn">
             <span class="color-box"></span>Cluster1
           </button>
-          <ul class="dropdown-content cluster-legend-list expanded"></ul>
+          <ul class="dropdown-content dataset__list cluster-legend-list"></ul>
           <button class="dropbtn">
             <span class="color-box"></span>Cluster2
           </button>
-          <ul class="dropdown-content cluster-legend-list"></ul>
+          <ul class="dropdown-content dataset__list cluster-legend-list"></ul>
           <button class="dropbtn">
             <span class="color-box"></span>Cluster2
           </button>
-          <ul class="dropdown-content cluster-legend-list"></ul>
+          <ul class="dropdown-content dataset__list cluster-legend-list"></ul>
           <button class="dropbtn">
             <span class="color-box"></span>Cluster2
           </button>
-          <ul class="dropdown-content cluster-legend-list"></ul>
+          <ul class="dropdown-content dataset__list cluster-legend-list"></ul>
         </div>
+
+        <!-- <div class="checkbox-list">
+          <label class="custom-checkbox">
+            <input type="checkbox" name="vulnerability" value="vulnerability" />
+            <span class="checkbox-indicator"></span>
+            <div class="checkbox-text">Health Vulnerability of Residents</div>
+          </label>
+        </div> -->
       </aside>
 
       <footer class="footerbar">

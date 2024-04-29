@@ -61,45 +61,50 @@ function onLegend(sectionId, mapId) {
 
 function updateLegend(title, scaleMin, scaleMax, bound) {
   title.innerText = bound.name;
-
-  if (unitPopulationDensity.includes(bound.name)) {
-    scaleMin.innerText = 0;
-    scaleMax.innerText = `${Math.round(bound.max / 100) / 10} k`;
-  } else if (unitHealthSurvey.includes(bound.name)) {
-    scaleMin.innerText = `${Math.round(bound.min)} %`;
-    scaleMax.innerText = `${Math.round(bound.max)} %`;
-  } else if (unitDollar.includes(bound.name)) {
-    if (bound.name === "average land price / ft2") {
-      scaleMin.innerText = `$ ${Math.round(bound.min * 50).toLocaleString(
-        "en-US"
-      )}`;
-      scaleMax.innerText = `$ ${Math.round(bound.max * 50).toLocaleString(
-        "en-US"
-      )}`;
-    } else {
-      scaleMin.innerText = `$ ${Math.round(bound.min).toLocaleString("en-US")}`;
-      scaleMax.innerText = `$ ${Math.round(bound.max).toLocaleString("en-US")}`;
-    }
-  } else if (
-    unitLandUse.includes(bound.name) ||
-    unitTransportation.includes(bound.name)
-  ) {
-    scaleMin.innerText = `${Math.round(bound.min * 100)} %`;
-    scaleMax.innerText = `${Math.round(bound.max * 100)} %`;
-  }
+  scaleMin.innerText = formatUnit(bound.min, bound.name);
+  scaleMax.innerText = formatUnit(bound.max, bound.name);
 }
 
 function updateClusterLegend(legend, title, centroids) {
   // Set title
-  legend.querySelector(".legend__title").innerText = title;
+  legend.querySelector(".legend__title").innerText = `${title} clusters`;
 
-  // Set item name and color-box
-  const items = legend.querySelectorAll("li");
+  // Set legend item name and color-box
+  const items = legend.querySelectorAll(".dropbtn");
   items.forEach((item, idx) => {
     item.innerHTML = `<span class="color-box"></span>cluster${idx + 1}`;
     item.querySelector(".color-box").style.backgroundColor =
       color.yellow.categorized[idx];
   });
 
-  console.log(centroids);
+  // Set dropdown sub-items
+  const subLists = legend.querySelectorAll(".cluster-legend-list");
+  subLists.forEach((list, idx) => {
+    list.innerHTML = "";
+    centroids[idx].centroid.forEach((num, idx) => {
+      // Format scale and unit
+      let formattedNum = formatUnit(num, clusterFeatures[`${title}`][idx]);
+
+      // Append list items
+      const li = document.createElement("li");
+      li.innerHTML = `${clusterFeatures[`${title}`][idx]}: ${formattedNum}`;
+      list.appendChild(li);
+    });
+  });
+}
+
+function formatUnit(num, name) {
+  if (unitPopulationDensity.includes(name)) {
+    return `${Math.round(num / 100) / 10}k`;
+  } else if (unitHealthSurvey.includes(name)) {
+    return `${Math.round(num)}%`;
+  } else if (unitDollar.includes(name)) {
+    if (name === "average land price / ft2") {
+      return `$ ${Math.round(num * 50).toLocaleString("en-US")}`;
+    } else {
+      return `$ ${Math.round(num).toLocaleString("en-US")}`;
+    }
+  } else if (unitLandUse.includes(name) || unitTransportation.includes(name)) {
+    return `${Math.round(num * 100)}%`;
+  }
 }

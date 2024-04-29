@@ -32,6 +32,9 @@ for (let i = 0; i < 3; i++) {
         const kMeans = runKMeans(data, features);
         addKMeansLayer(kMeans, data, preferedFactors[i]);
 
+        // Store selected cluster features from user (save to session storage later)
+        clusterFeatures[`${preferedFactors[i]}`] = features;
+
         // Update cluster legend
         const legendMap = cluster.querySelector(".legend-map");
         legendMap.classList.remove("invisible");
@@ -49,13 +52,6 @@ for (let i = 0; i < 3; i++) {
 
 function getFeatures(clusterIdx) {
   const features = [];
-
-  console.log(
-    document
-      .querySelector(`#cluster${clusterIdx + 1}`)
-      .querySelector(".cluster-dataset")
-  );
-
   document
     .querySelector(`#cluster${clusterIdx + 1}`)
     .querySelector(".features-to-cluster")
@@ -93,8 +89,8 @@ function runKMeans(geojson, propertyNames) {
   const numberOfClusters = 4;
 
   // Using the ML.js library to perform K-Means clustering
-  const kMeans = ML.KMeans(data, numberOfClusters);
-
+  const options = { initialization: "kmeans++", iterations: 100 };
+  const kMeans = ML.KMeans(data, numberOfClusters, options);
   return kMeans;
 }
 

@@ -3,36 +3,40 @@
 let preferedFactors = [];
 let selectedCounties = "";
 let selectedDatasetItems = [];
-let vulnerabilityCluster;
-let vulnerabilityFeatures = [
-  "physical health not good for >=14 days",
-  "mental health not good for >=14 days",
-  "no leisure-time physical activity",
-  "binge drinking",
-  "sleeping less than 7 hours",
-  "current smoking",
-  "current lack of health insurance",
-  "visits to dentist or dental clinic",
-  "visits to doctor for routine checkup",
-];
-let profitabilityFeatures = [
-  "unserved medicaid enrollees / km2",
-  "unserved commercial enrollees / km2",
-  "insured population / km2",
-  "median household disposable income",
-  "average land price / ft2",
-];
-let builtEnvironmentFeatures = [
-  "commercial district percent",
-  "residential district percent",
-  "industrial district percent",
-  "agricultural land percent",
-  "vacant land percent",
-  "drove alone percent",
-  "public transit percent",
-  "walked percent",
-  "worked from home percent",
-];
+let selectedVulnerabilityClusters = [];
+let selectedProfitabilityClusters = [];
+let selectedBuiltEnvironmentClusters = [];
+let clusterFeatures = {
+  vulnerability: [
+    "physical health not good for >=14 days",
+    "mental health not good for >=14 days",
+    "no leisure-time physical activity",
+    "binge drinking",
+    "sleeping less than 7 hours",
+    "current smoking",
+    "current lack of health insurance",
+    "visits to dentist or dental clinic",
+    "visits to doctor for routine checkup",
+  ],
+  profitability: [
+    "unserved medicaid enrollees / km2",
+    "unserved commercial enrollees / km2",
+    "insured population / km2",
+    "median household disposable income",
+    "average land price / ft2",
+  ],
+  "built environment": [
+    "commercial district percent",
+    "residential district percent",
+    "industrial district percent",
+    "agricultural land percent",
+    "vacant land percent",
+    "drove alone percent",
+    "public transit percent",
+    "walked percent",
+    "worked from home percent",
+  ],
+};
 
 // Singleton state control for syncMap() function
 let isSyncing = false;

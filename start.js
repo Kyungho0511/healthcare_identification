@@ -101,15 +101,15 @@ function setClusterContent() {
     // Set list of features
     const list = document.createElement("ul");
     if (preferedFactors[i] === "vulnerability") {
-      vulnerabilityFeatures.forEach((feature) =>
+      clusterFeatures["vulnerability"].forEach((feature) =>
         createItem(list, feature, "minus")
       );
     } else if (preferedFactors[i] === "profitability") {
-      profitabilityFeatures.forEach((feature) =>
+      clusterFeatures["profitability"].forEach((feature) =>
         createItem(list, feature, "minus")
       );
     } else if (preferedFactors[i] === "built environment") {
-      builtEnvironmentFeatures.forEach((feature) =>
+      clusterFeatures["built environment"].forEach((feature) =>
         createItem(list, feature, "minus")
       );
     }

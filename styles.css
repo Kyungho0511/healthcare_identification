@@ -354,6 +354,12 @@ hr {
   border: none;
   cursor: pointer;
   background-color: var(--color-light-white);
+
+  &.cluster {
+    display: flex;
+    background-color: var(--color-white);
+    margin-bottom: 0.6rem;
+  }
 }
 
 .triangle {
@@ -380,13 +386,15 @@ hr {
   min-width: 160px;
 }
 
-/* radiobox */
-.radio-list {
+/* radiobox & checkbox */
+.radio-list,
+.checkbox-list {
   display: flex;
   flex-direction: column;
 }
 
-.custom-radio {
+.custom-radio,
+.custom-checkbox {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
@@ -398,12 +406,14 @@ hr {
   }
 }
 
-.custom-radio input[type="radio"] {
+.custom-radio input[type="radio"],
+.custom-checkbox input[type="checkbox"] {
   opacity: 0;
   position: absolute;
 }
 
-.custom-radio .radio-indicator {
+.custom-radio .radio-indicator,
+.custom-checkbox .checkbox-indicator {
   width: 20px;
   height: 20px;
   border: 1px solid var(--color-grey);
@@ -414,7 +424,8 @@ hr {
   position: relative;
 }
 
-.custom-radio .radio-indicator::before {
+.custom-radio .radio-indicator::before,
+.custom-checkbox .checkbox-indicator::before {
   content: "";
   position: absolute;
   top: 2px;
@@ -425,11 +436,13 @@ hr {
   transform: scale(0);
 }
 
-.custom-radio input[type="radio"]:checked + .radio-indicator::before {
+.custom-radio input[type="radio"]:checked + .radio-indicator::before,
+.custom-checkbox input[type="checkbox"]:checked + .checkbox-indicator::before {
   transform: scale(1); /* Scales up the inner circle to indicate selection */
 }
 
-.radio-text {
+.radio-text,
+.checkbox-text {
   margin: 0.25rem;
 }
 
@@ -455,7 +468,7 @@ hr {
 
 /* legend */
 .legend {
-  width: 290px;
+  max-width: 350px;
   font-size: 0.9rem;
   position: fixed;
   top: 0;

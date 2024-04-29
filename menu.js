@@ -7,39 +7,66 @@ dropdowns.forEach((dropdown) => {
   const dropdownContents = dropdown.querySelectorAll(".dropdown-content");
   const triangles = dropdown.querySelectorAll(".triangle");
 
-  dropdownButtons.forEach((btn, idx) => {
-    btn.addEventListener("click", () => {
-      if (dropdownContents[idx].style.display === "block") {
-        // collapse dropdown menu
-        dropdownContents[idx].style.display = "none";
-        if (triangles != null)
-          triangles[idx].style.transform = "rotate(0deg) translateY(-10%)";
-      } else {
-        // collapse all dropdown menu before expanding dropdown menu
-        // dropdown menu with "relational" class will open only one menu at once
-        dropdownContents.forEach((content) => {
-          if (!content.parentElement.classList.contains("relational")) return;
-          content.style.display = "none";
-        });
-        triangles?.forEach((tri) => {
-          if (!tri.parentElement.parentElement.classList.contains("relational"))
-            return;
-          tri.style.transform = "rotate(0deg) translateY(-10%)";
-        });
-
-        // expand dropdown menu
-        dropdownContents[idx].style.display = "block";
-        if (triangles != null)
-          triangles[idx].style.transform = "rotate(90deg) translateY(-10%)";
-      }
+  // Dropdowns with no triangles
+  if (dropdown.classList.contains("cluster-legend-container")) {
+    dropdownButtons.forEach((btn, idx) => {
+      btn.addEventListener("click", () => {
+        if (dropdownContents[idx].style.display === "block") {
+          // collapse dropdown menu
+          dropdownContents[idx].style.display = "none";
+        } else {
+          // collapse all dropdown menu before expanding dropdown menu
+          // dropdown menu with "relational" class will open only one menu at once
+          dropdownContents.forEach((content) => {
+            if (!content.parentElement.classList.contains("relational")) return;
+            content.style.display = "none";
+          });
+          // expand dropdown menu
+          dropdownContents[idx].style.display = "block";
+        }
+      });
     });
-  });
+  }
+
+  // Dropdowns with triangles
+  else {
+    dropdownButtons.forEach((btn, idx) => {
+      btn.addEventListener("click", () => {
+        if (dropdownContents[idx].style.display === "block") {
+          // collapse dropdown menu
+          dropdownContents[idx].style.display = "none";
+          triangles[idx].style.transform = "rotate(0deg) translateY(-10%)";
+        } else {
+          // collapse all dropdown menu before expanding dropdown menu
+          // dropdown menu with "relational" class will open only one menu at once
+          dropdownContents.forEach((content) => {
+            if (!content.parentElement.classList.contains("relational")) return;
+            content.style.display = "none";
+          });
+          triangles.forEach((tri) => {
+            if (
+              !tri.parentElement.parentElement.classList.contains("relational")
+            )
+              return;
+            tri.style.transform = "rotate(0deg) translateY(-10%)";
+          });
+          // expand dropdown menu
+          dropdownContents[idx].style.display = "block";
+          triangles[idx].style.transform = "rotate(90deg) translateY(-10%)";
+        }
+      });
+    });
+  }
 });
 
 // expand dataset menu with expanded class on load
 const expandedLists = document.querySelectorAll(".expanded.dataset__list");
+const expandedLegend = document.querySelectorAll(
+  ".expanded.cluster-legend-list"
+);
 const expandedTriangles = document.querySelectorAll(".expanded.triangle");
 expandedLists.forEach((list) => (list.style.display = "block"));
+expandedLegend.forEach((legend) => (legend.style.display = "block"));
 expandedTriangles.forEach(
   (triangle) => (triangle.style.transform = "rotate(90deg) translateY(-10%)")
 );
