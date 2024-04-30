@@ -3,11 +3,7 @@
 let preferedFactors = [];
 let selectedCounties = "";
 let selectedDatasetItems = [];
-let selectedClusters = {
-  vulnerability: { 0: true, 1: true, 2: true, 3: true },
-  profitability: { 0: true, 1: true, 2: true, 3: true },
-  "built environment": { 0: true, 1: true, 2: true, 3: true },
-};
+
 let clusterFeatures = {
   vulnerability: [
     "physical health not good for >=14 days",
@@ -40,6 +36,26 @@ let clusterFeatures = {
   ],
 };
 
+let selectedClusters = {
+  vulnerability: { 0: true, 1: true, 2: true, 3: true },
+  profitability: { 0: true, 1: true, 2: true, 3: true },
+  "built environment": { 0: true, 1: true, 2: true, 3: true },
+};
+
+let kMeansResults = {
+  vulnerability: null,
+  profitability: null,
+  "built environment": null,
+};
+
+let selectedTractIndexes = {
+  vulnerability: [],
+  profitability: [],
+  "built environment": [],
+};
+
+console.log(selectedTractIndexes);
+
 // Singleton state control for syncMap() function
 let isSyncing = false;
 
@@ -53,7 +69,7 @@ const color = {
   yellow: {
     categorized: ["#d7e317", "#f7e900", "#f9b91b", "#eb6200"],
     min: "#fffaec",
-    max: "#f9b91b",
+    max: "#f9a200",
   },
   green: {
     categorized: [],
@@ -83,8 +99,8 @@ const config = {
     {
       id: "explore",
       layers: [
-        { layer: "counties-others", opacity: 0.6 },
-        { layer: "tracts", opacity: 0.8 },
+        // { layer: "counties-others", opacity: 0.7 },
+        { layer: "tracts", opacity: 0.9 },
         { layer: "tracts-features-nyc", opacity: 1 },
         { layer: "tracts-features-upstate", opacity: 1 },
       ],
@@ -93,7 +109,7 @@ const config = {
     {
       id: "cluster1",
       layers: [
-        { layer: "counties-others", opacity: 0.6 },
+        // { layer: "counties-others", opacity: 0.7 },
         { layer: "tracts", opacity: 1 },
         { layer: "tracts-back-nyc", opacity: 1 },
         { layer: "tracts-back-upstate", opacity: 1 },
@@ -102,7 +118,7 @@ const config = {
     {
       id: "cluster2",
       layers: [
-        { layer: "counties-others", opacity: 0.6 },
+        // { layer: "counties-others", opacity: 0.7 },
         { layer: "tracts", opacity: 1 },
         { layer: "tracts-back-nyc", opacity: 1 },
         { layer: "tracts-back-upstate", opacity: 1 },
@@ -111,7 +127,7 @@ const config = {
     {
       id: "cluster3",
       layers: [
-        { layer: "counties-others", opacity: 0.6 },
+        // { layer: "counties-others", opacity: 0.7 },
         { layer: "tracts", opacity: 1 },
         { layer: "tracts-back-nyc", opacity: 1 },
         { layer: "tracts-back-upstate", opacity: 1 },
@@ -143,8 +159,8 @@ const config2 = {
     {
       id: "explore",
       layers: [
-        { layer: "counties-others", opacity: 0.6 },
-        { layer: "tracts", opacity: 0.8 },
+        // { layer: "counties-others", opacity: 0.7 },
+        { layer: "tracts", opacity: 0.9 },
         { layer: "tracts-features-nyc", opacity: 1 },
         { layer: "tracts-features-upstate", opacity: 1 },
       ],
@@ -156,7 +172,7 @@ const config2 = {
     {
       id: "cluster1",
       layers: [
-        { layer: "counties-others", opacity: 0.6 },
+        // { layer: "counties-others", opacity: 0.7 },
         { layer: "tracts", opacity: 1 },
         { layer: "tracts-features-nyc", opacity: 1 },
         { layer: "tracts-features-upstate", opacity: 1 },
@@ -169,7 +185,7 @@ const config2 = {
     {
       id: "cluster2",
       layers: [
-        { layer: "counties-others", opacity: 0.6 },
+        // { layer: "counties-others", opacity: 0.7 },
         { layer: "tracts", opacity: 1 },
         { layer: "tracts-features-nyc", opacity: 1 },
         { layer: "tracts-features-upstate", opacity: 1 },
@@ -182,7 +198,7 @@ const config2 = {
     {
       id: "cluster3",
       layers: [
-        { layer: "counties-others", opacity: 0.6 },
+        // { layer: "counties-others", opacity: 0.7 },
         { layer: "tracts", opacity: 1 },
         { layer: "tracts-features-nyc", opacity: 1 },
         { layer: "tracts-features-upstate", opacity: 1 },

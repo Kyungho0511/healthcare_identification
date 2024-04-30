@@ -6,7 +6,7 @@ for (let i = 0; i < 3; i++) {
   const clusterBtn = cluster.querySelector(".sidebar__button");
   const continueBtn = cluster.querySelector(".footerbar__button");
 
-  // Mouse interaction with dataset item
+  // Mouse interaction with dataset item (map2)
   clusterDatasetContainers.forEach((container) => {
     if (!container.classList.contains("selectable")) return;
     setDataMappingInteraction(
@@ -28,6 +28,14 @@ for (let i = 0; i < 3; i++) {
     triangles.forEach(
       (tri) => (tri.style.transform = "rotate(0deg) translateY(-10%)")
     );
+
+    // Restore default settings: every cluster is checked initially
+    cluster.querySelectorAll("input").forEach((input) => {
+      input.checked = true;
+      selectedClusters[`${preferedFactors[i]}`][input.value] = input.checked;
+    });
+
+    // Fetch data, run kMeans clustering, and display mapping
     const fileName =
       selectedCounties === "NYC Counties"
         ? "data/tracts_features_nyc_normalized.geojson"
@@ -36,14 +44,31 @@ for (let i = 0; i < 3; i++) {
     fetch(fileName)
       .then((response) => response.json())
       .then((data) => {
+        // Recursive Clustering: hard coded for now
+        // Filter data based on the selected clusters in previous section (skip the 1st section)
+        if (i == 1) {
+          const indexes = selectedTractIndexes[`${preferedFactors[i - 1]}`];
+          data = filterGeoJsonByIndexes(data, indexes);
+        } else if (i == 2) {
+          const indexesCluster1 =
+            selectedTractIndexes[`${preferedFactors[i - 2]}`];
+          const indexesCluster2 =
+            selectedTractIndexes[`${preferedFactors[i - 1]}`];
+          data = filterGeoJsonByIndexes(
+            data,
+            indexesCluster2.map((x) => indexesCluster1[x])
+          );
+        }
+
         // Run kmeans and display mapping
         const features = getFeatures(i);
         const kMeans = runKMeans(data, features);
 
         addKMeansLayer(kMeans, data, preferedFactors[i]);
 
-        // Store selected cluster features from user (save to Session Storage later)
+        // Store cluster inputs from user (save to Session Storage later)
         clusterFeatures[`${preferedFactors[i]}`] = features;
+        kMeansResults[`${preferedFactors[i]}`] = kMeans;
 
         // Update cluster legend
         const legendMap = cluster.querySelector(".legend-map");
@@ -72,6 +97,21 @@ for (let i = 0; i < 3; i++) {
 
       // Update Mapbox source and layer based on selected cluster
       updateKMeansLayerStyle(preferedFactors[i]);
+
+      // Update selectedTractIndexes based on selected cluster
+      const targetClusters = [];
+      const clusters = kMeansResults[`${preferedFactors[i]}`].clusters;
+      cluster.querySelectorAll("input").forEach((input) => {
+        if (input.checked) targetClusters.push(input.value);
+      });
+      const selectedTractIndex = [];
+      clusters.forEach((tract, idx) => {
+        if (targetClusters.includes(tract.toString()))
+          selectedTractIndex.push(idx);
+      });
+      selectedTractIndexes[`${preferedFactors[i]}`] = selectedTractIndex;
+
+      console.log(selectedTractIndex);
     });
   });
 
@@ -171,6 +211,7 @@ function addKMeansLayer(kMeans, data, title) {
     "road-simple"
   );
 }
+
 function updateKMeansLayerStyle(title) {
   const selectedCluster = selectedClusters[title];
   titleHyphen = title.replace(/\s+/g, "-");
@@ -196,4 +237,15 @@ function updateClusterSelect(clusterSelect) {
   clusterSelect.querySelectorAll(".color-box").forEach((box, idx) => {
     box.style.backgroundColor = color.yellow.categorized[idx];
   });
+}
+
+function filterGeoJsonByIndexes(geoJson, indexes) {
+  // Filter the features array based on the indexes
+  const filteredFeatures = geoJson.features.filter((feature, idx) =>
+    indexes.includes(idx)
+  );
+  const copiedGeoJson = structuredClone(geoJson);
+  copiedGeoJson.features = filteredFeatures;
+
+  return copiedGeoJson;
 }

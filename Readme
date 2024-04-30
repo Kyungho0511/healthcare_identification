@@ -1,4 +1,4 @@
-Functionalities to implement further:
+[Functionalities to implement further]
 
 1. d3.js chart for showing clustering results
 
@@ -6,6 +6,10 @@ Functionalities to implement further:
 
 3. chatGPT API to label cluster numbers dynamically
 
-4. Store cluster result to session storage and re-render it on page reload.
+4. Share section that shows dashbaord to be added
 
-5. If cluster button is clicked before page is fully loaded, the cluster legend dropdown menu is not updated.
+[Miscellaneouses to add or fix]
+
+1. Store cluster result to session storage and re-render it on page reload.
+
+2. If cluster button is clicked before page is fully loaded, the cluster legend dropdown menu is not updated.
