@@ -1,7 +1,7 @@
 /* Global */
 :root {
   /* Color */
-  --color-black: #333;
+  --color-black: #0f0f0f;
   --color-dark-grey: rgb(87, 87, 87);
   --color-grey: rgb(150, 150, 150);
   --color-light-grey: rgb(220, 220, 220);
@@ -432,7 +432,7 @@ hr {
   left: 2px;
   width: 14px;
   height: 14px;
-  background-color: var(--color-grey);
+  background-color: var(--color-dark-grey);
   transform: scale(0);
 }
 
