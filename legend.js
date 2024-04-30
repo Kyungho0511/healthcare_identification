@@ -53,7 +53,7 @@ function updateLegend(title, scaleMin, scaleMax, bound) {
   scaleMax.innerText = formatUnit(bound.max, bound.name);
 }
 
-function updateClusterLegend(legend, title, centroids, features) {
+function updateClusterLegend(legend, title, centroids, features, color) {
   // Set title
   legend.querySelector(".legend__title").innerText = `${title} clusters`;
 
@@ -61,8 +61,7 @@ function updateClusterLegend(legend, title, centroids, features) {
   const items = legend.querySelectorAll(".dropbtn");
   items.forEach((item, i) => {
     item.innerHTML = `<span class="color-box"></span>cluster${i + 1}`;
-    item.querySelector(".color-box").style.backgroundColor =
-      color.yellow.categorized[i];
+    item.querySelector(".color-box").style.backgroundColor = color[i];
   });
 
   // Set dropdown sub-items

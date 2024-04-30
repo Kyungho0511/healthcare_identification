@@ -121,6 +121,16 @@ function setClusterContent() {
         icon.closest(".dataset__item").remove()
       );
     });
+
+    // Set theme Colors
+    const section = config.sections.find((sec) => sec.id === `cluster${i + 1}`);
+    if (preferedFactors[i] === "vulnerability") {
+      section.color = color.yellow.categorized;
+    } else if (preferedFactors[i] === "profitability") {
+      section.color = color.blue.categorized;
+    } else if (preferedFactors[i] === "built environment") {
+      section.color = color.green.categorized;
+    }
   }
 }
 

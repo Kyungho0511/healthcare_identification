@@ -5,6 +5,7 @@ for (let i = 0; i < 3; i++) {
     cluster.querySelectorAll(".sidebar__dataset");
   const clusterBtn = cluster.querySelector(".sidebar__button");
   const continueBtn = cluster.querySelector(".footerbar__button");
+  const section = config.sections.find((sec) => sec.id === `cluster${i + 1}`);
 
   // Mouse interaction with dataset item (map2)
   clusterDatasetContainers.forEach((container) => {
@@ -47,8 +48,9 @@ for (let i = 0; i < 3; i++) {
         // Recursive Clustering: hard coded for now
         // Filter data based on the selected clusters in previous section (skip the 1st section)
         if (i == 1) {
-          const indexes = selectedTractIndexes[`${preferedFactors[i - 1]}`];
-          data = filterGeoJsonByIndexes(data, indexes);
+          const indexesCluster1 =
+            selectedTractIndexes[`${preferedFactors[i - 1]}`];
+          data = filterGeoJsonByIndexes(data, indexesCluster1);
         } else if (i == 2) {
           const indexesCluster1 =
             selectedTractIndexes[`${preferedFactors[i - 2]}`];
@@ -64,7 +66,7 @@ for (let i = 0; i < 3; i++) {
         const features = getFeatures(i);
         const kMeans = runKMeans(data, features);
 
-        addKMeansLayer(kMeans, data, preferedFactors[i]);
+        addKMeansLayer(kMeans, data, preferedFactors[i], section.color);
 
         // Store cluster inputs from user (save to Session Storage later)
         clusterFeatures[`${preferedFactors[i]}`] = features;
@@ -77,13 +79,14 @@ for (let i = 0; i < 3; i++) {
           legendMap,
           preferedFactors[i],
           kMeans.centroids,
-          features
+          features,
+          section.color
         );
 
         // Update cluster select container
         const clusterSelect = cluster.querySelector(".cluster-select");
         clusterSelect.classList.remove("invisible");
-        updateClusterSelect(clusterSelect);
+        updateClusterSelect(clusterSelect, section.color);
       })
       .catch((error) =>
         console.error("Error fetching the GeoJSON file:", error)
@@ -96,22 +99,10 @@ for (let i = 0; i < 3; i++) {
       selectedClusters[`${preferedFactors[i]}`][input.value] = input.checked;
 
       // Update Mapbox source and layer based on selected cluster
-      updateKMeansLayerStyle(preferedFactors[i]);
+      updateKMeansLayerStyle(preferedFactors[i], section.color);
 
       // Update selectedTractIndexes based on selected cluster
-      const targetClusters = [];
-      const clusters = kMeansResults[`${preferedFactors[i]}`].clusters;
-      cluster.querySelectorAll("input").forEach((input) => {
-        if (input.checked) targetClusters.push(input.value);
-      });
-      const selectedTractIndex = [];
-      clusters.forEach((tract, idx) => {
-        if (targetClusters.includes(tract.toString()))
-          selectedTractIndex.push(idx);
-      });
-      selectedTractIndexes[`${preferedFactors[i]}`] = selectedTractIndex;
-
-      console.log(selectedTractIndex);
+      updateSelectedTractIndexes(cluster, i);
     });
   });
 
@@ -125,7 +116,23 @@ for (let i = 0; i < 3; i++) {
         selectedClusters[`${preferedFactors[i]}`][input.value] = false;
       }
     });
+
+    // Update selectedTractIndexes based on selected cluster
+    updateSelectedTractIndexes(cluster, i);
   });
+}
+
+function updateSelectedTractIndexes(cluster, i) {
+  const targetClusters = [];
+  const clusters = kMeansResults[`${preferedFactors[i]}`].clusters;
+  cluster.querySelectorAll("input").forEach((input) => {
+    if (input.checked) targetClusters.push(input.value);
+  });
+  const selectedTractIndex = [];
+  clusters.forEach((tract, idx) => {
+    if (targetClusters.includes(tract.toString())) selectedTractIndex.push(idx);
+  });
+  selectedTractIndexes[`${preferedFactors[i]}`] = selectedTractIndex;
 }
 
 function getFeatures(clusterIdx) {
@@ -164,7 +171,7 @@ function runKMeans(geojson, propertyNames) {
   return kMeans;
 }
 
-function addKMeansLayer(kMeans, data, title) {
+function addKMeansLayer(kMeans, data, title, color) {
   // Clone and clean the data
   dataClean = structuredClone(data);
   dataClean.features.forEach((feature, idx) => {
@@ -195,13 +202,13 @@ function addKMeansLayer(kMeans, data, title) {
         "fill-color": [
           "case",
           ["==", ["get", "cluster"], 0],
-          color.yellow.categorized[0],
+          color[0],
           ["==", ["get", "cluster"], 1],
-          color.yellow.categorized[1],
+          color[1],
           ["==", ["get", "cluster"], 2],
-          color.yellow.categorized[2],
+          color[2],
           ["==", ["get", "cluster"], 3],
-          color.yellow.categorized[3],
+          color[3],
           "#ffffff",
         ],
         "fill-opacity": 1,
@@ -212,7 +219,7 @@ function addKMeansLayer(kMeans, data, title) {
   );
 }
 
-function updateKMeansLayerStyle(title) {
+function updateKMeansLayerStyle(title, color) {
   const selectedCluster = selectedClusters[title];
   titleHyphen = title.replace(/\s+/g, "-");
 
@@ -221,21 +228,21 @@ function updateKMeansLayerStyle(title) {
     map.setPaintProperty(layerId, "fill-color", [
       "case",
       ["==", ["get", "cluster"], 0],
-      selectedCluster[0] ? color.yellow.categorized[0] : "#ffffff",
+      selectedCluster[0] ? color[0] : "#ffffff",
       ["==", ["get", "cluster"], 1],
-      selectedCluster[1] ? color.yellow.categorized[1] : "#ffffff",
+      selectedCluster[1] ? color[1] : "#ffffff",
       ["==", ["get", "cluster"], 2],
-      selectedCluster[2] ? color.yellow.categorized[2] : "#ffffff",
+      selectedCluster[2] ? color[2] : "#ffffff",
       ["==", ["get", "cluster"], 3],
-      selectedCluster[3] ? color.yellow.categorized[3] : "#ffffff",
+      selectedCluster[3] ? color[3] : "#ffffff",
       "#ffffff",
     ]);
   }
 }
 
-function updateClusterSelect(clusterSelect) {
+function updateClusterSelect(clusterSelect, color) {
   clusterSelect.querySelectorAll(".color-box").forEach((box, idx) => {
-    box.style.backgroundColor = color.yellow.categorized[idx];
+    box.style.backgroundColor = color[idx];
   });
 }
 

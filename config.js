@@ -54,15 +54,13 @@ let selectedTractIndexes = {
   "built environment": [],
 };
 
-console.log(selectedTractIndexes);
-
 // Singleton state control for syncMap() function
 let isSyncing = false;
 
 // Colors used for mapping
 const color = {
   blue: {
-    categorized: ["#ebfffe", "#97d9ff", "#3399ff", "#0145ff", "#2500cc"],
+    categorized: ["#cdecd0", "#7ed7dd", "#2b9ded", "#0f4bee"],
     min: "#f7faff",
     max: "#006efe",
   },
@@ -72,7 +70,7 @@ const color = {
     max: "#f9a200",
   },
   green: {
-    categorized: [],
+    categorized: ["#e3d1ad", "#cedd7e", "#66cd5a", "#2aa9b5"],
   },
 };
 
@@ -114,6 +112,7 @@ const config = {
         { layer: "tracts-back-nyc", opacity: 1 },
         { layer: "tracts-back-upstate", opacity: 1 },
       ],
+      color: null, // theme color for Cluster section
     },
     {
       id: "cluster2",
@@ -123,6 +122,7 @@ const config = {
         { layer: "tracts-back-nyc", opacity: 1 },
         { layer: "tracts-back-upstate", opacity: 1 },
       ],
+      color: null, // theme color for Cluster section
     },
     {
       id: "cluster3",
@@ -132,6 +132,7 @@ const config = {
         { layer: "tracts-back-nyc", opacity: 1 },
         { layer: "tracts-back-upstate", opacity: 1 },
       ],
+      color: null, // theme color for Cluster section
     },
   ],
 };
