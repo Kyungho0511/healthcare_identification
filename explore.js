@@ -110,6 +110,15 @@ function setDataMappingInteraction(
 }
 
 exploreContinueBtn.addEventListener("click", () => {
+  // Show Map3 and hide Map1,Map2
+  document.querySelector("#map").classList.add("invisible");
+  document.querySelector("#map2").classList.add("invisible");
+  document.querySelector("#map3").classList.remove("invisible");
+  map3.resize();
+
+  // Run clustering analysis logics for Cluster1 section
+  showClusteringAnalysis(0);
+
   // Store selectedDatasetItems to session storage (declared in config.js)
   tempDatasets = [];
   explore

@@ -123,7 +123,9 @@ function setClusterContent() {
     });
 
     // Set theme Colors
-    const section = config.sections.find((sec) => sec.id === `cluster${i + 1}`);
+    const section = config3.sections.find(
+      (sec) => sec.id === `cluster${i + 1}`
+    );
     if (preferedFactors[i] === "vulnerability") {
       section.color = color.yellow.categorized;
     } else if (preferedFactors[i] === "profitability") {

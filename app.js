@@ -4,6 +4,7 @@ logos.forEach((logo) => {
   logo.addEventListener("click", () => {
     navigateToSection("start");
     resetProgress();
+    onMaps("start");
     onLayers("start", "map");
     onLayers("start", "map2");
     window.location.reload();
@@ -27,6 +28,7 @@ sections.forEach((sec, idx) => {
     else {
       navigateToSection(`${sectionIds[idx + 1]}`);
       checkProgress(`${sectionIds[idx + 1]}`);
+      onMaps(`${sectionIds[idx + 1]}`);
       onLayers(`${sectionIds[idx + 1]}`, "map");
       onLayers(`${sectionIds[idx + 1]}`, "map2");
       onLegend(`${sectionIds[idx + 1]}`, "map");
@@ -40,6 +42,7 @@ window.addEventListener("popstate", function (event) {
   if (event.state == null || event.state?.section === "start") {
     showSection("start");
     checkProgress("start");
+    onMaps("start");
     onLayers("start", "map");
     onLayers("start", "map2");
     onLegend("start", "map");
@@ -53,6 +56,7 @@ window.addEventListener("popstate", function (event) {
     const sectionId = event.state.section;
     showSection(event.state.section);
     checkProgress(sectionId);
+    onMaps(sectionId);
     onLayers(sectionId, "map");
     onLayers(sectionId, "map2");
     onLegend(sectionId, "map");
@@ -87,6 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!sectionId || sectionId === "start") {
     map.on("load", () => {
       checkProgress("start");
+      onMaps("start");
       onLayers("start", "map");
       onLayers("start", "map2");
       onLegend("start", "map");
@@ -105,6 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   map.on("load", () => {
     checkProgress(sectionId);
+    onMaps(sectionId);
     onLayers(sectionId, "map");
     onLayers(sectionId, "map2");
     onLegend(sectionId, "map");

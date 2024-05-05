@@ -41,7 +41,7 @@ const map = new mapboxgl.Map({
 });
 
 // Disable rotation using touch and mouse
-map.dragRotate.disable();
+// map.dragRotate.disable();
 map.touchZoomRotate.disableRotation();
 
 const map2 = new mapboxgl.Map({
@@ -63,6 +63,22 @@ map2.touchZoomRotate.disableRotation();
 // Sync Map, Map2 navigation
 enableSyncMap();
 
+const map3 = new mapboxgl.Map({
+  container: "map3",
+  style: config3.style,
+  center: config3.location.center,
+  zoom: config3.location.zoom,
+  bearing: config3.location.bearing,
+  pitch: config3.location.pitch,
+  scrollZoom: true,
+  maxBounds: bounds,
+  transformRequest: transformRequest,
+});
+
+// Disable rotation using touch and mouse
+map3.dragRotate.disable();
+map3.touchZoomRotate.disableRotation();
+
 /**
  * Functions
  */
@@ -75,10 +91,25 @@ function getLayerPaintType(layer, mapId) {
 function setLayerOpacity(layer, mapId) {
   const paintProps = getLayerPaintType(layer.layer, mapId);
   paintProps.forEach(function (prop) {
-    mapId === "map"
-      ? map.setPaintProperty(layer.layer, prop, layer.opacity)
-      : map2.setPaintProperty(layer.layer, prop, layer.opacity);
+    if (mapId === "map") map.setPaintProperty(layer.layer, prop, layer.opacity);
+    else if (mapId === "map2")
+      map2.setPaintProperty(layer.layer, prop, layer.opacity);
+    else if (mapId === "map3")
+      map3.setPaintProperty(layer.layer, prop, layer.opacity);
   });
+}
+
+function onMaps(sectionId) {
+  if (sectionId === "start" || sectionId === "explore") {
+    document.querySelector("#map").classList.remove("invisible");
+    document.querySelector("#map2").classList.remove("invisible");
+    document.querySelector("#map3").classList.add("invisible");
+  } else {
+    document.querySelector("#map").classList.add("invisible");
+    document.querySelector("#map2").classList.add("invisible");
+    document.querySelector("#map3").classList.remove("invisible");
+    map3.resize();
+  }
 }
 
 function onLayers(sectionId, mapId) {
@@ -88,7 +119,9 @@ function onLayers(sectionId, mapId) {
   let section = null;
   if (mapId === "map") {
     section = config.sections.find((sec) => sec.id === sectionId);
-  } else {
+  } else if (mapId === "map2") {
+    section = config2.sections.find((sec) => sec.id === sectionId);
+  } else if (mapId === "map3") {
     section = config2.sections.find((sec) => sec.id === sectionId);
   }
 
@@ -96,7 +129,7 @@ function onLayers(sectionId, mapId) {
     setLayerOpacity(layer, mapId);
   });
 
-  // Update layer style (Edge case)
+  // Update layer style (Start)
   if (sectionId === "start") {
     const defaultLayer = "counties-nyc";
     const defaultAttribute = section.default.attribute;
@@ -114,8 +147,8 @@ function onLayers(sectionId, mapId) {
     );
   }
 
-  // Update layer style (Normal case)
-  else {
+  // Update layer style (Explore)
+  else if (sectionId === "explore") {
     const defaultLayer =
       selectedCounties === "NYC Counties"
         ? "tracts-features-nyc"
@@ -166,13 +199,17 @@ function ToggleLayerVisiblity() {
   if (selectedCounties === "NYC Counties") {
     map.setLayoutProperty("tracts-features-nyc", "visibility", "visible");
     map2.setLayoutProperty("tracts-features-nyc", "visibility", "visible");
+    map3.setLayoutProperty("tracts-features-nyc", "visibility", "visible");
     map.setLayoutProperty("tracts-features-upstate", "visibility", "none");
     map2.setLayoutProperty("tracts-features-upstate", "visibility", "none");
+    map3.setLayoutProperty("tracts-features-upstate", "visibility", "none");
   } else {
     map.setLayoutProperty("tracts-features-nyc", "visibility", "none");
     map2.setLayoutProperty("tracts-features-nyc", "visibility", "none");
+    map3.setLayoutProperty("tracts-features-nyc", "visibility", "none");
     map.setLayoutProperty("tracts-features-upstate", "visibility", "visible");
     map2.setLayoutProperty("tracts-features-upstate", "visibility", "visible");
+    map3.setLayoutProperty("tracts-features-upstate", "visibility", "visible");
   }
 }
 

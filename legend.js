@@ -20,24 +20,8 @@ function onLegend(sectionId, mapId) {
     );
   }
 
-  // Edge Case 2:
-  else if (
-    sectionId === "cluster1" ||
-    sectionId === "cluster2" ||
-    sectionId === "cluster3"
-  ) {
-    mapId === "map"
-      ? null // ? updateClusterLegend(legend)
-      : updateLegend(
-          legend.querySelector(".legend__title"),
-          legend.querySelector(".scale-min"),
-          legend.querySelector(".scale-max"),
-          findBound(section.default.attribute)
-        );
-  }
-
   // Normal case:
-  else {
+  else if (sectionId === "explore") {
     updateLegend(
       legend.querySelector(".legend__title"),
       legend.querySelector(".scale-min"),

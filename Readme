@@ -1,15 +1,22 @@
 [Functionalities to implement further]
 
-1. d3.js chart for showing clustering results
+1. chatGPT API to label cluster numbers dynamically
 
-2. Move dropdown menu in cluster legend to the sidebar area
+2. d3.js chart for showing clustering results
 
-3. chatGPT API to label cluster numbers dynamically
+3. Share section that shows dashbaord to be added
 
-4. Share section that shows dashbaord to be added
+4. dynamic update on the number of kmeans clusters
 
 [Miscellaneouses to add or fix]
 
 1. Store cluster result to session storage and re-render it on page reload.
 
 2. If cluster button is clicked before page is fully loaded, the cluster legend dropdown menu is not updated.
+
+[Feedback from the final presentation]
+
+1. besides the clustering method, what story can you tell in the end?
+   for example, how is shortage areas in Queens different from Bronx or Brooklyn?
+   How the shortage areas for commercial enrollees are different from Medicaid enrollee?
+   Make a share section that integrates a set of analyses to tell a story.

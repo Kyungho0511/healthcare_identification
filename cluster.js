@@ -1,96 +1,20 @@
 // Iterate Cluster 1,2,3
 for (let i = 0; i < 3; i++) {
   const cluster = document.querySelector(`#cluster${i + 1}`);
-  const clusterDatasetContainers =
-    cluster.querySelectorAll(".sidebar__dataset");
   const clusterBtn = cluster.querySelector(".sidebar__button");
   const continueBtn = cluster.querySelector(".footerbar__button");
-  const section = config.sections.find((sec) => sec.id === `cluster${i + 1}`);
-
-  // Mouse interaction with dataset item (map2)
-  clusterDatasetContainers.forEach((container) => {
-    if (!container.classList.contains("selectable")) return;
-    setDataMappingInteraction(
-      cluster,
-      container,
-      color.yellow.min,
-      color.yellow.max,
-      "map2"
-    );
-  });
+  const section = config3.sections.find((sec) => sec.id === `cluster${i + 1}`);
 
   // Handle cluster button to display clustering result on map1
   clusterBtn.addEventListener("click", () => {
-    // Collapse cluster dropdown menu
-    const triangles = clusterBtn.parentElement.querySelectorAll(".triangle");
-    const dropdownContents =
-      clusterBtn.parentElement.querySelectorAll(".dropdown-content");
-    dropdownContents.forEach((content) => (content.style.display = "none"));
-    triangles.forEach(
-      (tri) => (tri.style.transform = "rotate(0deg) translateY(-10%)")
-    );
-
     // Restore default settings: every cluster is checked initially
     cluster.querySelectorAll("input").forEach((input) => {
       input.checked = true;
       selectedClusters[`${preferedFactors[i]}`][input.value] = input.checked;
     });
 
-    // Fetch data, run kMeans clustering, and display mapping
-    const fileName =
-      selectedCounties === "NYC Counties"
-        ? "data/tracts_features_nyc_normalized.geojson"
-        : "data/tracts_features_upstate_normalized.geojson";
-
-    fetch(fileName)
-      .then((response) => response.json())
-      .then((data) => {
-        // Recursive Clustering: hard coded for now
-        // Filter data based on the selected clusters in previous section (skip the 1st section)
-        if (i == 1) {
-          const indexesCluster1 =
-            selectedTractIndexes[`${preferedFactors[i - 1]}`];
-          data = filterGeoJsonByIndexes(data, indexesCluster1);
-        } else if (i == 2) {
-          const indexesCluster1 =
-            selectedTractIndexes[`${preferedFactors[i - 2]}`];
-          const indexesCluster2 =
-            selectedTractIndexes[`${preferedFactors[i - 1]}`];
-          data = filterGeoJsonByIndexes(
-            data,
-            indexesCluster2.map((x) => indexesCluster1[x])
-          );
-        }
-
-        // Run kmeans and display mapping
-        const features = getFeatures(i);
-        const kMeans = runKMeans(data, features);
-
-        addKMeansLayer(kMeans, data, preferedFactors[i], section.color);
-
-        // Store cluster inputs from user (save to Session Storage later)
-        clusterFeatures[`${preferedFactors[i]}`] = features;
-        kMeansResults[`${preferedFactors[i]}`] = kMeans;
-
-        // Update cluster legend
-        const legendMap = cluster.querySelector(".legend-map");
-        legendMap.classList.remove("invisible");
-        updateClusterLegend(
-          legendMap,
-          preferedFactors[i],
-          kMeans.centroids,
-          features,
-          section.color
-        );
-
-        // Update cluster select container
-        const clusterSelect = cluster.querySelector(".cluster-select");
-        clusterSelect.classList.remove("invisible");
-        updateClusterSelect(clusterSelect, section.color);
-      })
-      .catch((error) =>
-        console.error("Error fetching the GeoJSON file:", error)
-      );
+    // Run clustering analysis logics
+    showClusteringAnalysis(i);
   });
 
   // Select Cluster interaction
@@ -119,6 +43,9 @@ for (let i = 0; i < 3; i++) {
 
     // Update selectedTractIndexes based on selected cluster
     updateSelectedTractIndexes(cluster, i);
+
+    // Run clustering analysis for the next section based on updated selectedTractIndexes
+    if (i < 2) showClusteringAnalysis(i + 1);
   });
 }
 
@@ -183,17 +110,17 @@ function addKMeansLayer(kMeans, data, title, color) {
   titleHyphen = title.replace(/\s+/g, "-");
 
   // Check if the source already exists, and remove it if necessary
-  if (map.getSource(`${titleHyphen}-cluster`)) {
-    map.removeLayer(`${titleHyphen}-cluster`);
-    map.removeSource(`${titleHyphen}-cluster`);
+  if (map3.getSource(`${titleHyphen}-cluster`)) {
+    map3.removeLayer(`${titleHyphen}-cluster`);
+    map3.removeSource(`${titleHyphen}-cluster`);
   }
 
-  map.addSource(`${titleHyphen}-cluster`, {
+  map3.addSource(`${titleHyphen}-cluster`, {
     type: "geojson",
     data: dataClean,
   });
 
-  map.addLayer(
+  map3.addLayer(
     {
       id: `${titleHyphen}-cluster`,
       type: "fill",
@@ -224,8 +151,8 @@ function updateKMeansLayerStyle(title, color) {
   titleHyphen = title.replace(/\s+/g, "-");
 
   const layerId = `${titleHyphen}-cluster`;
-  if (map.getLayer(layerId)) {
-    map.setPaintProperty(layerId, "fill-color", [
+  if (map3.getLayer(layerId)) {
+    map3.setPaintProperty(layerId, "fill-color", [
       "case",
       ["==", ["get", "cluster"], 0],
       selectedCluster[0] ? color[0] : "#ffffff",
@@ -238,6 +165,64 @@ function updateKMeansLayerStyle(title, color) {
       "#ffffff",
     ]);
   }
+}
+function showClusteringAnalysis(idx) {
+  const cluster = document.querySelector(`#cluster${idx + 1}`);
+  const section = config3.sections.find(
+    (sec) => sec.id === `cluster${idx + 1}`
+  );
+
+  // Fetch data, run kMeans clustering, and display mapping
+  const fileName =
+    selectedCounties === "NYC Counties"
+      ? "data/tracts_features_nyc_normalized.geojson"
+      : "data/tracts_features_upstate_normalized.geojson";
+
+  fetch(fileName)
+    .then((response) => response.json())
+    .then((data) => {
+      // Recursive Clustering: hard coded for now
+      // Filter data based on the selected clusters in previous section (skip the 1st section)
+      if (idx == 1) {
+        const indexesCluster1 =
+          selectedTractIndexes[`${preferedFactors[idx - 1]}`];
+        data = filterGeoJsonByIndexes(data, indexesCluster1);
+      } else if (idx == 2) {
+        const indexesCluster1 =
+          selectedTractIndexes[`${preferedFactors[idx - 2]}`];
+        const indexesCluster2 =
+          selectedTractIndexes[`${preferedFactors[idx - 1]}`];
+        data = filterGeoJsonByIndexes(
+          data,
+          indexesCluster2.map((x) => indexesCluster1[x])
+        );
+      }
+
+      // Run kmeans and display mapping
+      const features = getFeatures(idx);
+      const kMeans = runKMeans(data, features);
+
+      addKMeansLayer(kMeans, data, preferedFactors[idx], section.color);
+
+      // Store cluster inputs from user (save to Session Storage later)
+      clusterFeatures[`${preferedFactors[idx]}`] = features;
+      kMeansResults[`${preferedFactors[idx]}`] = kMeans;
+
+      // Update cluster legend
+      const legendMap = cluster.querySelector(".legend");
+      updateClusterLegend(
+        legendMap,
+        preferedFactors[idx],
+        kMeans.centroids,
+        features,
+        section.color
+      );
+
+      // Update cluster select container
+      const clusterSelect = cluster.querySelector(".cluster-select");
+      updateClusterSelect(clusterSelect, section.color);
+    })
+    .catch((error) => console.error("Error fetching the GeoJSON file:", error));
 }
 
 function updateClusterSelect(clusterSelect, color) {

@@ -97,42 +97,11 @@ const config = {
     {
       id: "explore",
       layers: [
-        // { layer: "counties-others", opacity: 0.7 },
         { layer: "tracts", opacity: 0.9 },
         { layer: "tracts-features-nyc", opacity: 1 },
         { layer: "tracts-features-upstate", opacity: 1 },
       ],
       default: { attribute: "unserved population / km2", color: color.yellow },
-    },
-    {
-      id: "cluster1",
-      layers: [
-        // { layer: "counties-others", opacity: 0.7 },
-        { layer: "tracts", opacity: 1 },
-        { layer: "tracts-back-nyc", opacity: 1 },
-        { layer: "tracts-back-upstate", opacity: 1 },
-      ],
-      color: null, // theme color for Cluster section
-    },
-    {
-      id: "cluster2",
-      layers: [
-        // { layer: "counties-others", opacity: 0.7 },
-        { layer: "tracts", opacity: 1 },
-        { layer: "tracts-back-nyc", opacity: 1 },
-        { layer: "tracts-back-upstate", opacity: 1 },
-      ],
-      color: null, // theme color for Cluster section
-    },
-    {
-      id: "cluster3",
-      layers: [
-        // { layer: "counties-others", opacity: 0.7 },
-        { layer: "tracts", opacity: 1 },
-        { layer: "tracts-back-nyc", opacity: 1 },
-        { layer: "tracts-back-upstate", opacity: 1 },
-      ],
-      color: null, // theme color for Cluster section
     },
   ],
 };
@@ -160,7 +129,6 @@ const config2 = {
     {
       id: "explore",
       layers: [
-        // { layer: "counties-others", opacity: 0.7 },
         { layer: "tracts", opacity: 0.9 },
         { layer: "tracts-features-nyc", opacity: 1 },
         { layer: "tracts-features-upstate", opacity: 1 },
@@ -170,44 +138,35 @@ const config2 = {
         color: color.blue,
       },
     },
+  ],
+};
+
+// Config3 for Map3 (mapbox)
+const config3 = {
+  accessToken:
+    "pk.eyJ1Ijoia2xlZTA1MTEiLCJhIjoiY2xrYnFibnNjMGV4cjNrbzRqdGg1d21sYiJ9.nN0pE1qocGhTLnD_xPuYdg",
+  style: "mapbox://styles/klee0511/clv0xyqe0016v01pe0ogo6xre",
+  location: {
+    center: [-73.87766, 40.713326],
+    zoom: 10.2,
+    pitch: 0,
+    bearing: 0,
+  },
+  sections: [
     {
       id: "cluster1",
-      layers: [
-        // { layer: "counties-others", opacity: 0.7 },
-        { layer: "tracts", opacity: 1 },
-        { layer: "tracts-features-nyc", opacity: 1 },
-        { layer: "tracts-features-upstate", opacity: 1 },
-      ],
-      default: {
-        attribute: "physical health not good for >=14 days",
-        color: color.yellow,
-      },
+      layers: [{ layer: "tracts", opacity: 0.9 }],
+      color: null,
     },
     {
       id: "cluster2",
-      layers: [
-        // { layer: "counties-others", opacity: 0.7 },
-        { layer: "tracts", opacity: 1 },
-        { layer: "tracts-features-nyc", opacity: 1 },
-        { layer: "tracts-features-upstate", opacity: 1 },
-      ],
-      default: {
-        attribute: "unserved medicaid enrollees / km2",
-        color: color.yellow,
-      },
+      layers: [{ layer: "tracts", opacity: 0.9 }],
+      color: null,
     },
     {
       id: "cluster3",
-      layers: [
-        // { layer: "counties-others", opacity: 0.7 },
-        { layer: "tracts", opacity: 1 },
-        { layer: "tracts-features-nyc", opacity: 1 },
-        { layer: "tracts-features-upstate", opacity: 1 },
-      ],
-      default: {
-        attribute: "commercial district percent",
-        color: color.yellow,
-      },
+      layers: [{ layer: "tracts", opacity: 0.9 }],
+      color: null,
     },
   ],
 };

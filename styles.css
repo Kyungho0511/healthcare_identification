@@ -82,7 +82,7 @@ hr {
 }
 
 .progressbar {
-  max-width: 700px;
+  max-width: 550px;
   width: 100%;
   counter-reset: step;
   list-style: none;
@@ -155,7 +155,8 @@ hr {
 
 /* Mapbox */
 #map,
-#map2 {
+#map2,
+#map3 {
   position: fixed;
   top: 0;
   height: 100vh;
@@ -164,10 +165,17 @@ hr {
 }
 
 #map {
+  width: calc(50% - 175px);
   left: 350px;
 }
 
 #map2 {
+  width: calc(50% - 175px);
+  right: 0;
+}
+
+#map3 {
+  width: calc(100% - 350px);
   right: 0;
 }
 

@@ -46,6 +46,7 @@
     <!-- mapbox -->
     <div id="map"></div>
     <div id="map2"></div>
+    <div id="map3" class="invisible"></div>
 
     <!-- Start section -->
     <section id="start" class="content selected">
@@ -419,13 +420,13 @@
 
     <!-- Cluster1 section -->
     <section id="cluster1" class="content">
-      <div class="legend legend-map invisible">
+      <div class="legend">
         <h4 class="legend__title"></h4>
         <div class="cluster-legend-container dropdown relational">
           <button class="dropbtn cluster">
             <span class="color-box"></span>
           </button>
-          <ul class="dropdown-content cluster-legend-list"></ul>
+          <ul class="dropdown-content cluster-legend-list expanded"></ul>
           <button class="dropbtn cluster">
             <span class="color-box"></span>
           </button>
@@ -444,48 +445,32 @@
         </div>
       </div>
 
-      <div class="legend legend-map2">
-        <h4 class="legend__title"></h4>
-        <div class="gradient-bar yellow"></div>
-        <div class="scale">
-          <span class="scale-min"></span>
-          <span class="scale-max"></span>
-        </div>
-        <div class="color-box-container">
-          <span class="color-box-non-shortage"></span>non-shortage areas
-        </div>
-      </div>
-
       <aside class="sidebar">
         <div class="sidebar__title">
           <img class="logo" src="./images/logo2.png" alt="logo_image" />
         </div>
 
-        <div class="sidebar__dataset cluster-dataset dropdown selectable">
+        <div class="sidebar__dataset cluster-dataset dropdown">
           <h4 class="dataset-title"></h4>
           Add or remove features to customize your clustering analysis. Click
           the 'Cluster' button when you are ready.
           <br /><br />
           <button class="dropbtn">
-            <span class="triangle expanded"></span
+            <span class="triangle"></span
             ><span style="font-size: 1rem">Features to Cluster</span>
           </button>
-          <ul
-            class="dataset__list dropdown-content features-to-cluster expanded"
-          ></ul>
+          <ul class="dataset__list dropdown-content features-to-cluster"></ul>
           <hr />
 
           <button class="dropbtn">
-            <span class="triangle expanded"></span
+            <span class="triangle"></span
             ><span style="font-size: 1rem">Features to Add</span>
           </button>
-          <ul
-            class="dataset__list dropdown-content selected_dataset expanded"
-          ></ul>
+          <ul class="dataset__list dropdown-content selected_dataset"></ul>
           <button class="sidebar__button button_grey">CLUSTER</button>
         </div>
 
-        <div class="sidebar__dataset cluster-select invisible">
+        <div class="sidebar__dataset cluster-select">
           <h4 class="dataset-title">Filter Target Clusters</h4>
           Review the subcategory values for each cluster in the legend. Exclude
           the clusters you're not targeting, and continue.
@@ -539,13 +524,13 @@
 
     <!-- Cluster2 section -->
     <section id="cluster2" class="content">
-      <div class="legend legend-map invisible">
+      <div class="legend">
         <h4 class="legend__title"></h4>
         <div class="cluster-legend-container dropdown relational">
           <button class="dropbtn cluster">
             <span class="color-box"></span>
           </button>
-          <ul class="dropdown-content cluster-legend-list"></ul>
+          <ul class="dropdown-content cluster-legend-list expanded"></ul>
           <button class="dropbtn cluster">
             <span class="color-box"></span>
           </button>
@@ -564,48 +549,32 @@
         </div>
       </div>
 
-      <div class="legend legend-map2">
-        <h4 class="legend__title"></h4>
-        <div class="gradient-bar yellow"></div>
-        <div class="scale">
-          <span class="scale-min"></span>
-          <span class="scale-max"></span>
-        </div>
-        <div class="color-box-container">
-          <span class="color-box-non-shortage"></span>non-shortage areas
-        </div>
-      </div>
-
       <aside class="sidebar">
         <div class="sidebar__title">
           <img class="logo" src="./images/logo2.png" alt="logo_image" />
         </div>
 
-        <div class="sidebar__dataset cluster-dataset dropdown selectable">
+        <div class="sidebar__dataset cluster-dataset dropdown">
           <h4 class="dataset-title"></h4>
           Add or remove features to customize your clustering analysis. Click
           the 'Cluster' button when you are ready.
           <br /><br />
           <button class="dropbtn">
-            <span class="triangle expanded"></span
+            <span class="triangle"></span
             ><span style="font-size: 1rem">Features to Cluster</span>
           </button>
-          <ul
-            class="dataset__list dropdown-content features-to-cluster expanded"
-          ></ul>
+          <ul class="dataset__list dropdown-content features-to-cluster"></ul>
           <hr />
 
           <button class="dropbtn">
-            <span class="triangle expanded"></span
+            <span class="triangle"></span
             ><span style="font-size: 1rem">Features to Add</span>
           </button>
-          <ul
-            class="dataset__list dropdown-content selected_dataset expanded"
-          ></ul>
+          <ul class="dataset__list dropdown-content selected_dataset"></ul>
           <button class="sidebar__button button_grey">CLUSTER</button>
         </div>
 
-        <div class="sidebar__dataset cluster-select invisible">
+        <div class="sidebar__dataset cluster-select">
           <h4 class="dataset-title">Filter Target Clusters</h4>
           Review the subcategory values for each cluster in the legend. Exclude
           the clusters you're not targeting, and continue.
@@ -659,13 +628,13 @@
 
     <!-- Cluster3 section -->
     <section id="cluster3" class="content">
-      <div class="legend legend-map invisible">
+      <div class="legend">
         <h4 class="legend__title"></h4>
         <div class="cluster-legend-container dropdown relational">
           <button class="dropbtn cluster">
             <span class="color-box"></span>
           </button>
-          <ul class="dropdown-content cluster-legend-list"></ul>
+          <ul class="dropdown-content cluster-legend-list expanded"></ul>
           <button class="dropbtn cluster">
             <span class="color-box"></span>
           </button>
@@ -684,48 +653,32 @@
         </div>
       </div>
 
-      <div class="legend legend-map2">
-        <h4 class="legend__title"></h4>
-        <div class="gradient-bar yellow"></div>
-        <div class="scale">
-          <span class="scale-min"></span>
-          <span class="scale-max"></span>
-        </div>
-        <div class="color-box-container">
-          <span class="color-box-non-shortage"></span>non-shortage areas
-        </div>
-      </div>
-
       <aside class="sidebar">
         <div class="sidebar__title">
           <img class="logo" src="./images/logo2.png" alt="logo_image" />
         </div>
 
-        <div class="sidebar__dataset cluster-dataset dropdown selectable">
+        <div class="sidebar__dataset cluster-dataset dropdown">
           <h4 class="dataset-title"></h4>
           Add or remove features to customize your clustering analysis. Click
           the 'Cluster' button when you are ready.
           <br /><br />
           <button class="dropbtn">
-            <span class="triangle expanded"></span
+            <span class="triangle"></span
             ><span style="font-size: 1rem">Features to Cluster</span>
           </button>
-          <ul
-            class="dataset__list dropdown-content features-to-cluster expanded"
-          ></ul>
+          <ul class="dataset__list dropdown-content features-to-cluster"></ul>
           <hr />
 
           <button class="dropbtn">
-            <span class="triangle expanded"></span
+            <span class="triangle"></span
             ><span style="font-size: 1rem">Features to Add</span>
           </button>
-          <ul
-            class="dataset__list dropdown-content selected_dataset expanded"
-          ></ul>
+          <ul class="dataset__list dropdown-content selected_dataset"></ul>
           <button class="sidebar__button button_grey">CLUSTER</button>
         </div>
 
-        <div class="sidebar__dataset cluster-select invisible">
+        <div class="sidebar__dataset cluster-select">
           <h4 class="dataset-title">Filter Target Clusters</h4>
           Review the subcategory values for each cluster in the legend. Exclude
           the clusters you're not targeting, and continue.
