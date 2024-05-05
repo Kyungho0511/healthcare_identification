@@ -366,7 +366,7 @@ hr {
   &.cluster {
     display: flex;
     background-color: var(--color-white);
-    margin-bottom: 0.6rem;
+    margin-bottom: 1rem;
   }
 }
 
@@ -530,12 +530,14 @@ hr {
   list-style: none;
   padding: 0;
   margin: 0;
+  margin-bottom: 2rem;
 }
 
 .cluster-legend-list li {
-  margin-bottom: 5px;
+  margin-bottom: 0.4rem;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 0;
 }
 
 .color-box {
@@ -568,6 +570,23 @@ hr {
   margin-right: 10px;
   border: solid rgba(173, 173, 173, 0.34) 1px;
   background-color: var(--color-white);
+}
+
+.chart {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  background-color: var(--color-light-grey);
+  border-radius: 0.3rem;
+
+  & .chart-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 8px;
+    background-color: var(--color-grey);
+    border-radius: 0.3rem;
+  }
 }
 
 .invisible {

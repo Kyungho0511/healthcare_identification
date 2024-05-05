@@ -61,10 +61,22 @@ function updateClusterLegend(legend, title, centroids, features, color) {
         clusterFeatures[`${title}`][j]
       );
 
-      // Append list items
+      // Append Chart items to legend
       const li = document.createElement("li");
-      li.innerHTML = `${clusterFeatures[`${title}`][j]}: ${formattedNum}`;
+      const text = document.createElement("div");
+      const chart = document.createElement("div");
+      const chartBar = document.createElement("div");
+      text.innerText = `${clusterFeatures[`${title}`][j]}: ${formattedNum}`;
+      chart.classList.add("chart");
+      chartBar.classList.add("chart-bar");
+      li.appendChild(text);
+      li.appendChild(chart);
+      chart.appendChild(chartBar);
       list.appendChild(li);
+
+      // Set chartBar value
+      const val = Math.round(num * 100);
+      chartBar.style.width = `${val}%`;
     });
   });
 }
