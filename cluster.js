@@ -3,7 +3,9 @@ for (let i = 0; i < 3; i++) {
   const cluster = document.querySelector(`#cluster${i + 1}`);
   const clusterBtn = cluster.querySelector(".sidebar__button");
   const continueBtn = cluster.querySelector(".footerbar__button");
-  const section = config3.sections.find((sec) => sec.id === `cluster${i + 1}`);
+  const section = configs.map3.sections.find(
+    (sec) => sec.id === `cluster${i + 1}`
+  );
 
   // Handle cluster button to display clustering result on map1
   clusterBtn.addEventListener("click", () => {
@@ -168,7 +170,7 @@ function updateKMeansLayerStyle(title, color) {
 }
 function showClusteringAnalysis(idx) {
   const cluster = document.querySelector(`#cluster${idx + 1}`);
-  const section = config3.sections.find(
+  const section = configs.map3.sections.find(
     (sec) => sec.id === `cluster${idx + 1}`
   );
 

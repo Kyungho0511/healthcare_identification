@@ -5,8 +5,7 @@ logos.forEach((logo) => {
     navigateToSection("start");
     resetProgress();
     onMaps("start");
-    onLayers("start", "map");
-    onLayers("start", "map2");
+    onLayers("start");
     window.location.reload();
   });
 });
@@ -29,8 +28,7 @@ sections.forEach((sec, idx) => {
       navigateToSection(`${sectionIds[idx + 1]}`);
       checkProgress(`${sectionIds[idx + 1]}`);
       onMaps(`${sectionIds[idx + 1]}`);
-      onLayers(`${sectionIds[idx + 1]}`, "map");
-      onLayers(`${sectionIds[idx + 1]}`, "map2");
+      onLayers(`${sectionIds[idx + 1]}`);
       onLegend(`${sectionIds[idx + 1]}`, "map");
       onLegend(`${sectionIds[idx + 1]}`, "map2");
     }
@@ -43,8 +41,7 @@ window.addEventListener("popstate", function (event) {
     showSection("start");
     checkProgress("start");
     onMaps("start");
-    onLayers("start", "map");
-    onLayers("start", "map2");
+    onLayers("start");
     onLegend("start", "map");
     onLegend("start", "map2");
     flyReset();
@@ -57,8 +54,7 @@ window.addEventListener("popstate", function (event) {
     showSection(event.state.section);
     checkProgress(sectionId);
     onMaps(sectionId);
-    onLayers(sectionId, "map");
-    onLayers(sectionId, "map2");
+    onLayers(sectionId);
     onLegend(sectionId, "map");
     onLegend(sectionId, "map2");
     flyTo();
@@ -92,8 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
     map.on("load", () => {
       checkProgress("start");
       onMaps("start");
-      onLayers("start", "map");
-      onLayers("start", "map2");
+      onLayers("start");
       onLegend("start", "map");
       onLegend("start", "map2");
       setQuestionnaires();
@@ -111,8 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
   map.on("load", () => {
     checkProgress(sectionId);
     onMaps(sectionId);
-    onLayers(sectionId, "map");
-    onLayers(sectionId, "map2");
+    onLayers(sectionId);
     onLegend(sectionId, "map");
     onLegend(sectionId, "map2");
     setQuestionnaires();

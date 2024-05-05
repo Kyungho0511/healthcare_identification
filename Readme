@@ -14,6 +14,8 @@
 
 2. If cluster button is clicked before page is fully loaded, the cluster legend dropdown menu is not updated.
 
+3. make refresh go back to the first page.
+
 [Feedback from the final presentation]
 
 1. besides the clustering method, what story can you tell in the end?

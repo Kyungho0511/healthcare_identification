@@ -1,8 +1,8 @@
 function onLegend(sectionId, mapId) {
   const section =
     mapId === "map"
-      ? config.sections.find((sec) => sec.id === sectionId)
-      : config2.sections.find((sec) => sec.id === sectionId);
+      ? configs.map.sections.find((sec) => sec.id === sectionId)
+      : configs.map2.sections.find((sec) => sec.id === sectionId);
 
   const legend = document
     .querySelector(`#${sectionId}`)

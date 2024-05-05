@@ -123,7 +123,7 @@ function setClusterContent() {
     });
 
     // Set theme Colors
-    const section = config3.sections.find(
+    const section = configs.map3.sections.find(
       (sec) => sec.id === `cluster${i + 1}`
     );
     if (preferedFactors[i] === "vulnerability") {

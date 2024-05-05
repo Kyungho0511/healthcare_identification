@@ -74,103 +74,6 @@ const color = {
   },
 };
 
-// Config for Map (mapbox)
-const config = {
-  accessToken:
-    "pk.eyJ1Ijoia2xlZTA1MTEiLCJhIjoiY2xrYnFibnNjMGV4cjNrbzRqdGg1d21sYiJ9.nN0pE1qocGhTLnD_xPuYdg",
-  style: "mapbox://styles/klee0511/clv0xyqe0016v01pe0ogo6xre",
-  location: {
-    center: [-73.970766, 40.713326],
-    zoom: 9.8,
-    pitch: 0,
-    bearing: 0,
-  },
-  sections: [
-    {
-      id: "start",
-      layers: [
-        { layer: "counties-others", opacity: 1 },
-        { layer: "counties-nyc", opacity: 1 },
-      ],
-      default: { attribute: "unserved population / km2", color: color.yellow },
-    },
-    {
-      id: "explore",
-      layers: [
-        { layer: "tracts", opacity: 0.9 },
-        { layer: "tracts-features-nyc", opacity: 1 },
-        { layer: "tracts-features-upstate", opacity: 1 },
-      ],
-      default: { attribute: "unserved population / km2", color: color.yellow },
-    },
-  ],
-};
-
-// Config2 for Map2 (mapbox)
-const config2 = {
-  accessToken:
-    "pk.eyJ1Ijoia2xlZTA1MTEiLCJhIjoiY2xrYnFibnNjMGV4cjNrbzRqdGg1d21sYiJ9.nN0pE1qocGhTLnD_xPuYdg",
-  style: "mapbox://styles/klee0511/clv0xyqe0016v01pe0ogo6xre",
-  location: {
-    center: [-76.490336, 42.752651],
-    zoom: 6.3,
-    pitch: 0,
-    bearing: 0,
-  },
-  sections: [
-    {
-      id: "start",
-      layers: [
-        { layer: "counties-others", opacity: 1 },
-        { layer: "counties-upstate", opacity: 1 },
-      ],
-      default: { attribute: "unserved population / km2", color: color.yellow },
-    },
-    {
-      id: "explore",
-      layers: [
-        { layer: "tracts", opacity: 0.9 },
-        { layer: "tracts-features-nyc", opacity: 1 },
-        { layer: "tracts-features-upstate", opacity: 1 },
-      ],
-      default: {
-        attribute: "physical health not good for >=14 days",
-        color: color.blue,
-      },
-    },
-  ],
-};
-
-// Config3 for Map3 (mapbox)
-const config3 = {
-  accessToken:
-    "pk.eyJ1Ijoia2xlZTA1MTEiLCJhIjoiY2xrYnFibnNjMGV4cjNrbzRqdGg1d21sYiJ9.nN0pE1qocGhTLnD_xPuYdg",
-  style: "mapbox://styles/klee0511/clv0xyqe0016v01pe0ogo6xre",
-  location: {
-    center: [-73.87766, 40.713326],
-    zoom: 10.2,
-    pitch: 0,
-    bearing: 0,
-  },
-  sections: [
-    {
-      id: "cluster1",
-      layers: [{ layer: "tracts", opacity: 0.9 }],
-      color: null,
-    },
-    {
-      id: "cluster2",
-      layers: [{ layer: "tracts", opacity: 0.9 }],
-      color: null,
-    },
-    {
-      id: "cluster3",
-      layers: [{ layer: "tracts", opacity: 0.9 }],
-      color: null,
-    },
-  ],
-};
-
 // Bounds are used for updating Mapbox layer style
 const layerBoundsCountiesNYC = [
   {
@@ -568,6 +471,119 @@ const layerBoundsTractsUpstate = [
     rateOfChange: ["linear"],
   },
 ];
+
+// Config for Maps (mapbox)
+const accessToken =
+  "pk.eyJ1Ijoia2xlZTA1MTEiLCJhIjoiY2xrYnFibnNjMGV4cjNrbzRqdGg1d21sYiJ9.nN0pE1qocGhTLnD_xPuYdg";
+const configs = {
+  map: {
+    style: "mapbox://styles/klee0511/clv0xyqe0016v01pe0ogo6xre",
+    location: {
+      center: [-73.970766, 40.713326],
+      zoom: 9.8,
+      pitch: 0,
+      bearing: 0,
+    },
+    sections: [
+      {
+        id: "start",
+        layers: [
+          { layer: "counties-others", opacity: 0.9 },
+          { layer: "counties-nyc", opacity: 1 },
+        ],
+        default: {
+          layer: "counties-nyc",
+          attribute: "unserved population / km2",
+          bound: layerBoundsCountiesNYC[0],
+          color: color.yellow,
+        },
+      },
+      {
+        id: "explore",
+        layers: [
+          { layer: "tracts", opacity: 0.9 },
+          { layer: "tracts-features-nyc", opacity: 1 },
+          { layer: "tracts-features-upstate", opacity: 1 },
+        ],
+        default: {
+          attribute: "unserved population / km2",
+          color: color.yellow,
+        },
+      },
+    ],
+  },
+  map2: {
+    style: "mapbox://styles/klee0511/clv0xyqe0016v01pe0ogo6xre",
+    location: {
+      center: [-76.490336, 42.752651],
+      zoom: 6.3,
+      pitch: 0,
+      bearing: 0,
+    },
+    sections: [
+      {
+        id: "start",
+        layers: [
+          { layer: "counties-others", opacity: 0.9 },
+          { layer: "counties-upstate", opacity: 1 },
+        ],
+        default: {
+          layer: "counties-upstate",
+          attribute: "unserved population / km2",
+          bound: layerBoundsCountiesUpstate[0],
+          color: color.yellow,
+        },
+      },
+      {
+        id: "explore",
+        layers: [
+          { layer: "tracts", opacity: 0.9 },
+          { layer: "tracts-features-nyc", opacity: 1 },
+          { layer: "tracts-features-upstate", opacity: 1 },
+        ],
+        default: {
+          attribute: "physical health not good for >=14 days",
+          color: color.blue,
+        },
+      },
+    ],
+  },
+  map3: {
+    style: "mapbox://styles/klee0511/clv0xyqe0016v01pe0ogo6xre",
+    location: {
+      center: [-73.87766, 40.713326],
+      zoom: 10.2,
+      pitch: 0,
+      bearing: 0,
+    },
+    sections: [
+      {
+        id: "cluster1",
+        layers: [
+          { layer: "tracts", opacity: 0.9 },
+          { layer: "counties-others", opacity: 0.9 },
+        ],
+        color: null,
+      },
+      {
+        id: "cluster2",
+        layers: [
+          { layer: "tracts", opacity: 0.9 },
+          { layer: "counties-others", opacity: 0.9 },
+        ],
+        color: null,
+      },
+      {
+        id: "cluster3",
+        layers: [
+          { layer: "tracts", opacity: 0.9 },
+          { layer: "counties-others", opacity: 0.9 },
+        ],
+        color: null,
+      },
+    ],
+  },
+};
 
 // Unit categories are used to adjust scales in legend
 const unitPopulationDensity = [

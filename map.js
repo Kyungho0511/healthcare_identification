@@ -12,7 +12,7 @@ const layerTypes = {
 /**
  * Mapbox
  */
-mapboxgl.accessToken = config.accessToken;
+mapboxgl.accessToken = accessToken;
 const transformRequest = (url) => {
   const hasQuery = url.indexOf("?") !== -1;
   const suffix = hasQuery
@@ -30,11 +30,11 @@ const bounds = [
 
 const map = new mapboxgl.Map({
   container: "map",
-  style: config.style,
-  center: config.location.center,
-  zoom: config.location.zoom,
-  bearing: config.location.bearing,
-  pitch: config.location.pitch,
+  style: configs.map.style,
+  center: configs.map.location.center,
+  zoom: configs.map.location.zoom,
+  bearing: configs.map.location.bearing,
+  pitch: configs.map.location.pitch,
   scrollZoom: true,
   maxBounds: bounds,
   transformRequest: transformRequest,
@@ -46,11 +46,11 @@ map.touchZoomRotate.disableRotation();
 
 const map2 = new mapboxgl.Map({
   container: "map2",
-  style: config2.style,
-  center: config2.location.center,
-  zoom: config2.location.zoom,
-  bearing: config2.location.bearing,
-  pitch: config2.location.pitch,
+  style: configs.map2.style,
+  center: configs.map2.location.center,
+  zoom: configs.map2.location.zoom,
+  bearing: configs.map2.location.bearing,
+  pitch: configs.map2.location.pitch,
   scrollZoom: true,
   maxBounds: bounds,
   transformRequest: transformRequest,
@@ -65,11 +65,11 @@ enableSyncMap();
 
 const map3 = new mapboxgl.Map({
   container: "map3",
-  style: config3.style,
-  center: config3.location.center,
-  zoom: config3.location.zoom,
-  bearing: config3.location.bearing,
-  pitch: config3.location.pitch,
+  style: configs.map3.style,
+  center: configs.map3.location.center,
+  zoom: configs.map3.location.zoom,
+  bearing: configs.map3.location.bearing,
+  pitch: configs.map3.location.pitch,
   scrollZoom: true,
   maxBounds: bounds,
   transformRequest: transformRequest,
@@ -112,56 +112,21 @@ function onMaps(sectionId) {
   }
 }
 
-function onLayers(sectionId, mapId) {
-  // Update layer opacity
-  offLayerOpacity(mapId);
-
-  let section = null;
-  if (mapId === "map") {
-    section = config.sections.find((sec) => sec.id === sectionId);
-  } else if (mapId === "map2") {
-    section = config2.sections.find((sec) => sec.id === sectionId);
-  } else if (mapId === "map3") {
-    section = config2.sections.find((sec) => sec.id === sectionId);
-  }
-
-  section?.layers.forEach((layer) => {
-    setLayerOpacity(layer, mapId);
-  });
-
-  // Update layer style (Start)
+function onLayers(sectionId) {
+  // Start section
   if (sectionId === "start") {
-    const defaultLayer = "counties-nyc";
-    const defaultAttribute = section.default.attribute;
-    const defaultBound = layerBoundsCountiesNYC[0];
-    const defaultColor = section.default.color;
-    updateLayerStyle(
-      defaultLayer,
-      defaultAttribute,
-      defaultBound.min,
-      defaultBound.max,
-      defaultColor.min,
-      defaultColor.max,
-      defaultBound.rateOfChange,
-      mapId
-    );
-  }
+    const maps = ["map", "map2"];
+    maps.forEach((map) => {
+      // Update layer opacity
+      offLayerOpacity(map);
+      const section = configs[map].sections.find((sec) => sec.id === "start");
+      section.layers.forEach((layer) => setLayerOpacity(layer, map));
 
-  // Update layer style (Explore)
-  else if (sectionId === "explore") {
-    const defaultLayer =
-      selectedCounties === "NYC Counties"
-        ? "tracts-features-nyc"
-        : "tracts-features-upstate";
-    const defaultAttribute = section.default?.attribute;
-    const defaultBound =
-      selectedCounties === "NYC Counties"
-        ? layerBoundsTractsNYC.find((bound) => bound.name === defaultAttribute)
-        : layerBoundsTractsUpstate.find(
-            (bound) => bound.name === defaultAttribute
-          );
-    const defaultColor = section.default?.color;
-    if (section.default) {
+      // Update layer style
+      const defaultLayer = section.default.layer;
+      const defaultAttribute = section.default.attribute;
+      const defaultBound = section.default.bound;
+      const defaultColor = section.default.color;
       updateLayerStyle(
         defaultLayer,
         defaultAttribute,
@@ -170,9 +135,55 @@ function onLayers(sectionId, mapId) {
         defaultColor.min,
         defaultColor.max,
         defaultBound.rateOfChange,
-        mapId
+        map
       );
-    }
+    });
+  }
+
+  // Explore section
+  else if (sectionId === "explore") {
+    const maps = ["map", "map2"];
+    maps.forEach((map) => {
+      // Update layer opacity
+      offLayerOpacity(map);
+      const section = configs[map].sections.find((sec) => sec.id === "explore");
+      section.layers.forEach((layer) => setLayerOpacity(layer, map));
+
+      // Update layer style
+      const defaultLayer =
+        selectedCounties === "NYC Counties"
+          ? "tracts-features-nyc"
+          : "tracts-features-upstate";
+      const defaultAttribute = section.default.attribute;
+      const defaultBound =
+        selectedCounties === "NYC Counties"
+          ? layerBoundsTractsNYC.find(
+              (bound) => bound.name === defaultAttribute
+            )
+          : layerBoundsTractsUpstate.find(
+              (bound) => bound.name === defaultAttribute
+            );
+      const defaultColor = section.default.color;
+      updateLayerStyle(
+        defaultLayer,
+        defaultAttribute,
+        defaultBound.min,
+        defaultBound.max,
+        defaultColor.min,
+        defaultColor.max,
+        defaultBound.rateOfChange,
+        map
+      );
+    });
+  }
+
+  // Cluster section
+  else {
+    // Update layer opacity
+    const map = "map3";
+    offLayerOpacity(map);
+    const section = configs[map].sections.find((sec) => sec.id === sectionId);
+    section.layers.forEach((layer) => setLayerOpacity(layer, map));
   }
 
   // Update layer visibility
@@ -181,13 +192,13 @@ function onLayers(sectionId, mapId) {
 
 function offLayerOpacity(mapId) {
   if (mapId === "map") {
-    config.sections.forEach((sec) => {
+    configs.map.sections.forEach((sec) => {
       sec.layers.forEach((layer) => {
         setLayerOpacity({ layer: layer.layer, opacity: 0 }, mapId);
       });
     });
   } else {
-    config2.sections.forEach((sec) => {
+    configs.map2.sections.forEach((sec) => {
       sec.layers.forEach((layer) => {
         setLayerOpacity({ layer: layer.layer, opacity: 0 }, mapId);
       });
@@ -300,17 +311,18 @@ function updateLayerStyle(
 
 function flyTo() {
   if (selectedCounties === "NYC Counties") {
-    map.jumpTo(config.location);
-    map2.jumpTo(config.location);
+    console.log("flyto nyc");
+    map.jumpTo(configs.map.location);
+    map2.jumpTo(configs.map.location);
   } else if (selectedCounties === "Upstate NY Counties") {
-    map.jumpTo(config2.location);
-    map2.jumpTo(config2.location);
+    map.jumpTo(configs.map2.location);
+    map2.jumpTo(configs.map2.location);
   }
 }
 
 function flyReset() {
-  map.jumpTo(config.location);
-  map2.jumpTo(config2.location);
+  map.jumpTo(configs.map.location);
+  map2.jumpTo(configs.map2.location);
 }
 
 function selectFeatureByName(layerId, propertyName, value) {
