@@ -1,12 +1,10 @@
 [Functionalities to implement further]
 
-1. chatGPT API to label cluster numbers dynamically
+1. Share section that shows dashboard to be added
 
-2. d3.js chart for showing clustering results
+2. add demographic dataset
 
-3. Share section that shows dashbaord to be added
-
-4. dynamic update on the number of kmeans clusters
+3. add about page on data collection, method and caveats for experts
 
 [Miscellaneouses to add or fix]
 
@@ -22,3 +20,10 @@
    for example, how is shortage areas in Queens different from Bronx or Brooklyn?
    How the shortage areas for commercial enrollees are different from Medicaid enrollee?
    Make a share section that integrates a set of analyses to tell a story.
+
+2. Tell more story on the neighborhood like ethnicity, demogrphic profile. the targeted
+   areas in Bronx, for exmaple, have Latino populations whereas the Brooklyn area has
+   orthodox Jewish and Chinese populations. Consider incorporating neighborhood boundaries or names
+   along with demograhpic profiles of those neighborhoods.
+
+3. Click the final region shows popup with clustering traits
